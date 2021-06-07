@@ -1,6 +1,9 @@
 .DS_Store
 node_modules
-/dist
+.gitifnore
+# vue.config.js
+# /dist
+# /docs
 
 
 # local env files
