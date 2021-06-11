@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+#container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    @include mar-pad(pl 30, ml 200);
+    width: calc(100% - 200px);
+    transition: margin .25s, width .25s;
+
+    .top-container,
+    .contents {
+        @include mar-pad(pr 30);
+    }
+
+    .contents.hide-cate-navi {
+        padding-top: 43px;
+    }
+
+    p.cate-nav {
+        align-self: flex-end;
+        font-size: rem(12px);
+        color: var(--text-color3);
+        line-height: 1;
+
+        i {
+            @include mar-pad(ml 8, mr 8);
+        }
+
+        strong {
+            color: var(--text-color2);
+        }
+    }
+}
+
+#wrap.reduce #container {
+    margin-left: 60px;
+    width: calc(100% - 60px);
+}
+
+#wrap.posTop #container {
+    margin-left: 0;
+    padding-left: 0;
+    width: 100%;
+
+    .contents {
+        padding-left: 30px;
+    }
+}

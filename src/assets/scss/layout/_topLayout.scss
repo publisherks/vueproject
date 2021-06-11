@@ -1,0 +1,187 @@
+@charset "UTF-8";
+
+.top-container {
+    display: flex;
+    @include mar-pad(pt 24, pb 20);
+
+    h1.logo {
+        display: flex;
+        align-items: flex-end;
+        max-width: 100%;
+        max-height: rem(36px);
+        @include mar-pad(mr 33);
+    }
+
+    #nav {
+        >ul{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            @include mar-pad(mt -24, mb -20);
+
+            >li {
+                >a {
+                    height: 80px;
+                    @include mar-pad(pl 30, pr 30);
+        
+                    >i {
+                        @include mar-pad(mr 9);
+                    }
+                }
+                &.depth1 {
+                    position: relative;
+
+                    >a:after {
+                        margin-left: 8px;
+                    }
+
+                    >.sub-nav {
+                        display: none;
+                        @include position(absolute, $top: 100%, $right: 0, $left: 0);
+                        @include mar-pad(pt 8);
+                        height: 0;
+                        opacity: 0;
+                        overflow: hidden;
+                        z-index: map-get($z-index, select);
+                        pointer-events: none;
+                        animation-duration: .4s;
+                        animation-fill-mode: both;
+                        @include arrow-creat(14px, 9px, 'top', var(--border-color), var(--content-bg-color), $left: 10px);
+
+                        >ul {
+                            background-color: var(--content-bg-color);
+                            border: 1px solid var(--border-color);
+                            box-shadow: 2px 2.2px 15px 0 var(--box-shadow);
+                            border-radius: 5px;
+                        }
+
+                        &.show {
+                            display: block;
+                            height: auto;
+                            @include mar-pad(pt 8, mt 8);
+                            animation-name: fadeInUp;
+                            pointer-events: auto;
+
+                            >ul>li>a {
+                                height: 40px;
+                                padding-left: 0;
+                                justify-content: center;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    p.cate-nav {
+        align-self: flex-end;
+        font-size: rem(12px);
+        color: var(--text-color3);
+
+        i {
+            @include mar-pad(ml 8, mr 8);
+        }
+
+        strong {
+            color: var(--text-color2);
+        }
+    }
+
+    .user {
+        @include mar-pad(ml auto);
+        cursor: pointer;
+        position: relative;
+
+        i {
+            font-size: rem(36px);
+            color: var(--main-color);
+        }
+
+        &.open .user-menu {
+            height: auto;
+            animation-name: fadeInUp;
+            pointer-events: auto;
+            @include mar-pad(mt 8);
+            overflow: visible;
+        }
+
+        .user-menu {
+            @include position(absolute, $top: calc(100% + 20px), $right: 0);
+            width: 150px;
+            height: 0;
+            border-radius: 5px;
+            @include border("", 1px solid var(--border-color));
+            background-color: var(--content-bg-color);
+            @include box-shadow(2px 2.2px 15px 0 var(--box-shadow));
+            opacity: 0;
+            overflow: hidden;
+            z-index: map-get($z-index, usermenu);
+            pointer-events: none;
+            animation-duration: .4s;
+            animation-fill-mode: both;
+
+            @include arrow-creat(14px, 9px, 'top', var(--border-color), var(--content-bg-color), $right: 10px, $top: -9px);
+
+            table {
+                width: 100%;
+                border-bottom: 2px solid var(--border-color);
+
+                tr {
+                    &:first-child {
+                        td {
+                            padding-top: 15px;
+                        }
+                    }
+
+                    &:last-child {
+                        td {
+                            padding-bottom: 15px;
+                        }
+                    }
+                }
+
+                td {
+                    padding: 5px 20px;
+                    background-color: var(--table-th-color);
+                    font-size: rem(14px);
+                    font-weight: 700;
+                    color: var(--text-color1);
+                    line-height: 1;
+                    text-align: left;
+                }
+            }
+
+            >ul {
+                
+                li {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    min-height: 40px;
+                    @include mar-pad(pl 20, pr 20);
+                    font-size: rem(14px);
+                    font-weight: 400;
+                    color: var(--text-color1);
+                    white-space: nowrap;
+                    transition: background-color .3s;
+
+                    &:hover,
+                    &:focus {
+                        outline: none;
+                        background-color: var(--main-color);
+                    }
+                }
+            }
+        }
+    }
+}
+
+#wrap.posTop .top-container {
+    padding-left: 30px;
+    background-color: var(--content-bg-color);
+
+    p.cate-nav {
+        display: none;
+    }
+}

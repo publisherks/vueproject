@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+.paging-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    .paging-box {
+        display: flex;
+        width: auto;
+        background-color: var(--table-th-color);
+        border-radius: 5px;
+
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: rem(12px);
+            font-weight: 400;
+            color: var(--text-color1);
+            width: 24px;
+            height: 40px;
+            transition: background-color .25s;
+
+            &.prev,
+            &.next {
+                width: 40px;
+
+                &:after {
+                    @extend .fontawesomeSolid;
+                    color: var(--text-color3);
+                    transition: color .25s;
+                }
+            }
+
+            &.prev {
+                @include mar-pad(mr 7);
+                border-radius: 5px 0 0 5px;
+                @include border('r', 1px solid var(--border-color));
+
+                &:after {
+                    content: '\F104';
+                }
+            }
+
+            &.next {
+                @include mar-pad(ml 7);
+                border-radius: 0 5px 5px 0;
+                @include border('l', 1px solid var(--border-color));
+
+                &:after {
+                    content: '\F105';
+                }
+            }
+
+            &:hover {
+                background-color: var(--main-color);
+                &:after {
+                    color: var(--text-color1);
+                }
+            }
+            &.on {
+                font-weight: 700;
+                background-color: var(--main-color);
+            }
+        }
+    }
+}

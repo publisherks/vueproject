@@ -1,0 +1,67 @@
+@charset "utf-8";
+
+.radio-box {
+    display: inline-block;
+
+    label {
+        display: flex;
+        align-items: center;
+        font-size: rem(14px);
+        font-weight: 300;
+        color: var(--text-color1);
+        line-height: 1;
+        cursor: pointer;
+
+        input[type=radio] {
+            display: none;
+        }
+
+        i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 13px;
+            height: 13px;
+            @include border('', 1px solid var(--border-color));
+            background-color: var(--content-bg-color);
+            @include mar-pad(mr 8);
+            border-radius: 50%;
+            transition: all .25s;
+
+            &:after {
+                content: '';
+                display: block;
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background-color: var(--content-bg-color);
+                transition: background-color .25s;
+            }
+        }
+
+        input[type=radio]:checked+i {
+            @include border('', 1px solid var(--main-color));
+
+            &:after {
+                background-color: var(--main-color);
+            }
+        }
+    }
+
+    &.disable>label {
+        color: var(--text-disable-color);
+
+        i {
+            @include border('', 1px solid rgba(var(--RGB-border-color), .5));
+            background-color: rgba(var(--RGB-content-bg-color), .5);
+        }
+    }
+
+    &.required>label {
+        color: var(--red-color);
+
+        i {
+            @include border('', 1px solid var(--red-color));
+        }
+    }
+}

@@ -1,0 +1,110 @@
+@charset "utf-8";
+
+button[class*=btn-] {
+    outline: none;
+    border: none;
+    border-radius: 5px;
+
+    i {
+        @include mar-pad(mr 6);
+    }
+}
+
+.btn {
+    height: 40px;
+    font-size: rem(15px);
+    font-weight: 700;
+    @include mar-pad(pl 20, pr 20);
+    @include box-shadow(2px 2.2px 5px 0 var(--btn-shadow));
+    transition: color .25s, background-color .25s;
+
+    &:active {
+        color: rgba(var(--RGB_text-color1), .7);
+        @include box-shadow(.7px .7px 2px 0 var(--btn-shadow));
+    }
+
+    &:disabled {
+        color: rgba(var(--RGB_text-color1), .3);
+        background-color: var(--btn-disable-color) !important;
+        box-shadow: none;
+        cursor: auto;
+    }
+
+    &.lg {
+        height: 50px;
+    }
+}
+
+.btn-tb {
+    height: 32px;
+    font-size: rem(12px);
+    font-weight: 700;
+    @include mar-pad(pl 15, pr 15);
+    border-radius: 4px;
+    transition: color .25s, background-color .25s;
+
+    i {
+        @include mar-pad(mr 4);
+    }
+
+    &:active {
+        color: rgba(var(--RGB_text-color1), .7);
+        @include box-shadow(.7px .7px 2px 0 var(--btn-shadow));
+    }
+
+    &:disabled {
+        color: rgba(var(--RGB_text-color1), .3);
+        background-color: var(--btn-disable-color) !important;
+        box-shadow: none;
+        cursor: auto;
+    }
+}
+
+/* btn 클래스 리스트 */
+$btns: (
+    main : 'main',
+    sub1 : 'sub-btn1',
+    sub2 : 'sub-btn2',
+    cancel : 'gray',
+    delete : 'red'
+);
+
+/* 
+    btn 생성 mixin.
+    ex) 
+    btn-main {
+        color : var(--text-color1);
+        bacground-color: var(--main-color);
+        &:active {
+            background-color: var(--main-color-active);
+        }
+    }
+*/
+@mixin btnsGenerate($btns : ()) {
+    @each $key, $value in $btns {
+        .btn-#{$key} {
+            color: var(--text-color1);
+            background-color: var(--#{$value}-color);
+            &:active {
+                background-color: rgba(var(--RGB-#{$value}-color), .5);
+            }
+        }
+
+        .btn-tb.btn-#{$key} {
+            background-color: rgba(var(--RGB-#{$value}-color), .8);
+            &:active {
+                background-color: rgba(var(--RGB-#{$value}-color), .4);
+            }
+        }
+    }
+}
+
+@include btnsGenerate($btns);
+
+.btn-box {
+    display:flex;
+
+    &.align-right {
+        justify-content: flex-end;
+    }
+}

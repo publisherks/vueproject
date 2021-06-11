@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+#nav {
+    >ul>li {
+        >a {
+            display: flex;
+            align-items: center;
+            font-size: rem(15px);
+            color: var(--text-color1);
+            white-space: nowrap;
+            transition: color .25s, background-color .25s;
+
+            >i {
+                text-align: center;
+            }
+
+            &:hover {
+                color: var(--main-color);
+
+                &:after {
+                    color: var(--main-color);
+                }
+            }
+
+            &.on,
+            &.open {
+                color: var(--text-color1) !important;
+                background-color: var(--main-color);
+
+                &:after {
+                    color: var(--text-color1) !important;
+                }
+            }
+        }
+
+        &.depth1 {
+            >a:after {
+                display: inline-block;
+                content: '\f067';
+                font-size: rem(13.5px);
+                @extend .fontawesomeRegular;
+                color: var(--gray-color);
+                @include mar-pad(ml auto);
+                transition: transform .25s;
+            }
+
+            >a.on,
+            >a.open {
+                color: var(--main-color);
+
+                &:after {
+                    color: var(--main-color);
+                    content: '\f068';
+                    transform: rotate(360deg);
+                }
+            }
+
+            >.sub-nav {
+                overflow: hidden;
+
+                li>a {
+                    display: flex;
+                    align-items: center;
+                    height: 0;
+                    font-size: 0;
+                    opacity: 0;
+                    @include mar-pad(pl 59);
+                    color: var(--text-color1);
+                    overflow: hidden;
+                    transition: color .25s, font-size .5s .25s, height .25s, opacity .25s;
+
+                    &:hover {
+                        color: var(--main-color);
+                    }
+
+                    &.on {
+                        color: var(--text-color1) !important;
+                        background-color: var(--main-color);
+                    }
+                }
+
+                &.show {
+
+                    li>a {
+                        font-size: rem(14px);
+                        opacity: 1;
+                        height: 36px;
+                        transition: color .25s, font-size .25s, height .25s, opacity .5s .25s;
+                    }
+                }
+            }
+        }
+    }
+}
