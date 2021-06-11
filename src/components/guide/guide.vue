@@ -22,388 +22,368 @@
     </div>
     <div class="title-box mb-30">
         <h2 class="main-title">Main Title</h2>
-        <div class="btn-box ml-auto">
-            <button
-                type="button"
-                class="btn btn-main"
-            >
-                <i class="far fa-sign-in"></i>등록
-            </button>
-            <button
-                type="button"
-                class="btn btn-sub2 ml-15"
-            >
-                <i class="fal fa-search"></i>검색
-            </button>
-            <button
-                type="button"
-                class="btn btn-sub1 ml-15"
-            >
-                <i class="far fa-download"></i>엑셀 다운로드
-            </button>
-        </div>
+        <btn-container 
+            align="right"
+        >
+            <btn
+                text="등록"
+                kind="main"
+                iconCls="far fa-sign-in"
+            />
+            <btn
+                text="검색"
+                kind="sub2"
+                iconCls="fal fa-search"
+                class="ml-15"
+            />
+            <btn
+                text="엑셀 다운로드"
+                kind="sub1"
+                iconCls="far fa-download"
+                class="ml-15"
+            />
+        </btn-container>
     </div>
 
     <div class="title-box mb-30">
         <h2 class="main-title">Main Title, 타이틀 옆 버튼</h2>
-        <div class="btn-box ml-15">
-            <button
-                type="button"
-                class="btn btn-main"
-            >
-                <i class="far fa-sign-in"></i>등록
-            </button>
-            <button
-                type="button"
-                class="btn btn-sub2 ml-15"
-            >
-                <i class="fal fa-search"></i>검색
-            </button>
-            <button
-                type="button"
-                class="btn btn-sub1 ml-15"
-            >
-                <i class="far fa-download"></i>엑셀 다운로드
-            </button>
-        </div>
+        <btn-container 
+            class="ml-15"
+        >
+            <btn
+                text="등록"
+                kind="main"
+                iconCls="far fa-sign-in"
+            />
+            <btn
+                text="검색"
+                kind="sub2"
+                iconCls="fal fa-search"
+                class="ml-15"
+            />
+            <btn
+                text="엑셀 다운로드"
+                kind="sub1"
+                iconCls="far fa-download"
+                class="ml-15"
+            />
+        </btn-container>
     </div>
 
     <div class="title-box mb-30">
         <h2 class="main-title">Main Title, 타이틀 옆, 우측 끝 버튼</h2>
-        <div class="btn-box ml-15">
-            <button
-                type="button"
-                class="btn btn-main"
-            >
-                <i class="far fa-sign-in"></i>등록
-            </button>
-            <button
-                type="button"
-                class="btn btn-sub2 ml-15"
-            >
-                <i class="fal fa-search"></i>검색
-            </button>
-            <button
-                type="button"
-                class="btn btn-sub1 ml-15"
-            >
-                <i class="far fa-download"></i>엑셀 다운로드
-            </button>
-        </div>
-        <div class="btn-box ml-auto">
-            <button
-                type="button"
-                class="btn btn-main"
-            >
-                <i class="far fa-sign-in"></i>등록
-            </button>
-            <button
-                type="button"
-                class="btn btn-sub2 ml-15"
-            >
-                <i class="fal fa-search"></i>검색
-            </button>
-            <button
-                type="button"
-                class="btn btn-sub1 ml-15"
-            >
-                <i class="far fa-download"></i>엑셀 다운로드
-            </button>
-        </div>
+        <btn-container 
+            class="ml-15"
+        >
+            <btn
+                text="등록"
+                kind="main"
+                iconCls="far fa-sign-in"
+            />
+            <btn
+                text="검색"
+                kind="sub2"
+                iconCls="fal fa-search"
+                class="ml-15"
+            />
+            <btn
+                text="엑셀 다운로드"
+                kind="sub1"
+                iconCls="far fa-download"
+                class="ml-15"
+            />
+        </btn-container>
+        <btn-container 
+            align="right"
+        >
+            <btn
+                text="등록"
+                kind="main"
+                iconCls="far fa-sign-in"
+            />
+            <btn
+                text="검색"
+                kind="sub2"
+                iconCls="fal fa-search"
+                class="ml-15"
+            />
+            <btn
+                text="엑셀 다운로드"
+                kind="sub1"
+                iconCls="far fa-download"
+                class="ml-15"
+            />
+        </btn-container>
     </div>
 
     <div class="title-box mb-30">
         <h2 class="main-title">-Buttons</h2>
     </div>
 
-    <div class="container mb-30">
-        <div class="row-cols-1">
-            <div class="col flex flex-aro">
-                <button
-                    type="button"
-                    class="btn btn-main"
-                >
-                    <i class="far fa-sign-in"></i>Main Button
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-sub1"
-                >
-                    <i class="far fa-sign-in"></i>Sub1 Button
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-sub2"
-                >
-                    <i class="far fa-sign-in"></i>Sub2 Button
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-cancel"
-                >
-                    <i class="far fa-sign-in"></i>Cancel Button
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-delete"
-                >
-                    <i class="far fa-sign-in"></i>Delete Button
-                </button>
-            </div>
-        </div>
-        <div class="row-cols-1 mt-20">
-            <div class="col flex flex-aro">
-                <button
-                    type="button"
-                    class="btn btn-main"
+    <v-container class="mb-30">
+        <v-row cols="1">
+            <v-col class="flex-aro">
+                <btn
+                    text="Main Button"
+                    kind="main"
+                    iconCls="far fa-sign-in"
+                />
+                <btn
+                    text="Sub1 Button"
+                    kind="sub1"
+                    iconCls="far fa-sign-in"
+                />
+                <btn
+                    text="Sub2 Button"
+                    kind="sub2"
+                    iconCls="far fa-sign-in"
+                />
+                <btn
+                    text="Cancel Button"
+                    kind="cancel"
+                    iconCls="far fa-sign-in"
+                />
+                <btn
+                    text="Delete Button"
+                    kind="delete"
+                    iconCls="far fa-sign-in"
+                />
+            </v-col>
+        </v-row>
+        <v-row cols="1" class="mt-20">
+            <v-col class="flex-aro">
+                <btn
+                    text="Main Button"
+                    kind="main"
+                    iconCls="far fa-sign-in"
                     disabled
-                >
-                    <i class="far fa-sign-in"></i>Main Button
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-sub1"
+                />
+                <btn
+                    text="Sub1 Button"
+                    kind="sub1"
+                    iconCls="far fa-sign-in"
                     disabled
-                >
-                    <i class="far fa-sign-in"></i>Sub1 Button
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-sub2"
+                />
+                <btn
+                    text="Sub2 Button"
+                    kind="sub2"
+                    iconCls="far fa-sign-in"
                     disabled
-                >
-                    <i class="far fa-sign-in"></i>Sub2 Button
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-cancel"
+                />
+                <btn
+                    text="Cancel Button"
+                    kind="cancel"
+                    iconCls="far fa-sign-in"
                     disabled
-                >
-                    <i class="far fa-sign-in"></i>Cancel Button
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-delete"
+                />
+                <btn
+                    text="Delete Button"
+                    kind="delete"
+                    iconCls="far fa-sign-in"
                     disabled
-                >
-                    <i class="far fa-sign-in"></i>Delete Button
-                </button>
-            </div>
-        </div>
-        <div class="row-cols-1 mt-20">
-            <div class="col flex flex-aro">
-                <button
-                    type="button"
-                    class="btn-tb btn-main"
-                >
-                    <i class="far fa-sign-in"></i>Table Button Main
-                </button>
-                <button
-                    type="button"
-                    class="btn-tb btn-sub1"
-                >
-                    <i class="far fa-sign-in"></i>Table Button Sub1
-                </button>
-                <button
-                    type="button"
-                    class="btn-tb btn-sub2"
-                >
-                    <i class="far fa-sign-in"></i>Table Button Sub2
-                </button>
-                <button
-                    type="button"
-                    class="btn-tb btn-cancel"
-                >
-                    <i class="far fa-sign-in"></i>Table Button Cancel
-                </button>
-                <button
-                    type="button"
-                    class="btn-tb btn-delete"
-                >
-                    <i class="far fa-sign-in"></i>Table Button Delete
-                </button>
-            </div>
-        </div>
-    </div>
+                />
+            </v-col>
+        </v-row>
+        <v-row cols="1" class="mt-20">
+            <v-col class="flex-aro">
+                <btn
+                    text="Table Button Main"
+                    kind="main"
+                    iconCls="far fa-sign-in"
+                    size="small"
+                />
+                <btn
+                    text="Table Button Sub1"
+                    kind="sub1"
+                    iconCls="far fa-sign-in"
+                    size="small"
+                />
+                <btn
+                    text="Table Button Sub2"
+                    kind="sub2"
+                    iconCls="far fa-sign-in"
+                    size="small"
+                />
+                <btn
+                    text="Table Button Cancel"
+                    kind="cancel"
+                    iconCls="far fa-sign-in"
+                    size="small"
+                />
+                <btn
+                    text="Table Button Delete"
+                    kind="delete"
+                    iconCls="far fa-sign-in"
+                    size="small"
+                />
+            </v-col>
+        </v-row>
+    </v-container>
 
     <div class="title-box mb-30">
         <h2 class="main-title">-Button Icons</h2>
     </div>
 
-    <div class="container mb-30">
-        <div class="row-cols-1">
-            <div class="col flex flex-aro">
-                <button
-                    type="button"
-                    class="btn btn-sub1"
-                >
-                    <i class="fal fa-edit"></i>수정
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-delete"
-                >
-                    <i class="far fa-trash-alt"></i>삭제
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-main"
-                >
-                    <i class="far fa-sign-in"></i>등록
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-cancel"
-                >
-                    <i class="fal fa-times"></i>취소
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-main"
-                >
-                    <i class="fal fa-check"></i>확인
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-sub2"
-                >
-                    <i class="far fa-coins"></i>결제
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-main"
-                >
-                    <i class="far fa-download"></i>다운로드
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-sub1"
-                >
-                    <i class="far fa-undo"></i>복구
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-cancel"
-                >
-                    <i class="far fa-long-arrow-left"></i>목록으로
-                </button>
-            </div>
-        </div>
-    </div>
+    <v-container class="mb-30">
+        <v-row cols="1">
+            <v-col class="flex-aro">
+                <btn
+                    text="수정"
+                    kind="sub1"
+                    iconCls="fal fa-edit"
+                />
+                <btn
+                    text="삭제"
+                    kind="delete"
+                    iconCls="far fa-trash-alt"
+                />
+                <btn
+                    text="등록"
+                    kind="main"
+                    iconCls="far fa-sign-in"
+                />
+                <btn
+                    text="취소"
+                    kind="cancel"
+                    iconCls="fal fa-times"
+                />
+                <btn
+                    text="확인"
+                    kind="main"
+                    iconCls="fal fa-check"
+                />
+                <btn
+                    text="결제"
+                    kind="sub2"
+                    iconCls="far fa-coins"
+                />
+                <btn
+                    text="다운로드"
+                    kind="main"
+                    iconCls="far fa-download"
+                />
+                <btn
+                    text="복구"
+                    kind="sub1"
+                    iconCls="far fa-undo"
+                />
+                <btn
+                    text="목록으로"
+                    kind="cancel"
+                    iconCls="far fa-long-arrow-left"
+                />
+            </v-col>
+        </v-row>
+    </v-container>
 
     <div class="title-box mb-30">
         <h2 class="main-title">-Grid Layout</h2>
     </div>
 
-    <div class="container mb-30 bg">
-        <div class="row">
-            <div class="col-1">col-1</div>
-            <div class="col-11">col-11</div>
-        </div>
-        <div class="row">
-            <div class="col-2">col-2</div>
-            <div class="col-10">col-10</div>
-        </div>
-        <div class="row">
-            <div class="col-3">col-3</div>
-            <div class="col-9">col-9</div>
-        </div>
-        <div class="row">
-            <div class="col-4">col-4</div>
-            <div class="col-8">col-8</div>
-        </div>
-        <div class="row">
-            <div class="col-5">col-5</div>
-            <div class="col-7">col-7</div>
-        </div>
-        <div class="row">
-            <div class="col-6">col-6</div>
-            <div class="col-6">col-6</div>
-        </div>
-    </div>
+    <v-container class="mb-30 bg">
+        <v-row>
+            <v-col cols="1">col-1</v-col>
+            <v-col cols="11">col-11</v-col>
+        </v-row>
+        <v-row>
+            <v-col cols="2">col-2</v-col>
+            <v-col cols="10">col-10</v-col>
+        </v-row>
+        <v-row>
+            <v-col cols="3">col-3</v-col>
+            <v-col cols="9">col-9</v-col>
+        </v-row>
+        <v-row>
+            <v-col cols="4">col-4</v-col>
+            <v-col cols="8">col-8</v-col>
+        </v-row>
+        <v-row>
+            <v-col cols="5">col-5</v-col>
+            <v-col cols="7">col-7</v-col>
+        </v-row>
+        <v-row>
+            <v-col cols="6">col-6</v-col>
+            <v-col cols="6">col-6</v-col>
+        </v-row>
+    </v-container>
 
-    <div class="container mb-30 bg">
-        <div class="row-cols-1">
-            <div class="col">col 1개, col width 자동 계산</div>
-        </div>
-        <div class="row-cols-2">
-            <div
-                class="col"
+    <v-container class="mb-30 bg">
+        <v-row cols="1">
+            <v-col>col 1개, col width 자동 계산</v-col>
+        </v-row>
+        <v-row cols="2">
+            <v-col
                 v-for="i in 2"
                 v-bind:key="i"
-            >col 2개, col width 자동 계산</div>
-        </div>
-        <div class="row-cols-3">
-            <div
-                class="col"
+            >col 2개, col width 자동 계산</v-col>
+        </v-row>
+        <v-row cols="2">
+            <v-col
+                v-for="i in 2"
+                v-bind:key="i"
+            >col 2개, col width 자동 계산</v-col>
+        </v-row>
+        <v-row cols="3">
+            <v-col
                 v-for="i in 3"
                 v-bind:key="i"
-            >col 3개, col width 자동 계산</div>
-        </div>
-        <div class="row-cols-4">
-            <div
-                class="col"
+            >col 3개, col width 자동 계산</v-col>
+        </v-row>
+        <v-row cols="4">
+            <v-col
                 v-for="i in 4"
                 v-bind:key="i"
-            >col 4개, col width 자동 계산</div>
-        </div>
-        <div class="row-cols-5">
-            <div
-                class="col"
+            >col 4개, col width 자동 계산</v-col>
+        </v-row>
+        <v-row cols="5">
+            <v-col
                 v-for="i in 5"
                 v-bind:key="i"
-            >col 5개, col width 자동 계산</div>
-        </div>
-        <div class="row-cols-6">
-            <div
-                class="col"
+            >col 5개, col width 자동 계산</v-col>
+        </v-row>
+        <v-row cols="6">
+            <v-col
                 v-for="i in 6"
                 v-bind:key="i"
-            >col 6개, col width 자동 계산</div>
-        </div>
-        <div class="row-cols-7">
-            <div
-                class="col"
+            >col 6개, col width 자동 계산</v-col>
+        </v-row>
+        <v-row cols="7">
+            <v-col
                 v-for="i in 7"
                 v-bind:key="i"
-            >col 7개, col width 자동 계산</div>
-        </div>
-        <div class="row-cols-8">
-            <div
-                class="col"
+            >col 7개, col width 자동 계산</v-col>
+        </v-row>
+        <v-row cols="8">
+            <v-col
                 v-for="i in 8"
                 v-bind:key="i"
-            >col 8개, col width 자동 계산</div>
-        </div>
-        <div class="row-cols-9">
-            <div
-                class="col"
+            >col 8개, col width 자동 계산</v-col>
+        </v-row>
+        <v-row cols="9">
+            <v-col
                 v-for="i in 9"
                 v-bind:key="i"
-            >col 9개, col width 자동 계산</div>
-        </div>
-        <div class="row-cols-10">
-            <div
-                class="col"
+            >col 9개, col width 자동 계산</v-col>
+        </v-row>
+        <v-row cols="10">
+            <v-col
                 v-for="i in 10"
                 v-bind:key="i"
-            >col 10개, col width 자동 계산</div>
-        </div>
-        <div class="row-cols-11">
-            <div
-                class="col"
+            >col 10개, col width 자동 계산</v-col>
+        </v-row>
+        <v-row cols="11">
+            <v-col
                 v-for="i in 11"
                 v-bind:key="i"
-            >col 11개, col width 자동 계산</div>
-        </div>
-        <div class="row-cols-12">
-            <div
-                class="col"
+            >col 11개, col width 자동 계산</v-col>
+        </v-row>
+        <v-row cols="12">
+            <v-col
                 v-for="i in 12"
                 v-bind:key="i"
-            >col 12개, col width 자동 계산</div>
-        </div>
-    </div>
+            >col 12개, col width 자동 계산</v-col>
+        </v-row>
+    </v-container>
 
     <div class="title-box mb-30">
         <h2 class="main-title">-Table Layout</h2>
@@ -447,7 +427,7 @@
                                     >
                                         <a
                                             href="#"
-                                            v-on:click="selectOpen1 = false"
+                                            v-on:click="setup.selectOpen1 = false"
                                         >메뉴{{ i }}</a>
                                     </li>
                                 </ul>
@@ -617,9 +597,9 @@
                         <div class="input-box">
                             <div
                                 class="select-input"
-                                :class="{ open : selectOpen2 }"
-                                v-on:blur="selectOpen2 = false"
-                                v-on:click="selectOpen2 = !selectOpen2"
+                                :class="{ open : setup.selectOpen2 }"
+                                v-on:blur="setup.selectOpen2 = false"
+                                v-on:click="setup.selectOpen2 = !setup.selectOpen2"
                             >
                                 <input
                                     type="text"
@@ -932,7 +912,7 @@
                             >
                                 <a
                                     href="#"
-                                    v-on:click="selectOpen2 = false"
+                                    v-on:click="setup.selectOpen2 = false"
                                 >메뉴{{ i }}</a>
                             </li>
                         </ul>
@@ -944,7 +924,7 @@
                 <div class="input-box">
                     <div
                         class="datepicker-input"
-                        v-on:click="datepicker = !datepicker"
+                        v-on:click="setup.datepicker = !setup.datepicker"
                     >
                         <input
                             type="text"
@@ -957,7 +937,7 @@
                     <!-- 달력 한개일 경우 wim-datepicker에 single 클래스 추가 -->
                     <div
                         class="wim-datepicker"
-                        :class="{ show : datepicker }"
+                        :class="{ show : setup.datepicker }"
                     >
                         <div class="calendars">
                             <div class="calendar left">
@@ -973,9 +953,9 @@
                                                         <div class="input-box">
                                                             <div
                                                                 class="select-input"
-                                                                :class="{ open : monthOpen }"
-                                                                v-on:blur="monthOpen = false"
-                                                                v-on:click="monthOpen = !monthOpen"
+                                                                :class="{ open : setup.monthOpen }"
+                                                                v-on:blur="setup.monthOpen = false"
+                                                                v-on:click="setup.monthOpen = !setup.monthOpen"
                                                             >
                                                                 <input
                                                                     type="text"
@@ -995,7 +975,7 @@
                                                                     >
                                                                         <a
                                                                             href="#"
-                                                                            v-on:click="monthOpen = false"
+                                                                            v-on:click="setup.monthOpen = false"
                                                                         >{{ i }}월</a>
                                                                     </li>
                                                                 </ul>
@@ -1004,9 +984,9 @@
                                                         <div class="input-box">
                                                             <div
                                                                 class="select-input"
-                                                                :class="{ open : yearOpen }"
-                                                                v-on:blur="yearOpen = false"
-                                                                v-on:click="yearOpen = !yearOpen"
+                                                                :class="{ open : setup.yearOpen }"
+                                                                v-on:blur="setup.yearOpen = false"
+                                                                v-on:click="setup.yearOpen = !setup.yearOpen"
                                                             >
                                                                 <input
                                                                     type="text"
@@ -1026,7 +1006,7 @@
                                                                     >
                                                                         <a
                                                                             href="#"
-                                                                            v-on:click="yearOpen = false"
+                                                                            v-on:click="setup.yearOpen = false"
                                                                         >202{{ i }}년</a>
                                                                     </li>
                                                                 </ul>
@@ -1111,9 +1091,9 @@
                                                         <div class="input-box">
                                                             <div
                                                                 class="select-input"
-                                                                :class="{ open : monthOpen }"
-                                                                v-on:blur="monthOpen = false"
-                                                                v-on:click="monthOpen = !monthOpen"
+                                                                :class="{ open : setup.monthOpen }"
+                                                                v-on:blur="setup.monthOpen = false"
+                                                                v-on:click="setup.monthOpen = !setup.monthOpen"
                                                             >
                                                                 <input
                                                                     type="text"
@@ -1133,7 +1113,7 @@
                                                                     >
                                                                         <a
                                                                             href="#"
-                                                                            v-on:click="monthOpen = false"
+                                                                            v-on:click="setup.monthOpen = false"
                                                                         >{{ i }}월</a>
                                                                     </li>
                                                                 </ul>
@@ -1358,20 +1338,17 @@
         <i class="fal fa-search"></i>검색
     </button>
 </template>
-<script>
-    export default {
-        name: "Styleguide",
-        data: function () {
-            return {
-                selectOpen1: false,
-                selectOpen2: false,
-                monthOpen: false,
-                yearOpen: false,
-                datepicker: false,
-                modal: false,
-            };
-        },
-    };
+<script setup>
+    import { reactive } from "vue";
+
+    const setup = reactive({
+        selectOpen1: false,
+        selectOpen2: false,
+        monthOpen: false,
+        yearOpen: false,
+        datepicker: false,
+        modal: false,
+    });
 </script>
 <style scoped lang="scss">
 .bg > [class^="row"] > [class^="col"] {
