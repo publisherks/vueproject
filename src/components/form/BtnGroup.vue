@@ -2,9 +2,9 @@
     <div
         class="btn-box"
         :class="{
-            'ml-auto' : props.align === 'right',
-            'mr-auto' : props.align === 'left',
-            'flex-c' : props.align === 'center',
+            'align-r' : props.align === 'right',
+            'align-l' : props.align === 'left',
+            'align-c' : props.align === 'center',
         }"
     >
         <slot />

@@ -1,24 +1,45 @@
 import { createApp } from "vue";
 import App           from "./App.vue";
 import router        from "./router";
+import plugin      from "./plugin";
 
 import FontAwesomeIcon from "@/assets/all.css";
 
 // 공통 컴포넌트
-// 버튼 관련
-import BtnContainer from "@/components/form/BtnContainer";
+// buttons
+import BtnGroup     from "@/components/form/BtnGroup";
 import Btn          from "@/components/form/Button";
 
 // grid layout
-import VContainer    from "@/components/grid/Container";
-import VRow          from "@/components/grid/Row";
-import VCol          from "@/components/grid/Col";
+import VContainer   from "@/components/grid/Container";
+import VRow         from "@/components/grid/Row";
+import VCol         from "@/components/grid/Col";
+
+// table
+import VTable       from "@/components/tables/Table";
+
+// form
+import VInput        from "@/components/form/Input";
+import VSelect       from "@/components/form/Select";
+import VTextarea     from "@/components/form/Textarea";
+import VCheck        from "@/components/form/Checkbox";
+import VRadio        from "@/components/form/Radiobox";
+import VCalendar     from "@/components/form/calendar/calendar";
+import VQuantity     from "@/components/form/Quantity";
 
 const app = createApp(App);
-app.use(router).use(FontAwesomeIcon);
-app.component('BtnContainer', BtnContainer)
+app.use(router).use(plugin).use(FontAwesomeIcon);
+app.component('BtnGroup', BtnGroup)
     .component('Btn', Btn)
     .component('VContainer', VContainer)
     .component('VRow', VRow)
-    .component('VCol', VCol);
+    .component('VCol', VCol)
+    .component('VTable', VTable)
+    .component('VInput', VInput)
+    .component('VSelect', VSelect)
+    .component('VCalendar', VCalendar)
+    .component('VTextarea', VTextarea)
+    .component('VCheck', VCheck)
+    .component('VRadio', VRadio)
+    .component('VQuantity', VQuantity);
 app.mount('#app')

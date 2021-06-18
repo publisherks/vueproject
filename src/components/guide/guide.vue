@@ -22,7 +22,7 @@
     </div>
     <div class="title-box mb-30">
         <h2 class="main-title">Main Title</h2>
-        <btn-container 
+        <btn-group 
             align="right"
         >
             <btn
@@ -42,12 +42,12 @@
                 iconCls="far fa-download"
                 class="ml-15"
             />
-        </btn-container>
+        </btn-group>
     </div>
 
     <div class="title-box mb-30">
         <h2 class="main-title">Main Title, 타이틀 옆 버튼</h2>
-        <btn-container 
+        <btn-group 
             class="ml-15"
         >
             <btn
@@ -67,12 +67,12 @@
                 iconCls="far fa-download"
                 class="ml-15"
             />
-        </btn-container>
+        </btn-group>
     </div>
 
     <div class="title-box mb-30">
         <h2 class="main-title">Main Title, 타이틀 옆, 우측 끝 버튼</h2>
-        <btn-container 
+        <btn-group 
             class="ml-15"
         >
             <btn
@@ -92,8 +92,8 @@
                 iconCls="far fa-download"
                 class="ml-15"
             />
-        </btn-container>
-        <btn-container 
+        </btn-group>
+        <btn-group 
             align="right"
         >
             <btn
@@ -113,7 +113,7 @@
                 iconCls="far fa-download"
                 class="ml-15"
             />
-        </btn-container>
+        </btn-group>
     </div>
 
     <div class="title-box mb-30">
@@ -389,407 +389,38 @@
         <h2 class="main-title">-Table Layout</h2>
     </div>
 
-    <div class="tb-container left-th mb-30">
-        <table>
-            <colgroup>
-                <col width="10%">
-                <col width="23.3%">
-                <col width="10%">
-                <col width="23.4%">
-                <col width="10%">
-                <col width="23.3%">
-            </colgroup>
-            <tbody>
-                <tr>
-                    <th class="required">품목</th>
-                    <td>
-                        <div class="input-box pull">
-                            <div
-                                class="select-input"
-                                :class="{ open : selectOpen1 }"
-                                v-on:blur="selectOpen1 = false"
-                                v-on:click="selectOpen1 = !selectOpen1"
-                            >
-                                <input
-                                    type="text"
-                                    placeholder="품목을 선택해주세요."
-                                >
-                                <a
-                                    href="#"
-                                    class="icon"
-                                ></a>
-                            </div>
-                            <div class="select-items">
-                                <ul>
-                                    <li
-                                        v-for="i in 5"
-                                        v-bind:key="i"
-                                    >
-                                        <a
-                                            href="#"
-                                            v-on:click="setup.selectOpen1 = false"
-                                        >메뉴{{ i }}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </td>
-                    <th>품목코드</th>
-                    <td>
-                        <div class="input-box pull">
-                            <input
-                                type="text"
-                                placeholder="코드를 입력하세요."
-                            >
-                            <a
-                                href="#"
-                                class="del"
-                            ></a>
-                        </div>
-                    </td>
-                    <th>거래처</th>
-                    <td>
-                        <div class="input-box pull">
-                            <input
-                                type="text"
-                                placeholder="거래처명을 입력하세요."
-                            >
-                            <a
-                                href="#"
-                                class="del"
-                            ></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="required">발주량</th>
-                    <td>
-                        <div class="input-box pull">
-                            <input
-                                type="text"
-                                placeholder="발주량 숫자로만 입력하세요."
-                            >
-                            <a
-                                href="#"
-                                class="del"
-                            ></a>
-                        </div>
-                    </td>
-                    <th class="required-text">단위</th>
-                    <td>
-                        테스트
-                    </td>
-                    <th class="required">납기 예정일</th>
-                    <td>
-                        <div class="input-box pull">
-                            <input
-                                type="text"
-                                placeholder="날짜를 입력하세요."
-                            >
-                            <a
-                                href="#"
-                                class="del"
-                            ></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th>비고</th>
-                    <td colspan="5">
-                        <div class="text-area pull">
-                            <textarea
-                                name=""
-                                id=""
-                            ></textarea>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <v-table
+        class="mb-30"
+        type="row"
+        :column="setup.table2.column"
+        v-model:datas="setup.table2.datas"
+        :width="setup.table2.width"
+        :columnCount="setup.table2.columnCount"
+    />
 
-    <div class="btn-box align-right mb-30">
-        <button
-            type="button"
-            class="btn btn-cancel"
-        >
-            <i class="fal fa-times"></i>취소
-        </button>
-        <button
-            type="button"
-            class="btn btn-main ml-15"
-        >
-            <i class="fal fa-check"></i>등록
-        </button>
-    </div>
+    <btn-group
+        align="right"
+        class="mb-30"
+    >
+        <btn
+            text="취소"
+            kind="cancel"
+            iconCls="fal fa-times"
+        />
+        <btn
+            text="등록"
+            kind="main"
+            iconCls="fal fa-check"
+            class="ml-15"
+        />
+    </btn-group>
 
-    <div class="tb-container mb-30">
-        <table>
-            <colgroup>
-                <col width="60px">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="14%">
-            </colgroup>
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>항목 1</th>
-                    <th>항목 2</th>
-                    <th>항목 3</th>
-                    <th>항목 4</th>
-                    <th>항목 5</th>
-                    <th>항목 6</th>
-                    <th>항목 7</th>
-                    <th>항목 8</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>항목 1</td>
-                    <td>항목 2</td>
-                    <td>항목 3</td>
-                    <td>항목 4</td>
-                    <td>항목 5</td>
-                    <td>항목 6</td>
-                    <td>항목 7</td>
-                    <td>
-                        <button
-                            type="button"
-                            class="btn-tb btn-main"
-                        >
-                            <i class="far fa-sign-in"></i>다운로드
-                        </button>
-                        <button
-                            type="button"
-                            class="btn-tb btn-sub1 ml-10"
-                        >
-                            <i class="far fa-sign-in"></i>다운로드
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td class="align-l">사용자 입력 값 입니다. 사용자 입력 값 입니다.</td>
-                    <td>항목 2</td>
-                    <td>항목 3</td>
-                    <td class="align-r">400,000 원</td>
-                    <td class="align-r">400,000 원</td>
-                    <td>
-                        <div class="input-box">
-                            <input
-                                type="text"
-                                placeholder="placeholder"
-                            >
-                            <a
-                                href="#"
-                                class="del"
-                            ></a>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="input-box">
-                            <div
-                                class="select-input"
-                                :class="{ open : setup.selectOpen2 }"
-                                v-on:blur="setup.selectOpen2 = false"
-                                v-on:click="setup.selectOpen2 = !setup.selectOpen2"
-                            >
-                                <input
-                                    type="text"
-                                    placeholder="검색"
-                                >
-                                <a
-                                    href="#"
-                                    class="icon"
-                                ></a>
-                            </div>
-                            <div class="select-items">
-                                <ul>
-                                    <li
-                                        v-for="i in 5"
-                                        v-bind:key="i"
-                                    >
-                                        <a
-                                            href="#"
-                                            v-on:click="selectOpen2 = false"
-                                        >메뉴{{ i }}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <button
-                            type="button"
-                            class="btn-tb btn-main"
-                        >
-                            <i class="far fa-sign-in"></i>다운로드
-                        </button>
-                        <button
-                            type="button"
-                            class="btn-tb btn-sub1 ml-10"
-                        >
-                            <i class="far fa-sign-in"></i>다운로드
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="tb-container mb-30">
-        <table>
-            <colgroup>
-                <col width="60px">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="140px">
-            </colgroup>
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>계약자(상호명)</th>
-                    <th>구역</th>
-                    <th>주문일자</th>
-                    <th>배송지</th>
-                    <th>주문금액</th>
-                    <th>누적매출금액</th>
-                    <th>결제현황</th>
-                    <th>미수금</th>
-                    <th>주문확인</th>
-                    <th>상태</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>감상흠(우민)</td>
-                    <td>서초</td>
-                    <td>2020. 10. 05 / 12:10:11</td>
-                    <td>안산창고</td>
-                    <td class="align-r">400,000 원</td>
-                    <td class="align-r">400,000 원</td>
-                    <td>미결제</td>
-                    <td>0</td>
-                    <td>미확인</td>
-                    <td class="states-box enough">만족</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>감상흠(우민)</td>
-                    <td>서초</td>
-                    <td>2020. 10. 05 / 12:10:11</td>
-                    <td>안산창고</td>
-                    <td class="align-r">400,000 원</td>
-                    <td class="align-r">400,000 원</td>
-                    <td>미결제</td>
-                    <td>0</td>
-                    <td>미확인</td>
-                    <td class="states-box shortage">부족</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>감상흠(우민)</td>
-                    <td>서초</td>
-                    <td>2020. 10. 05 / 12:10:11</td>
-                    <td>안산창고</td>
-                    <td class="align-r">400,000 원</td>
-                    <td class="align-r">400,000 원</td>
-                    <td>미결제</td>
-                    <td>0</td>
-                    <td>미확인</td>
-                    <td class="states-box slated">입고예정</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="tb-container mb-30">
-        <table>
-            <colgroup>
-                <col width="60px">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="">
-                <col width="120px">
-                <col width="">
-                <col width="">
-                <col width="140px">
-            </colgroup>
-            <thead>
-                <tr>
-                    <th>구분</th>
-                    <th>출하번호</th>
-                    <th>바코드 번호</th>
-                    <th>주문번호</th>
-                    <th>계약자(상호명)</th>
-                    <th>구역</th>
-                    <th>배송지</th>
-                    <th>품목</th>
-                    <th>수량</th>
-                    <th>단위</th>
-                    <th>재고상태</th>
-                    <th>출하등록일</th>
-                    <th>출하요청일</th>
-                    <th>출하확정</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>일반</td>
-                    <td>OUT201029-0001</td>
-                    <td>ㅡ</td>
-                    <td>201026-0010</td>
-                    <td>감상흠(우민)</td>
-                    <td>서초</td>
-                    <td>안산창고</td>
-                    <td>가랏엿 (가대)</td>
-                    <td>30</td>
-                    <td>BOX</td>
-                    <td class="states-box enough">50 BOX / 만족</td>
-                    <td>2020.10.05 12:10:11</td>
-                    <td>ㅡ</td>
-                    <td class="states-box undecided">미확정</td>
-                </tr>
-                <tr>
-                    <td>일반</td>
-                    <td>OUT201029-0001</td>
-                    <td>ㅡ</td>
-                    <td>201026-0010</td>
-                    <td>감상흠(우민)</td>
-                    <td>서초</td>
-                    <td>안산창고</td>
-                    <td>가랏엿 (가대)</td>
-                    <td>30</td>
-                    <td>BOX</td>
-                    <td class="states-box shortage">50 BOX / 부족</td>
-                    <td>2020.10.05 12:10:11</td>
-                    <td>ㅡ</td>
-                    <td class="states-box confirmation">확정</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <v-table
+        class="mb-30"
+        type="col"
+        :column="setup.table1.column"
+        v-model:datas="setup.table1.datas"
+    />
 
     <div class="title-box mb-30">
         <h2 class="main-title">-Paging Layout</h2>
@@ -822,506 +453,126 @@
         <div class="row-cols-3">
             <div class="col">
 
-                <div class="input-box disabled">
-                    <input
-                        type="text"
-                        placeholder="placeholder"
+                <v-input 
+                    placeholder="placeholder"
+                    type="text"
+                    disabled
+                    v-model:value="setup.inputData1"
+                />
+
+                <div class="mt-10"></div>
+                
+                <v-input 
+                    placeholder="placeholder"
+                    type="text"
+                    v-model:value="setup.inputData2"
+                />
+
+                <div class="mt-10"></div>
+                
+                <v-input
+                    class="invalid"
+                    placeholder="placeholder"
+                    type="text"
+                    v-model:value="setup.inputData3"
+                />
+
+                <div class="mt-10"></div>
+                
+                <v-input
+                    class="pull"
+                    placeholder="placeholder"
+                    type="text"
+                    v-model:value="setup.inputData4"
+                />
+
+            </div>
+            <div class="col">
+                
+                <v-input
+                    class="search"
+                    placeholder="검색"
+                    type="text"
+                    iconType="icon"
+                    v-model:value="setup.inputData5"
+                />
+
+                <div class="mt-10"></div>
+
+                <v-select
+                    :datas="setOption"
+                    v-model:value="setup.selectData"
+                />
+
+                <div class="mt-10"></div>
+
+                <v-calendar
+                    v-model:value="setup.calendar"
+                    :range="true"
+                />
+
+                <div class="mt-10"></div>
+
+                <v-textarea
+                    placeholder="입력해주세요."
+                />
+            </div>
+            <div class="col">
+                <div>
+                    <v-check
+                        label="CheckBox"
+                        class="mr-10"
+                    />
+
+                    <v-check
+                        label="CheckBox"
+                        class="mr-10"
                         disabled
-                    >
-                    <a
-                        href="#"
-                        class="del"
-                    ></a>
-                </div>
+                    />
 
-                <div class="mt-10"></div>
-
-                <div class="input-box">
-                    <input
-                        type="text"
-                        placeholder="placeholder"
-                    >
-                    <a
-                        href="#"
-                        class="del"
-                    ></a>
-                </div>
-
-                <div class="mt-10"></div>
-
-                <div class="input-box invalid">
-                    <input
-                        type="text"
-                        placeholder="placeholder"
-                    >
-                    <a
-                        href="#"
-                        class="del"
-                    ></a>
-                </div>
-
-                <div class="mt-10"></div>
-
-                <div class="input-box pull">
-                    <input
-                        type="text"
-                        placeholder="placeholder"
-                    >
-                    <a
-                        href="#"
-                        class="del"
-                    ></a>
-                </div>
-
-            </div>
-            <div class="col">
-                <div class="input-box search">
-                    <input
-                        type="text"
-                        placeholder="placeholder"
-                    >
-                    <a
-                        href="#"
-                        class="icon"
-                    ></a>
-                </div>
-
-                <div class="mt-10"></div>
-
-                <div class="input-box">
-                    <div
-                        class="select-input"
-                        :class="{ open : selectOpen2 }"
-                        v-on:blur="selectOpen2 = false"
-                        v-on:click="selectOpen2 = !selectOpen2"
-                    >
-                        <input
-                            type="text"
-                            placeholder="검색"
-                        >
-                        <a
-                            href="#"
-                            class="icon"
-                        ></a>
-                    </div>
-                    <div class="select-items">
-                        <ul>
-                            <li
-                                v-for="i in 5"
-                                v-bind:key="i"
-                            >
-                                <a
-                                    href="#"
-                                    v-on:click="setup.selectOpen2 = false"
-                                >메뉴{{ i }}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="mt-10"></div>
-
-                <div class="input-box">
-                    <div
-                        class="datepicker-input"
-                        v-on:click="setup.datepicker = !setup.datepicker"
-                    >
-                        <input
-                            type="text"
-                            autocomplete="off"
-                            placeholder="날짜를 선택해주세요."
-                            readonly
-                        >
-                        <i class="icon"></i>
-                    </div>
-                    <!-- 달력 한개일 경우 wim-datepicker에 single 클래스 추가 -->
-                    <div
-                        class="wim-datepicker"
-                        :class="{ show : setup.datepicker }"
-                    >
-                        <div class="calendars">
-                            <div class="calendar left">
-                                <div class="calendar-table">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th class="prev">
-                                                    <i class="fas fa-caret-left"></i>
-                                                </th>
-                                                <th colspan="5">
-                                                    <div class="flex">
-                                                        <div class="input-box">
-                                                            <div
-                                                                class="select-input"
-                                                                :class="{ open : setup.monthOpen }"
-                                                                v-on:blur="setup.monthOpen = false"
-                                                                v-on:click="setup.monthOpen = !setup.monthOpen"
-                                                            >
-                                                                <input
-                                                                    type="text"
-                                                                    value="1월"
-                                                                    readonly
-                                                                >
-                                                                <a
-                                                                    href="#"
-                                                                    class="icon"
-                                                                ></a>
-                                                            </div>
-                                                            <div class="select-items">
-                                                                <ul>
-                                                                    <li
-                                                                        v-for="i in 12"
-                                                                        v-bind:key="i"
-                                                                    >
-                                                                        <a
-                                                                            href="#"
-                                                                            v-on:click="setup.monthOpen = false"
-                                                                        >{{ i }}월</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="input-box">
-                                                            <div
-                                                                class="select-input"
-                                                                :class="{ open : setup.yearOpen }"
-                                                                v-on:blur="setup.yearOpen = false"
-                                                                v-on:click="setup.yearOpen = !setup.yearOpen"
-                                                            >
-                                                                <input
-                                                                    type="text"
-                                                                    value="2020년"
-                                                                    readonly
-                                                                >
-                                                                <a
-                                                                    href="#"
-                                                                    class="icon"
-                                                                ></a>
-                                                            </div>
-                                                            <div class="select-items">
-                                                                <ul>
-                                                                    <li
-                                                                        v-for="i in 5"
-                                                                        v-bind:key="i"
-                                                                    >
-                                                                        <a
-                                                                            href="#"
-                                                                            v-on:click="setup.yearOpen = false"
-                                                                        >202{{ i }}년</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </th>
-                                                <th class="next">
-                                                    <i class="fas fa-caret-right"></i>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th>일</th>
-                                                <th>월</th>
-                                                <th>화</th>
-                                                <th>수</th>
-                                                <th>목</th>
-                                                <th>금</th>
-                                                <th>토</th>
-                                            </tr>
-                                            <tr>
-                                                <td class="prev-month">29</td>
-                                                <td class="prev-month">30</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>3</td>
-                                                <td>4</td>
-                                                <td>5</td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>7</td>
-                                                <td>8</td>
-                                                <td class="start-date">9</td>
-                                                <td class="in-range">10</td>
-                                                <td class="in-range">11</td>
-                                                <td class="in-range">12</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="in-range">13</td>
-                                                <td class="in-range">14</td>
-                                                <td class="in-range">15</td>
-                                                <td class="in-range">16</td>
-                                                <td class="in-range">17</td>
-                                                <td class="in-range">18</td>
-                                                <td class="in-range">19</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="end-date">20</td>
-                                                <td>21</td>
-                                                <td>22</td>
-                                                <td>23</td>
-                                                <td>24</td>
-                                                <td>25</td>
-                                                <td>26</td>
-                                            </tr>
-                                            <tr>
-                                                <td>27</td>
-                                                <td>28</td>
-                                                <td>29</td>
-                                                <td>30</td>
-                                                <td>31</td>
-                                                <td class="next-month">1</td>
-                                                <td class="next-month">2</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="calendar right">
-                                <div class="calendar-table">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th class="prev">
-                                                    <i class="fas fa-caret-left"></i>
-                                                </th>
-                                                <th colspan="5">
-                                                    <div class="flex">
-                                                        <div class="input-box">
-                                                            <div
-                                                                class="select-input"
-                                                                :class="{ open : setup.monthOpen }"
-                                                                v-on:blur="setup.monthOpen = false"
-                                                                v-on:click="setup.monthOpen = !setup.monthOpen"
-                                                            >
-                                                                <input
-                                                                    type="text"
-                                                                    value="1월"
-                                                                    readonly
-                                                                >
-                                                                <a
-                                                                    href="#"
-                                                                    class="icon"
-                                                                ></a>
-                                                            </div>
-                                                            <div class="select-items">
-                                                                <ul>
-                                                                    <li
-                                                                        v-for="i in 12"
-                                                                        v-bind:key="i"
-                                                                    >
-                                                                        <a
-                                                                            href="#"
-                                                                            v-on:click="setup.monthOpen = false"
-                                                                        >{{ i }}월</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="input-box">
-                                                            <div
-                                                                class="select-input"
-                                                                :class="{ open : yearOpen }"
-                                                                v-on:blur="yearOpen = false"
-                                                                v-on:click="yearOpen = !yearOpen"
-                                                            >
-                                                                <input
-                                                                    type="text"
-                                                                    value="2020년"
-                                                                    readonly
-                                                                >
-                                                                <a
-                                                                    href="#"
-                                                                    class="icon"
-                                                                ></a>
-                                                            </div>
-                                                            <div class="select-items">
-                                                                <ul>
-                                                                    <li
-                                                                        v-for="i in 5"
-                                                                        v-bind:key="i"
-                                                                    >
-                                                                        <a
-                                                                            href="#"
-                                                                            v-on:click="yearOpen = false"
-                                                                        >202{{ i }}년</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </th>
-                                                <th class="next">
-                                                    <i class="fas fa-caret-right"></i>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th>일</th>
-                                                <th>월</th>
-                                                <th>화</th>
-                                                <th>수</th>
-                                                <th>목</th>
-                                                <th>금</th>
-                                                <th>토</th>
-                                            </tr>
-                                            <tr>
-                                                <td class="prev-month">29</td>
-                                                <td class="prev-month">30</td>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>3</td>
-                                                <td>4</td>
-                                                <td>5</td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>7</td>
-                                                <td>8</td>
-                                                <td class="start-date">9</td>
-                                                <td class="in-range">10</td>
-                                                <td class="in-range">11</td>
-                                                <td class="in-range">12</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="in-range">13</td>
-                                                <td class="in-range">14</td>
-                                                <td class="in-range">15</td>
-                                                <td class="in-range">16</td>
-                                                <td class="in-range">17</td>
-                                                <td class="in-range">18</td>
-                                                <td class="in-range">19</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="end-date">20</td>
-                                                <td>21</td>
-                                                <td>22</td>
-                                                <td>23</td>
-                                                <td>24</td>
-                                                <td>25</td>
-                                                <td>26</td>
-                                            </tr>
-                                            <tr>
-                                                <td>27</td>
-                                                <td>28</td>
-                                                <td>29</td>
-                                                <td>30</td>
-                                                <td>31</td>
-                                                <td class="next-month">1</td>
-                                                <td class="next-month">2</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-10"></div>
-
-                <div class="text-area">
-                    <textarea
-                        name=""
-                        id=""
-                    ></textarea>
-                </div>
-            </div>
-            <div class="col">
-                <div>
-                    <div class="check-box mr-10">
-                        <label>
-                            <input type="checkbox">
-                            <i class="icon"></i> CheckBox
-                        </label>
-                    </div>
-
-                    <div class="check-box disable mr-10">
-                        <label>
-                            <input
-                                type="checkbox"
-                                disabled
-                            >
-                            <i class="icon"></i> CheckBox
-                        </label>
-                    </div>
-
-                    <div class="check-box required">
-                        <label>
-                            <input
-                                type="checkbox"
-                                required
-                            >
-                            <i class="icon"></i> CheckBox
-                        </label>
-                    </div>
+                    <v-check
+                        label="CheckBox"
+                        required
+                    />
                 </div>
 
                 <div class="mt-10"></div>
 
                 <div>
-                    <div class="radio-box mr-10">
-                        <label>
-                            <input
-                                type="radio"
-                                name="radio"
-                            >
-                            <i class="icon"></i> Radio Button
-                        </label>
-                    </div>
+                    <v-radio
+                        label="Radio Button"
+                        name="radio"
+                        value="1"
+                        class="mr-10"
+                    />
+                    
+                    <v-radio
+                        label="Radio Button"
+                        name="radio"
+                        value="2"
+                        class="mr-10"
+                    />
 
-                    <div class="radio-box mr-10">
-                        <label>
-                            <input
-                                type="radio"
-                                name="radio"
-                            >
-                            <i class="icon"></i> Radio Button
-                        </label>
-                    </div>
+                    <v-radio
+                        label="Radio Button"
+                        name="radio"
+                        value="3"
+                        class="mr-10"
+                        disabled
+                    />
 
-                    <div class="radio-box disable mr-10">
-                        <label>
-                            <input
-                                type="radio"
-                                name="radio"
-                                disabled
-                            >
-                            <i class="icon"></i> Radio Button
-                        </label>
-                    </div>
-
-                    <div class="radio-box required">
-                        <label>
-                            <input
-                                type="radio"
-                                name="radio"
-                                required
-                            >
-                            <i class="icon"></i> Radio Button
-                        </label>
-                    </div>
+                    <v-radio
+                        label="Radio Button"
+                        name="radio"
+                        value="4"
+                        class="mr-10"
+                        required
+                    />
                 </div>
 
                 <div class="mt-10"></div>
 
-                <div class="input-box quantity">
-                    <a
-                        href="#"
-                        class="minus"
-                    >
-                        <i class="fal fa-minus"></i>
-                    </a>
-                    <input type="number">
-                    <a
-                        href="#"
-                        class="plus"
-                    >
-                        <i class="fal fa-plus"></i>
-                    </a>
-                </div>
+                <v-quantity />
             </div>
         </div>
     </div>
@@ -1330,25 +581,210 @@
         <h2 class="main-title">-Modal Popup</h2>
     </div>
 
-    <button
-        type="button"
-        class="btn btn-sub2 ml-15"
-        v-on:click="openModal"
-    >
-        <i class="fal fa-search"></i>검색
-    </button>
+    <btn
+        text="검색"
+        kind="sub2"
+        iconCls="fal fa-search"
+    />
 </template>
 <script setup>
-    import { reactive } from "vue";
+    import { computed, reactive, provide } from "vue";
 
     const setup = reactive({
+        table1: {
+            column: {
+                field1 : {
+                    align: "center",
+                    label: "No.",
+                    width: "60px"
+                },
+                field2 : {
+                    align: "left",
+                    label: "항목1",
+                },
+                field3 : {
+                    align: "center",
+                    label: "항목2",
+                },
+                field4 : {
+                    align: "center",
+                    label: "항목3",
+                },
+                field5 : {
+                    align: "right",
+                    label: "항목4",
+                },
+                field6 : {
+                    align: "right",
+                    label: "항목5",
+                },
+                field7 : {
+                    align: "center",
+                    label: "항목6",
+                    type: "input",
+                    placeholder : "항목6을 입력해주세요.",
+                },
+                field8 : {
+                    align: "center",
+                    label: "항목7",
+                    type: "select",
+                    option : {}
+                },
+                field9 : {
+                    align: "center",
+                    label: "항목8",
+                    width: "14%",
+                    type: "button",
+                    children: [
+                        {
+                            kind : "main",
+                            text : "다운로드",
+                            icon : "far fa-sign-in",
+                            fn : download
+                        },
+                        {
+                            kind : "sub1",
+                            text : "다운로드",
+                            icon : "far fa-sign-in",
+                            fn : download
+                        }
+                    ],
+                },
+            },
+            datas: [
+                {
+                    field1: "1",
+                    field2: "사용자 입력 값 입니다. 사용자 입력 값 입니다.",
+                    field3: "항목3",
+                    field4: "항목4",
+                    field5: "400,000 원",
+                    field6: "400,000 원",
+                    field7: "",
+                    field8: "",
+                },
+                {
+                    field1: "2",
+                    field2: "사용자 입력 값 입니다. 사용자 입력 값 입니다.",
+                    field3: "항목3",
+                    field4: "항목4",
+                    field5: "400,000 원",
+                    field6: "400,000 원",
+                    field7: "",
+                    field8: "",
+                }
+            ],
+        },
+        table2: {
+            column: {
+                field1 : {
+                    align: "left",
+                    label: "품목",
+                    type: "select",
+                    option : {},
+                    required : true,
+                },
+                field2 : {
+                    align: "left",
+                    label: "품목코드",
+                    placeholder: "품목코드를 입력하세요.",
+                    type: "input",
+                },
+                field3 : {
+                    align: "left",
+                    label: "거래처",
+                    type: "input",
+                    placeholder: "거래처를 입력하세요.",
+                },
+                field4 : {
+                    align: "left",
+                    label: "발주량",
+                    type: "input",
+                    placeholder: "발주량을 입력하세요.",
+                    required : true,
+                },
+                field5 : {
+                    align: "left",
+                    label: "단위",
+                    requiredText : true,
+                },
+                field6 : {
+                    align: "left",
+                    label: "납기 예정일",
+                    type: "calendar",
+                    required : true,
+                },
+                field7 : {
+                    align: "left",
+                    label: "비고",
+                    type: "textarea",
+                    placeholder: "비고를 입력하세요.",
+                    colspan: "5",
+                }
+            },
+            datas: {
+                field1 : "",
+                field2 : "",
+                field3 : "",
+                field4 : "",
+                field5 : "테스트",
+                field6 : undefined,
+                field7 : "",
+            },
+            width: {
+                title: "10%",
+                content: "23.3%",
+            },
+            columnCount: 3
+        },
+        calendar: undefined,
         selectOpen1: false,
         selectOpen2: false,
         monthOpen: false,
         yearOpen: false,
         datepicker: false,
         modal: false,
+        selectDatas: [
+            {
+                text: "selectOption1",
+                value: 1
+            },
+            {
+                text: "selectOption2",
+                value: 2
+            },
+            {
+                text: "selectOption3",
+                value: 3
+            },
+            {
+                text: "selectOption4",
+                value: 4
+            },
+            {
+                text: "selectOption5",
+                value: 5
+            }
+        ],
+        selectData: "",
+        inputData: "",
+        inputData1: "",
+        inputData2: "",
+        inputData3: "",
+        inputData4: "",
+        inputData5: "",
     });
+
+    provide('table1', setup.table1);
+    provide('table2', setup.table2);
+
+    const setOption = computed(() => setup.selectDatas );
+
+    function download(event) {
+        alert('다운로드 이벤트')
+    }
+
+    setup.table1.column.field8.option = setup.selectDatas;
+    setup.table2.column.field1.option = setup.selectDatas;
 </script>
 <style scoped lang="scss">
 .bg > [class^="row"] > [class^="col"] {

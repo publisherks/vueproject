@@ -10,6 +10,7 @@
             'btn-cancel' : props.kind === 'cancel',
             'btn-delete' : props.kind === 'delete',
         }"
+        @click="props.fn"
     >
         <i
             v-if="props.isIcon"
@@ -55,6 +56,10 @@
         size: {
             type: String,
             default: "",
+        },
+
+        fn: {
+            type: Function,
         }
     })
 </script>

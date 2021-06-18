@@ -104,7 +104,15 @@ $btns: (
 .btn-box {
     display:flex;
 
-    &.align-right {
+    &.align-r {
         justify-content: flex-end;
+    }
+
+    &.align-l {
+        justify-content: flex-start;
+    }
+
+    &.align-c {
+        justify-content: center;
     }
 }

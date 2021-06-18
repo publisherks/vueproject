@@ -1,28 +1,18 @@
 <template>
     <div
         class="input-box"
-        :class="{ disabled: $attrs.readonly }"
-        v-bind="props.boxAttr">
-        <!-- {{ $attrs }} -->
+        :class="{ disabled : props.disabled }"
+    >
         <input
-            :ref="el => setRef(el)"
-            v-bind="{
-                type: $attrs.type === 'number' ? 'text' : $attrs.type,
-                placeholder: $attrs.placeholder,
-                maxlength: $attrs.maxlength,
-                required: $attrs.required,
-                oninvalid: $attrs.oninvalid,
-                pattern: $attrs.pattern,
-                readonly: $attrs.readonly,
-                autocomplete: $attrs.autocomplete,
-                value: $attrs.type === 'number' ? comma(setup.input) : setup.input 
-            }"
-            oninput="setCustomValidity('')"
+            :type="props.type"
             :style="{
-                'padding-right': setup.padding
+                'padding-right' : setup.padding
             }"
-            @input="inputEvent($event,$attrs)"
-        />
+            :placeholder="props.placeholder"
+            :disabled="props.disabled"
+            :value="props.value"
+            @input="$emit('update:value', $event.target.value.trim())"
+        >
         <span
             class="text"
             v-if="props.text">
@@ -30,103 +20,60 @@
         </span>
         <a
             href="#"
-            class="del"
-            tabindex="-1"
+            :class="props.iconType"
             :style="{
-                right: setup.right
-            }"
-            @click="
-                $emit('update', '');
-                $event.target.previousElementSibling.focus();
-            "
-            v-if="$attrs.value && !$attrs.readonly"
-        ></a>
+                'right' : setup.right
+            }"></a>
     </div>
 </template>
 
 <script setup>
-    // import { focusRef } from "@/js/parttern/singleton/Focus";
-    import { reactive, defineProps, watch, defineEmit } from "vue";
+    import { reactive , defineProps , watch } from "vue";
 
-    
-    const emit = defineEmit(["update"]);
     const props = defineProps({
-        text: {
-            type: String,
-            default: ""
+        placeholder : {
+            type : String,
+            default : "입력하세요."
         },
-        focus: {
-            type: Number
+        type        : {
+            type : String,
+            default : "text",
         },
-        boxAttr: {
-            type: Object,
+        text        : {
+            type : String,
+            default : "",
         },
-        value: {}
+        disabled    : {
+            type : Boolean,
+            default : false,
+        },
+        value       : {
+            default : "",
+        },
+        iconType    : {
+            type : String,
+            default : "del"
+        }
     });
 
     const setup = reactive({
-        padding: "",
-        right: "",
-        input: ""
+        padding : "",
+        right : "",
     });
 
-    const setRef = el => {
-        if (!props.focus) {
-            return null;
-        }
-        // focusRef[props.focus] = el;
-    };
+    const emit = defineEmit(["update"]);
 
-    const inputEvent = (event,attrs) => {
-
-        setup.input = event.target.value;
-
-        if(attrs.type === "number") {
-            setup.input = comma(uncomma(setup.input));
-            return emit("update", uncomma(setup.input)); 
-        }
-
-        emit("update", setup.input);
-    };
-
-    const uncomma = (str) => {
-        str = String(str);
-        if(str.includes(".")) {
-            // 소수점 1000 단위 Comma -> 1,000.256656
-            str = str.split(".");
-            str[0] = str[0].replace(/[^\d]+/g, "");
-            return str.join("."); 
+    watch(() => props.text, (val) => {
+        if (val) {
+            setup.right = (val.length * 15 + 10) + "px";
+            setup.padding = ((val.length * 15) + 30) + "px";
         } else {
-            // 1000 단위 Comma -> 1,000
-            return str.replace(/[^\d]+/g, "");
+            setup.right = "";
+            setup.padding = "";
         }
-    };
-
-    const comma = (str) => {
-        str = String(str);
-        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
-    };
-
-    watch(() => props.value, value => {
-        setup.input = value;
-    },{
-        immediate: true,
+    }, {
+        deep      : true,
+        immediate : true,
     });
-    
-    watch(
-        () => props.text,
-        val => {
-            if (val) {
-                setup.right = val.length * 15 + 10 + "px";
-                setup.padding = val.length * 15 + 30 + "px";
-            } else {
-                setup.right = "";
-                setup.padding = "";
-            }
-        },
-        {
-            deep: true,
-            immediate: true
-        }
-    );
+
 </script>

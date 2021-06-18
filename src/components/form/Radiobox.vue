@@ -1,0 +1,65 @@
+<template>
+    <div
+        class="radio-box"
+        :class="{
+            disabled: disabled,
+            required: required,
+            'w-100 h-100': pull
+        }"
+    >
+        <label
+            :class="{
+                'w-100 h-100 flex-c': pull
+            }"
+        >
+            <input
+                type="radio"
+                :name="name"
+                :value="props.value"
+                :compareValue="props.compareValue"
+                :disabled="disabled"
+                :required="required"
+                :checked="props.value === props.compareValue"
+            />
+            <i
+                class="icon"
+                :class="{
+                    'mr-0': !props.label
+                }"
+            ></i>
+            {{ props.label }}
+        </label>
+    </div>
+</template>
+<script setup>
+    import { defineProps } from "vue";
+
+    const props = defineProps({
+        label: {
+            type: String,
+            default: ""
+        },
+        name: {
+            type: String,
+            default: ""
+        },
+        value: {},
+        compareValue: {},
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        required: {
+            type: Boolean,
+            default: false
+        },
+        checked: {
+            type: Boolean,
+            default: false
+        },
+        pull: {
+            type: Boolean,
+            default: false
+        }
+    });
+</script>
