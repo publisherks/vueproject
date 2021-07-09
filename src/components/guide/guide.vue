@@ -23,7 +23,7 @@
     <div class="title-box mb-30">
         <h2 class="main-title">Main Title</h2>
         <btn-group 
-            align="right"
+            class="ml-auto"
         >
             <btn
                 text="등록"
@@ -94,7 +94,7 @@
             />
         </btn-group>
         <btn-group 
-            align="right"
+            class="ml-auto"
         >
             <btn
                 text="등록"
@@ -117,7 +117,7 @@
     </div>
 
     <div class="title-box mb-30">
-        <h2 class="main-title">-Buttons</h2>
+        <h2 class="main-title">-Buttons Components</h2>
     </div>
 
     <v-container class="mb-30">
@@ -277,7 +277,7 @@
     </v-container>
 
     <div class="title-box mb-30">
-        <h2 class="main-title">-Grid Layout</h2>
+        <h2 class="main-title">-Grid Layout Components</h2>
     </div>
 
     <v-container class="mb-30 bg">
@@ -386,14 +386,14 @@
     </v-container>
 
     <div class="title-box mb-30">
-        <h2 class="main-title">-Table Layout</h2>
+        <h2 class="main-title">-Table Layout Components</h2>
     </div>
 
     <v-table
         class="mb-30"
         type="row"
         :column="setup.table2.column"
-        v-model:datas="setup.table2.datas"
+        :datas="setup.table2.datas"
         :width="setup.table2.width"
         :columnCount="setup.table2.columnCount"
     />
@@ -419,34 +419,17 @@
         class="mb-30"
         type="col"
         :column="setup.table1.column"
-        v-model:datas="setup.table1.datas"
+        :datas="setup.table1.datas"
     />
 
     <div class="title-box mb-30">
-        <h2 class="main-title">-Paging Layout</h2>
+        <h2 class="main-title">-Paging Layout Components</h2>
     </div>
 
-    <div class="paging-container">
-        <div class="paging-box">
-            <a
-                href="#"
-                class="prev"
-            ></a>
-            <a
-                href="#"
-                v-for="i in 10"
-                v-bind:key="i"
-                v-bind:class="{ 'on' : i === 1}"
-            >{{ i }}</a>
-            <a
-                href="#"
-                class="next"
-            ></a>
-        </div>
-    </div>
+    <paging />
 
     <div class="title-box mb-30">
-        <h2 class="main-title">-Input & Check, Radio Button</h2>
+        <h2 class="main-title">-Input & Check, Radio Button Components</h2>
     </div>
 
     <div class="container mb-30">
@@ -588,7 +571,7 @@
     />
 </template>
 <script setup>
-    import { computed, reactive, provide } from "vue";
+    import { computed, reactive } from "vue";
 
     const setup = reactive({
         table1: {
@@ -773,9 +756,6 @@
         inputData4: "",
         inputData5: "",
     });
-
-    provide('table1', setup.table1);
-    provide('table2', setup.table2);
 
     const setOption = computed(() => setup.selectDatas );
 

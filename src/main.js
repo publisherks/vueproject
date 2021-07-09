@@ -17,6 +17,7 @@ import VCol         from "@/components/grid/Col";
 
 // table
 import VTable       from "@/components/tables/Table";
+import Pagination   from "@/components/tables/Pagination";
 
 // form
 import VInput        from "@/components/form/Input";
@@ -35,6 +36,7 @@ app.component('BtnGroup', BtnGroup)
     .component('VRow', VRow)
     .component('VCol', VCol)
     .component('VTable', VTable)
+    .component('Pagination', Pagination)
     .component('VInput', VInput)
     .component('VSelect', VSelect)
     .component('VCalendar', VCalendar)

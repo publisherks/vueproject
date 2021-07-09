@@ -9,7 +9,9 @@
                 class="mb-20 mt-15"
                 v-if="!layoutState.leftMenu && layoutState.isCate"
             />
-            <router-view/>
+            <router-view
+                :title="title"
+            />
         </div>
     </div>
 </template>
@@ -19,4 +21,17 @@
     import CateNav  from "@/layout/CateNav";
 
     import { state as layoutState } from "@/js/pattern/singleton/Layout";
+
+    import { computed, reactive } from "vue";
+    import { useRoute } from "vue-router";
+
+    const routes = useRoute();
+
+    const setup = reactive({
+        navigation: computed(() => routes.meta.navigation),
+    });
+
+    const title = computed(() => {
+        return setup.navigation?.split("->")[setup.navigation?.split("->").length-1];
+    });
 </script>

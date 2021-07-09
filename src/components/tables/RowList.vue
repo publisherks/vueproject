@@ -59,9 +59,21 @@
     </table>
 </template>
 <script setup>
-    import { computed, defineProps, reactive, inject, defineEmit } from "vue";
+    import { computed, defineProps, reactive, defineEmit } from "vue";
 
     const props = defineProps({
+        column: {
+            type: Object,
+            default() {
+                return {}
+            }
+        },
+        datas : {
+            type: Object,
+            default() {
+                return {}
+            }
+        },
         width : {
             type: Object,
             default() {
@@ -74,15 +86,13 @@
         }
     });
 
-    const tableData = inject('table2', {})
-
     const emit = defineEmit(["update:date"], ["update:value"]);
 
     const setup = reactive({
-        lists : computed(() => tableData.datas)
+        lists : computed(() => props.datas)
     });
 
-    const column = computed(() => tableData.column);
+    const column = computed(() => props.column);
 
     const columns = computed(() => {
         let columns = [],

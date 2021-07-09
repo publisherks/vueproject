@@ -9,6 +9,7 @@
     "deploy": "git subtree push --prefix docs origin deploy"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "moment": "^2.29.1",
     "node-sass": "^6.0.0",

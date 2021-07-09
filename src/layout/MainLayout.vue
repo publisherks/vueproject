@@ -25,7 +25,7 @@
 
     watch(() => setup.theme, (value) => {
         nextTick(() => {
-            document.getElementsByTagName("html")[0].setAttribute("data-theme", value);
+            document.querySelector("html").setAttribute("data-theme", value);
         });
     }, {
         immediate: true,

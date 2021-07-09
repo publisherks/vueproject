@@ -69,18 +69,31 @@
     </table>
 </template>
 <script setup>
-    import { reactive, computed, inject } from "vue";
-    
-    const tableData = inject('table1', {})
+    import { reactive, computed, defineProps } from "vue";
+
+    const props = defineProps({
+        column: {
+            type: Object,
+            default() {
+                return {}
+            }
+        },
+        datas : {
+            type: Object,
+            default() {
+                return {}
+            }
+        }
+    })
 
     const setup = reactive({
-        lists : computed(() => tableData.datas?.map((value = {}) => value)),
+        lists : computed(() => props.datas),
     });
 
     const columns = computed(() => {
         let column = {};
 
-        Object.entries(tableData.column).forEach(([key, value]) => {
+        Object.entries(props.column).forEach(([key, value]) => {
             column[key] = value;
         });
 

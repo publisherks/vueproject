@@ -19,11 +19,11 @@ const routes = [
                 },
             },
             {
-                path      : "/styleguide",
-                name      : "Styleguide",
-                component : load("components/guide/guide"),
+                path      : "/posts",
+                name      : "Posts",
+                component : load("views/posts/List"),
                 meta      : {
-                    navigation : "Style Guide -> guide",
+                    navigation : "게시판",
                 },
             },
         ]
@@ -31,7 +31,7 @@ const routes = [
 ]
 
 const router = createRouter({
-    history : createWebHistory(process.env.BASE_URL),
+    history : createWebHistory(),
     routes,
 });
 
