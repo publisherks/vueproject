@@ -23,7 +23,9 @@
             transition: background-color .25s;
 
             &.prev,
-            &.next {
+            &.next,
+            &.first,
+            &.last {
                 width: 40px;
 
                 &:after {
@@ -50,6 +52,24 @@
 
                 &:after {
                     content: '\F105';
+                }
+            }
+
+            &.first {
+                border-radius: 5px 0 0 5px;
+                @include border('r', 1px solid var(--border-color));
+
+                &:after {
+                    content: '\F100';
+                }
+            }
+
+            &.last {
+                border-radius: 0 5px 5px 0;
+                @include border('l', 1px solid var(--border-color));
+
+                &:after {
+                    content: '\F101';
                 }
             }
 

@@ -3,26 +3,42 @@
         <div class="paging-box">
             <a
                 href="#n"
-                class="prev"
-                @click="setPage('prev')"
+                class="first"
+                @click="pages.first"
             ></a>
             <a
                 href="#n"
-                v-for="i in props.count"
-                :key="i"
-                :class="{ on : i === props.pageNum }"
-                @click="$emit('update:pageNum', i)"
-            >{{ i }}</a>
+                class="prev"
+                @click="pages.prev"
+                v-if="props.count > 10"
+            ></a>
+            <a
+                href="#n"
+                v-for="(item, index) in pages.pageGroup"
+                :key="item"
+                :class="{
+                    on : item === props.pageNum,
+                    'ml-7' : index === 0,
+                    'mr-7' : index === 9
+                }"
+                @click="setup.currentPage = item"
+            >{{ item }}</a>
             <a
                 href="#n"
                 class="next"
-                @click="setPage('next')"
+                @click="pages.next"
+                v-if="props.count > 10"
+            ></a>
+            <a
+                href="#n"
+                class="last"
+                @click="pages.last"
             ></a>
         </div>
     </div>
 </template>
 <script setup>
-    import { defineProps, defineEmit, reactive, watch } from "vue";
+    import { defineProps, defineEmit, reactive, watch, computed, nextTick } from "vue";
 
     const props = defineProps({
         count: Number,
@@ -30,20 +46,53 @@
     });
 
     const setup = reactive({
-        curentPage : props.pageNum,
+        currentPage : props.pageNum,
+        pageCount : 10,
     })
 
     const emit = defineEmit(["update"]);
 
-    const setPage = (direction) => {
-        if( direction === 'prev' ) {
-            setup.curentPage = setup.curentPage > 1 ? setup.curentPage - 1 : setup.curentPage = 1;
-        } else {
-            setup.curentPage = setup.curentPage < props.count ? setup.curentPage + 1 : setup.curentPage = props.count;
-        }
-    }
+    const pages = reactive({
+        page: setup.currentPage - (setup.currentPage % setup.pageCount) + 1,
+        pageGroup : computed(() => {
+            if(setup.currentPage % setup.pageCount === 0) {
+                pages.page = setup.currentPage - setup.pageCount + 1;
+            } else if (setup.currentPage % setup.pageCount === 1){
+                pages.page = setup.currentPage
+            }
+            return new Array(props.count - pages.page + 1).fill().map((_, idx) => pages.page + idx).slice(0, setup.pageCount);
+        }),
+        next : () => {
+            let movePage = setup.currentPage;
 
-    watch(() => setup.curentPage, value => {
+            movePage += (setup.pageCount + 1) - (movePage % setup.pageCount === 0 ? setup.pageCount : movePage % setup.pageCount);
+
+            if (movePage > props.count) {
+                movePage = props.count;
+            }
+
+            setup.currentPage = movePage;
+        },
+        prev : () => {
+            let movePage = setup.currentPage;
+
+            movePage -= movePage % setup.pageCount === 0 ? setup.pageCount : movePage % setup.pageCount;
+
+            if (movePage < 1) {
+                movePage = 1;
+            }
+
+            setup.currentPage = movePage;
+        },
+        first : () => {
+            setup.currentPage = 1;
+        },
+        last : () => {
+            setup.currentPage = props.count;
+        },
+    });
+
+    watch(() => setup.currentPage, value => {
         emit('update:pageNum', value)
     })
 </script>

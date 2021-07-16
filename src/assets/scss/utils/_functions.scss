@@ -7,11 +7,11 @@
     $size: ();
 
     @for $i from $start through $end {
-        @if $i % 5 == 0
-            {   
-                $value: $i + 0;
-                $size: append($size, $value);
-            }
+        // @if $i % 5 == 0
+            // {   
+        $value: $i + 0;
+        $size: append($size, $value);
+            // }
     }
 
     @return $size;

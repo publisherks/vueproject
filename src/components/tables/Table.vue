@@ -26,6 +26,7 @@
     <Pagination 
         v-if="props.type === 'col'"
         :count="pageCount"
+        :pagingCount="props.pagingCount"
         v-model:pageNum="setup.pageNum"
     />
 </template>
@@ -63,7 +64,7 @@
         limit: {
             type: Number,
             default: 10,
-        }
+        },
     });
 
     const setup = reactive({
