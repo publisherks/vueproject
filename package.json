@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --mode production",
+    "dev": "vue-cli-service --mode development build",
+    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "deploy": "git subtree push --prefix docs origin deploy"
   },
