@@ -2,6 +2,14 @@
     <router-view/>
 </template>
 
+<script setup>
+import { onMounted } from "@vue/runtime-core";
+
+onMounted(() => {
+    console.log(process.env)
+})
+</script>
+
 <style lang="scss">
     @import "@/assets/scss/main.scss";
 </style>
