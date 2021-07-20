@@ -24,8 +24,8 @@
 </template>
 <script setup>
     import { reactive, defineProps, onMounted, computed } from "vue";
-    // import { userList }  from "@/js/api/userApi";
-    // import { postsList } from "@/js/api/postsApi";
+    import { userList }  from "@/js/api/userApi";
+    import { postsList } from "@/js/api/postsApi";
 
     const props = defineProps({
         title: {
