@@ -1,6 +1,6 @@
 const menu = [
     {
-        path : "/styleguide",
+        path : "/",
         icon : "fab fa-css3-alt",
         menuName : "스타일 가이드",
     },

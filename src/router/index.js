@@ -11,7 +11,7 @@ const routes = [
         component: load("layout/MainLayout"),
         children  : [
             {
-                path      : "/styleguide",
+                path      : "/",
                 name      : "Styleguide",
                 component : load("components/guide/guide"),
                 meta      : {
