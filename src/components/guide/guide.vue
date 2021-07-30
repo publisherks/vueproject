@@ -423,12 +423,6 @@
     />
 
     <div class="title-box mb-30">
-        <h2 class="main-title">-Paging Layout Components</h2>
-    </div>
-
-    <paging />
-
-    <div class="title-box mb-30">
         <h2 class="main-title">-Input & Check, Radio Button Components</h2>
     </div>
 
