@@ -25,7 +25,7 @@
                             <tr>
                                 <th>비밀번호</th>
                                 <td>
-                                    <Input
+                                    <VInput
                                         :boxAttr="{
                                             class: 'pull'
                                         }"
@@ -36,7 +36,7 @@
                             <tr>
                                 <th>비밀번호 확인</th>
                                 <td>
-                                    <Input
+                                    <VInput
                                         :boxAttr="{
                                             class: 'pull'
                                         }"
@@ -72,8 +72,6 @@
 
     import { state }       from "@/js/pattern/singleton/Modal";
     import { defineProps } from "vue";
-
-    import Input from "@/components/form/Input";
 
     const props = defineProps({
         title   : {

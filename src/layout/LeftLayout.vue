@@ -27,5 +27,4 @@
     import Navi     from "@/layout/Navi";
 
     import { state as layoutState, setLeftReduce } from "@/js/pattern/singleton/Layout";
-
 </script>

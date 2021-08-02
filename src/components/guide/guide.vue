@@ -219,7 +219,6 @@
             </v-col>
         </v-row>
     </v-container>
-
     <div class="title-box mb-30">
         <h2 class="main-title">-Button Icons</h2>
     </div>
@@ -426,10 +425,9 @@
         <h2 class="main-title">-Input & Check, Radio Button Components</h2>
     </div>
 
-    <div class="container mb-30">
-        <div class="row-cols-3">
-            <div class="col">
-
+    <v-container>
+        <v-row cols="3">
+            <v-col>
                 <v-input 
                     placeholder="placeholder"
                     type="text"
@@ -462,10 +460,8 @@
                     type="text"
                     v-model:value="setup.inputData4"
                 />
-
-            </div>
-            <div class="col">
-                
+            </v-col>
+            <v-col>
                 <v-input
                     class="search"
                     placeholder="검색"
@@ -493,8 +489,8 @@
                 <v-textarea
                     placeholder="입력해주세요."
                 />
-            </div>
-            <div class="col">
+            </v-col>
+            <v-col>
                 <div>
                     <v-check
                         label="CheckBox"
@@ -550,22 +546,13 @@
                 <div class="mt-10"></div>
 
                 <v-quantity />
-            </div>
-        </div>
-    </div>
-
-    <div class="title-box mb-30">
-        <h2 class="main-title">-Modal Popup</h2>
-    </div>
-
-    <btn
-        text="검색"
-        kind="sub2"
-        iconCls="fal fa-search"
-    />
+            </v-col>
+        </v-row>
+    </v-container>
+    
 </template>
 <script setup>
-    import { computed, reactive } from "vue";
+    import { onMounted, reactive } from "vue";
 
     const setup = reactive({
         table1: {
@@ -751,14 +738,27 @@
         inputData5: "",
     });
 
-    const setOption = computed(() => setup.selectDatas );
-
+    setup.table1.column.field8.option = setup.selectDatas;
+    setup.table2.column.field1.option = setup.selectDatas;
+    
     function download(event) {
         alert('다운로드 이벤트')
     }
 
-    setup.table1.column.field8.option = setup.selectDatas;
-    setup.table2.column.field1.option = setup.selectDatas;
+    const postsList = async(request) => {
+        return await $api.get("/posts", request).catch(e => { console.error(e);});
+    }
+
+    onMounted(() => {
+        postsLists();
+
+    })
+
+    const postsLists = async() => {
+        const response = await postsList();
+
+        console.log(response);
+    }
 </script>
 <style scoped lang="scss">
 .bg > [class^="row"] > [class^="col"] {

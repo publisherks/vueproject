@@ -11,6 +11,7 @@
         <ContentLayout />
     </div>
 </template>
+
 <script setup>
     import LeftLayout    from "@/layout/LeftLayout";
     import ContentLayout from "@/layout/ContentLayout";

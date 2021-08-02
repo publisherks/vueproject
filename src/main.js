@@ -45,4 +45,4 @@ createApp(App)
     .component('VRadio', VRadio)
     .component('VCalendar', VCalendar)
     .component('VQuantity', VQuantity)
-    .mount('#app');
+    .mount('#app')

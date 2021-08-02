@@ -26,7 +26,7 @@
     <Pagination 
         v-if="props.type === 'col'"
         :count="pageCount"
-        :pagingCount="props.pagingCount"
+        :pagingCount="pagingCount"
         v-model:pageNum="setup.pageNum"
     />
 </template>

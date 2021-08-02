@@ -19,7 +19,7 @@
                 :class="{
                     on : item === props.pageNum,
                     'ml-7' : index === 0,
-                    'mr-7' : index === 9
+                    'mr-7' : index === pages.pageGroup.length - 1
                 }"
                 @click="setup.currentPage = item"
             >{{ item }}</a>
@@ -55,12 +55,13 @@
     const pages = reactive({
         page: setup.currentPage - (setup.currentPage % setup.pageCount) + 1,
         pageGroup : computed(() => {
+            let page = pages.page;
             if(setup.currentPage % setup.pageCount === 0) {
-                pages.page = setup.currentPage - setup.pageCount + 1;
+                page = setup.currentPage - setup.pageCount + 1;
             } else if (setup.currentPage % setup.pageCount === 1){
-                pages.page = setup.currentPage
+                page = setup.currentPage
             }
-            return new Array(props.count - pages.page + 1).fill().map((_, idx) => pages.page + idx).slice(0, setup.pageCount);
+            return new Array(props.count - page + 1).fill().map((_, idx) => page + idx).slice(0, setup.pageCount);
         }),
         next : () => {
             let movePage = setup.currentPage;
