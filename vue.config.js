@@ -1,6 +1,6 @@
 module.exports = {
     outputDir: 'docs',
-    assetsDir: '../assets/',
+    // assetsDir: '../assets/',
     publicPath : '/vueproject/',
     // publicPath : '/',
 }
