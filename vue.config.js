@@ -1,6 +1,4 @@
 module.exports = {
     outputDir: 'docs',
-    // assetsDir: '../assets/',
-    publicPath : '/vueproject/',
-    // publicPath : '/',
+    publicPath : process.env.NODE_ENV === 'production' ? '/vueproject/' : '/',
 }
