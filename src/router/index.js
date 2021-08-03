@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
 
 function load(name) {
     return () => import (`@/${name}.vue`)
@@ -31,7 +31,7 @@ const routes = [
 ]
 
 const router = createRouter({
-    history : createWebHashHistory('/vueproject/'),
+    history : process.env.NODE_ENV === 'production' ? createWebHashHistory('/vueproject/') : createWebHistory(),
     routes,
 });
 
