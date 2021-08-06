@@ -744,21 +744,6 @@
     function download(event) {
         alert('다운로드 이벤트')
     }
-
-    const postsList = async(request) => {
-        return await $api.get("/posts", request).catch(e => { console.error(e);});
-    }
-
-    onMounted(() => {
-        postsLists();
-
-    })
-
-    const postsLists = async() => {
-        const response = await postsList();
-
-        console.log(response);
-    }
 </script>
 <style scoped lang="scss">
 .bg > [class^="row"] > [class^="col"] {
