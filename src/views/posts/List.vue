@@ -9,6 +9,7 @@
         :datas="setup.search.datas"
         :width="setup.search.width"
         :columnCount="setup.search.columnCount"
+        :buttonCell="setup.search.buttonCell"
     />
     <div class="title-box mb-20">
         <h3 class="sub-title">게시판 목록</h3>
@@ -32,6 +33,7 @@
 </template>
 <script setup>
     import { reactive, defineProps, onMounted, computed, watch } from "vue";
+    import { selectDefault }  from "@/js/common/common";
     import { userList }  from "@/js/api/userApi";
     import { postsList } from "@/js/api/postsApi";
 
@@ -79,7 +81,7 @@
                     align: "center",
                     label: "작성자",
                     type: "select",
-                    option : {},
+                    option : option,
                 },
                 field2 : {
                     align: "left",
@@ -92,7 +94,7 @@
                     label: "내용",
                     type: "input",
                     placeholder: "내용을 입력하세요.",
-                }
+                },
             },
             datas: {
                 field1 : "",
@@ -100,17 +102,25 @@
                 field3 : "",
             },
             width: {
-                title: "10%",
-                content: "23.3%",
+                title: "9%",
+                content: "20%",
             },
-            columnCount: 3
+            columnCount: 3,
+            buttonCell : {
+                width: "13%",
+                align: "center",
+                kind : "sub2",
+                text : "검색",
+                icon : "far fa-sign-in",
+                fn : onSearch,
+            }
         },
 
-        searchData: [{
-            userId : "",
-            title : "",
-            body : "",
-        }],
+        searchDatas: {
+            userId : undefined,
+            title : undefined,
+            body : undefined,
+        },
     })
 
     onMounted(async () => {
@@ -128,40 +138,19 @@
         }))
     }
 
-    const onSearch = () => {
-
-        let searchDatas = [];
-
-        searchDatas = setup.datas.filter(item => {
-            let searchItem;
-            if(setup.searchData.title && !item.title.toLowerCase().includes(setup.searchData?.title?.toLowerCase())) {
-                console.log(item)
-                return item;
-                if(setup.searchData.body && !item.body.toLowerCase().includes(setup.searchData?.body?.toLowerCase())) {
-                    console.log(item)
-                    return item;
-                }
-            }
-            return searchItem;
-        })
-
-        console.log(setup.searchData?.title?.toLowerCase(), setup.searchData?.body?.toLowerCase(), searchDatas)
-
-        setup.lists.datas = searchDatas?.map(({title, body, userId}, index) => ({
-            id : index + 1,
-            title : title,
-            body : body,
-            userId : setup.users.find(item => item.id === userId)?.name
-        })).reverse();
+    function onSearch() {
+        postsLists();
     }
 
     const postsLists = async () => {
         const request = {
             params: {
-                userId: setup.searchData.userId,
+                userId: setup.searchDatas?.userId,
             }
         }
         const response = await postsList(request);
+
+        console.log(response)
 
         setup.datas = response?.data;
 
@@ -172,69 +161,48 @@
             userId : setup.users.find(item => item.id === userId)?.name
         })).reverse();
     }
+    
+    // setup.search.column.field1.option = [{
+    //     value : 0,
+    //     text : "All"
+    // }];
 
-    setup.search.column.field1.option = computed(() => 
+    console.log(selectDefault);
+
+    // setup.search.column.field1.option = computed(() => 
+    //     {
+    //         selectDefault
+    //     },
+    //     setup.users?.map(({id, name}) => ({
+    //         value : id,
+    //         text : name
+    //     }))
+    // )
+
+    const option = computed(() => (
+        {
+            ...selectDefault
+        },
         setup.users?.map(({id, name}) => ({
             value : id,
             text : name
         }))
-    );
+    ))
 
-    // const search = (val, type) => {
-    //     console.log(val, [setup.searchData.length === 0 ? setup.datas : setup.searchData]);
+    // setup.search.column.field1.option = computed(() => [
+    //     ...setup.search.column.field1.option
+    // ])
 
-    //     let datas = setup.searchData.length === 0 ? setup.datas : setup.searchData;
-
-    //     datas.filter(item => {
-    //         switch (type) {
-    //             case "userId" :
-    //                 if (item.userId === val.value) {
-    //                     console.log('userId', val.value)
-    //                     setup.searchData.push(item);
-    //                 }
-    //                 break;
-    //             case "title" :
-    //                 if (item.title.indexOf(val) !== -1) {
-    //                     console.log('title', val)
-    //                     setup.searchData.push(item);
-    //                 }
-    //                 break;
-    //             case "body" :
-    //                 if (item.body.indexOf(val) !== -1) {
-    //                     console.log('body', val)
-    //                     setup.searchData.push(item);
-    //                 }
-    //                 break;
-    //         }
-    //     });
-
-    //     console.log('search', setup.searchData)
-    //     // postsLists();
-        
-
-    //     setup.lists.datas = setup.searchData?.map(({title, body, userId}, index) => ({
-    //         id : index+1,
-    //         title : title,
-    //         body : body,
-    //         userId : setup.users.find(item => item.id === userId)?.name
-    //     })).reverse();
-    // }
 
     watch(() => setup.search.datas.field1, (val) => {
-        setup.searchData.userId = val.value;
-
-        postsLists();
+        setup.searchDatas.userId = val.value;
     })
 
     watch(() => setup.search.datas.field2, (val) => {
-        setup.searchData.title = val;
-
-        onSearch();
+        setup.searchDatas.title = val.value;
     })
 
     watch(() => setup.search.datas.field3, (val) => {
-        setup.searchData.body = val;
-
-        onSearch();
+        setup.searchDatas.body = val.value;
     })
 </script>

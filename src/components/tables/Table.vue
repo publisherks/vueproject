@@ -21,6 +21,7 @@
         :columnCount="props.columnCount"
         :column="props.column"
         :datas="props.datas"
+        :buttonCell="props.buttonCell"
     />
     </div>
     <Pagination 
@@ -64,6 +65,12 @@
         limit: {
             type: Number,
             default: 10,
+        },
+        buttonCell : {
+            type: Array,
+            default() {
+                return {}
+            }
         },
     });
 

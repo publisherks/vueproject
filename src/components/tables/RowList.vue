@@ -6,6 +6,10 @@
                 :key="`col${value}`"
                 :width="props.width[(value % 2) === 1 ? 'title' : 'content']"
             />
+            <col
+                v-if="props.buttonCell?.width"
+                :width="props.buttonCell.width"
+            />
         </colgroup>
         <tbody>
             <tr
@@ -54,6 +58,21 @@
                         />
                     </td>
                 </template>
+                <td
+                    v-if="Object.keys(props.buttonCell).length !== 0"
+                    :class="{
+                        'align-l' : props.buttonCell.align === 'left',
+                        'align-r' : props.buttonCell.align === 'right',
+                        'align-c' : props.buttonCell.align === 'center',
+                    }"
+                >
+                    <btn
+                        :text="props.buttonCell.text"
+                        :kind="props.buttonCell.kind"
+                        :iconCls="props.buttonCell.icon"
+                        :fn="props.buttonCell.fn"
+                    />
+                </td>
             </tr>
         </tbody>
     </table>
@@ -83,6 +102,12 @@
         columnCount : {
             type: Number,
             default: 0
+        },
+        buttonCell : {
+            type: Array,
+            default() {
+                return {}
+            }
         }
     });
 
