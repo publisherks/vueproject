@@ -12,7 +12,6 @@
                 readonly
             >
             <a
-                href="#"
                 class="icon"
                 v-on:click="inputFocus($event)"
             ></a>
@@ -25,7 +24,6 @@
             <ul>
                 <li v-if="props.defaultValue">
                     <a
-                        href="!#"
                         v-on:click="setup.isOpen = false; select(defaultValue)"
                     >
                         {{ props.defaultValue.text }}
@@ -36,7 +34,6 @@
                     v-bind:key="`select${index}`"
                 >
                     <a
-                        href="#"
                         v-on:click="setup.isOpen = false; select(item)"
                     >{{ item.text }}</a>
                 </li>

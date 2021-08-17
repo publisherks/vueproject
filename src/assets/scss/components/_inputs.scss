@@ -53,6 +53,7 @@ $height-table: 36px;
         @include position(absolute, $top: 0, $right: 0, $bottom: 0);
         @include mar-pad(pl 10, pr 10);
         outline: none;
+        cursor: pointer;
 
         &:after {
             content: '\f00d';
@@ -254,6 +255,7 @@ $height-table: 36px;
             font-size: rem(14px);
             font-weight: 400;
             color: var(--text-color1);
+            cursor: pointer;
 
             &:hover,
             &:focus {

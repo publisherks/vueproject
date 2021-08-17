@@ -19,7 +19,6 @@
             {{ props.text }}
         </span>
         <a
-            href="#"
             v-if="props.disabled !== true && setup.input !== ''"
             :class="props.iconType"
             :style="{
