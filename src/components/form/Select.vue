@@ -25,7 +25,7 @@
             <ul>
                 <li v-if="props.defaultValue">
                     <a
-                        href="#"
+                        href="!#"
                         v-on:click="setup.isOpen = false; select(defaultValue)"
                     >
                         {{ props.defaultValue.text }}
