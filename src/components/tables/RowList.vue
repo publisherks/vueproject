@@ -51,6 +51,8 @@
                             v-if="column[key].type === 'select'"
                             :datas="column[key].option"
                             v-model:value="setup.lists[key]"
+                            :isDefault="column[key].isDefault"
+                            :defaultValue="column[key].defaultValue"
                         />
                         <v-calendar
                             v-if="column[key].type === 'calendar'"

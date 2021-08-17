@@ -9,6 +9,7 @@
                 type="text"
                 :value="setup.input"
                 :placeholder="props.placeholder"
+                readonly
             >
             <a
                 href="#"
@@ -22,6 +23,14 @@
             :class="{ top : setup.top === true }"
         >
             <ul>
+                <li v-if="props.defaultValue">
+                    <a
+                        href="#"
+                        v-on:click="setup.isOpen = false; select(defaultValue)"
+                    >
+                        {{ props.defaultValue.text }}
+                    </a>
+                </li>
                 <li
                     v-for="(item, index) in props.datas"
                     v-bind:key="`select${index}`"
@@ -47,6 +56,16 @@
             }
         },
         value: {},
+        isDefault : {
+            type : Boolean,
+            default : false,
+        },
+        defaultValue : {
+            type: Array,
+            default() {
+                return [];
+            }
+        },
         placeholder : {
             type : String,
             default : "검색"

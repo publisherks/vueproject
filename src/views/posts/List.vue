@@ -81,7 +81,9 @@
                     align: "center",
                     label: "작성자",
                     type: "select",
-                    option : option,
+                    option : computed(() => setup.users?.map(({id, name}) => ({ value : id, text : name }))),
+                    isDefault : true,
+                    defaultValue : selectDefault,
                 },
                 field2 : {
                     align: "left",
@@ -97,29 +99,15 @@
                 },
             },
             datas: {
-                field1 : "",
-                field2 : "",
-                field3 : "",
+                field1 : undefined,
+                field2 : undefined,
+                field3 : undefined,
             },
             width: {
                 title: "9%",
                 content: "20%",
             },
             columnCount: 3,
-            buttonCell : {
-                width: "13%",
-                align: "center",
-                kind : "sub2",
-                text : "검색",
-                icon : "far fa-sign-in",
-                fn : onSearch,
-            }
-        },
-
-        searchDatas: {
-            userId : undefined,
-            title : undefined,
-            body : undefined,
         },
     })
 
@@ -138,71 +126,48 @@
         }))
     }
 
-    function onSearch() {
-        postsLists();
-    }
-
     const postsLists = async () => {
         const request = {
             params: {
-                userId: setup.searchDatas?.userId,
+                userId: setup.search?.datas?.field1?.value > 0 ? setup.search?.datas?.field1?.value : undefined,
             }
         }
         const response = await postsList(request);
 
-        console.log(response)
+        let schFilter = {
+            title : setup.search.datas.field2 || "",
+            body : setup.search.datas.field3 || "",
+        }
 
-        setup.datas = response?.data;
+        console.log(schFilter)
 
-        setup.lists.datas = setup?.datas?.map(({title, body, userId}, index) => ({
-            id : index + 1,
-            title : title,
-            body : body,
-            userId : setup.users.find(item => item.id === userId)?.name
-        })).reverse();
+        setup.datas = setup.search.datas.field2 || setup.search.datas.field3 ? [
+            ...response?.data.filter(item => 
+                item.title.toLowerCase().indexOf(schFilter.title.toLowerCase()) !== -1 && item.body.toLowerCase().indexOf(schFilter.body.toLowerCase()) !== -1
+            )] : response?.data;
+
+        console.log(setup.datas)
+
+        setup.lists.datas = [
+            ...setup?.datas?.map(({title, body, userId}, index) => ({
+                id : index + 1,
+                title : title,
+                body : body,
+                userId : setup.users.find(item => item.id === userId)?.name
+            })).reverse()
+        ];
     }
-    
-    // setup.search.column.field1.option = [{
-    //     value : 0,
-    //     text : "All"
-    // }];
-
-    console.log(selectDefault);
-
-    // setup.search.column.field1.option = computed(() => 
-    //     {
-    //         selectDefault
-    //     },
-    //     setup.users?.map(({id, name}) => ({
-    //         value : id,
-    //         text : name
-    //     }))
-    // )
-
-    const option = computed(() => (
-        {
-            ...selectDefault
-        },
-        setup.users?.map(({id, name}) => ({
-            value : id,
-            text : name
-        }))
-    ))
-
-    // setup.search.column.field1.option = computed(() => [
-    //     ...setup.search.column.field1.option
-    // ])
 
 
     watch(() => setup.search.datas.field1, (val) => {
-        setup.searchDatas.userId = val.value;
+        postsLists();
     })
 
     watch(() => setup.search.datas.field2, (val) => {
-        setup.searchDatas.title = val.value;
+        postsLists();
     })
 
     watch(() => setup.search.datas.field3, (val) => {
-        setup.searchDatas.body = val.value;
+        postsLists();
     })
 </script>

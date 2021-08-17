@@ -11,7 +11,7 @@
             :placeholder="props.placeholder"
             :disabled="props.disabled"
             :value="props.value"
-            @input="$emit('update:value', $event.target.value.trim())"
+            @input="setting($event.target.value.trim())"
         >
         <span
             class="text"
@@ -20,10 +20,13 @@
         </span>
         <a
             href="#"
+            v-if="props.disabled !== true && setup.input !== ''"
             :class="props.iconType"
             :style="{
                 'right' : setup.right
-            }"></a>
+            }"
+            @click="setting('')"
+        ></a>
     </div>
 </template>
 
@@ -59,9 +62,17 @@
     const setup = reactive({
         padding : "",
         right : "",
+        input : "",
     });
 
-    const emit = defineEmit(["update"]);
+    const emit = defineEmit(["update:value"]);
+
+    const setting = (value) => {
+
+        setup.input = value;
+
+        emit('update:value', value)
+    }
 
     watch(() => props.text, (val) => {
         if (val) {
@@ -74,6 +85,12 @@
     }, {
         deep      : true,
         immediate : true,
+    });
+
+    watch(() => props.value, (value) => {
+        setup.input = value;
+    }, {
+        immediate: true,
     });
 
 </script>
