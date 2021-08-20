@@ -4,6 +4,10 @@ function load(name) {
     return () => import (`@/${name}.vue`)
 }
 
+const component = {
+    children: "components/router/View"
+};
+
 const routes = [
     {
         path: "/",
@@ -19,12 +23,48 @@ const routes = [
                 },
             },
             {
-                path      : "/posts",
-                name      : "Posts",
-                component : load("views/posts/List"),
-                meta      : {
-                    navigation : "게시판",
-                },
+                path      : "posts",
+                component: load(component.children),
+                children: [
+                    {
+                        path      : "",
+                        name      : "Posts",
+                        component : load("views/posts/List"),
+                        meta      : {
+                            navigation : "게시글 목록",
+                        },
+                    },
+                    {
+                        path      : ":postsIdx",
+                        name      : "PostsView",
+                        component : load("views/posts/View"),
+                        meta      : {
+                            navigation : "게시글 보기",
+                        },
+                    },
+                    {
+                        path      : "regist",
+                        component : load(component.children),
+                        children  : [
+                            {
+                                path      : "",
+                                name      : "PostsRegist",
+                                component : load("views/posts/Regist"),
+                                meta      : {
+                                    navigation : "게시글 작성",
+                                },
+                            },
+                            {
+                                path      : ":postsIdx",
+                                name      : "PostsChange",
+                                component : load("views/posts/Regist"),
+                                meta      : {
+                                    navigation : "게시글 수정",
+                                },
+                            },
+                        ]
+                    },
+                ]
             },
         ]
     }

@@ -9,7 +9,6 @@
         :datas="setup.search.datas"
         :width="setup.search.width"
         :columnCount="setup.search.columnCount"
-        :buttonCell="setup.search.buttonCell"
     />
     <div class="title-box mb-20">
         <h3 class="sub-title">게시판 목록</h3>
@@ -20,6 +19,7 @@
                 text="등록"
                 kind="main"
                 iconCls="far fa-sign-in"
+                :fn="regist"
             />
         </btn-group>
     </div>
@@ -28,6 +28,8 @@
         type="col"
         :column="setup.lists.column"
         :datas="setup.lists.datas"
+        :views="setup.lists.views"
+        v-model:selectItme="setup.selectItem"
         :limit="10"
     />
 </template>
@@ -35,7 +37,11 @@
     import { reactive, defineProps, onMounted, computed, watch } from "vue";
     import { selectDefault }  from "@/js/common/common";
     import { userList }  from "@/js/api/userApi";
-    import { postsList } from "@/js/api/postsApi";
+    import { posts } from "@/js/api/postsApi";
+    import { useRoute, useRouter } from "vue-router";
+
+    const route  = useRoute();
+    const router = useRouter();
 
     const props = defineProps({
         title: {
@@ -47,7 +53,7 @@
     const setup = reactive({
         lists: {
             column : {
-                id : {
+                index : {
                     align : "center",
                     label : "No.",
                     width : "60px",
@@ -69,6 +75,7 @@
                 },
             },
             datas: [],
+            views: true,
         },
 
         users : [],
@@ -109,6 +116,8 @@
             },
             columnCount: 3,
         },
+
+        selectItem : "",
     })
 
     onMounted(async () => {
@@ -132,30 +141,31 @@
                 userId: setup.search?.datas?.field1?.value > 0 ? setup.search?.datas?.field1?.value : undefined,
             }
         }
-        const response = await postsList(request);
+        const response = await posts(request);
 
         let schFilter = {
             title : setup.search.datas.field2 || "",
             body : setup.search.datas.field3 || "",
         }
 
-        console.log(schFilter)
-
         setup.datas = setup.search.datas.field2 || setup.search.datas.field3 ? [
             ...response?.data.filter(item => 
                 item.title.toLowerCase().indexOf(schFilter.title.toLowerCase()) !== -1 && item.body.toLowerCase().indexOf(schFilter.body.toLowerCase()) !== -1
             )] : response?.data;
 
-        console.log(setup.datas)
-
         setup.lists.datas = [
-            ...setup?.datas?.map(({title, body, userId}, index) => ({
-                id : index + 1,
+            ...setup?.datas?.map(({id, title, body, userId}, index) => ({
+                id : id,
+                index : index + 1,
                 title : title,
                 body : body,
-                userId : setup.users.find(item => item.id === userId)?.name
+                userId : setup.users.find(item => item.id === userId)?.name,
             })).reverse()
         ];
+    }
+
+    function regist() {
+        router.push({ name: "PostsRegist" })
     }
 
 
@@ -169,5 +179,14 @@
 
     watch(() => setup.search.datas.field3, (val) => {
         postsLists();
+    })
+
+    watch(() => setup.selectItem, (val) => {
+        router.push({
+            name: "PostsView",
+            params: {
+                postsIdx: val.id
+            }
+        })
     })
 </script>

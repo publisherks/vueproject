@@ -466,6 +466,10 @@ $height-table: 36px;
     &.pull {
         max-width: 100%;
     }
+
+    &.regist-area {
+        height: 500px;
+    }
 }
 
 .tb-container:not(.left-th)>table {

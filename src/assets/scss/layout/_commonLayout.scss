@@ -105,3 +105,15 @@ body,
         color: var(--gray-color);
     }
 }
+
+.view-box {
+    width: 100%;
+    min-height: 500px;
+    font-size: rem(15px);
+    font-weight: 400;
+    color: var(--text-color1);
+    border-radius: 4px;
+    background-color: var(--content-bg-color);
+    outline: none;
+    @include mar-pad(pl 17, pr 17, pt 13, pb 13);
+}

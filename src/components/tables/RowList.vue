@@ -58,6 +58,15 @@
                             v-if="column[key].type === 'calendar'"
                             v-model:date="setup.lists[key]"
                         />
+                        <v-textarea
+                            class="pull"
+                            v-if="column[key].type === 'textarea'"
+                            :placeholder="column[key].placeholder"
+                            v-model:value="setup.lists[key]"
+                            :class="{
+                                'regist-area' : column[key].regist
+                            }"
+                        />
                     </td>
                 </template>
                 <td

@@ -10,6 +10,8 @@
         v-if="props.type === 'col'"
         :column="props.column"
         :datas="paginatedData"
+        :views="props.views"
+        v-model:selectItme="setup.selectItem"
     />
     <RowListTable
         :class="[
@@ -34,7 +36,7 @@
 <script setup>
     import ColListTable from "./ColList";
     import RowListTable from "./RowList";
-    import { defineProps, reactive, computed } from "vue";
+    import { defineProps, reactive, computed, defineEmits, watch } from "vue";
 
     const props = defineProps({
         column : {
@@ -66,8 +68,12 @@
             type: Number,
             default: 10,
         },
-        buttonCell : {
-            type: Array,
+        views : {
+            type: Boolean,
+            default: false,
+        },
+        selectItem : {
+            type: Object,
             default() {
                 return {}
             }
@@ -77,6 +83,7 @@
     const setup = reactive({
         data: computed(() => props.datas),
         pageNum: 1,
+        selectItem: '',
     });
 
     const pageCount = computed(() => {
@@ -87,11 +94,17 @@
         return page;
     });
 
+    const emit = defineEmits(['update:selectItme'])
+
     const paginatedData = computed(() => {
         const start = (setup.pageNum - 1) * props.limit,
               end   = start + props.limit;
 
         return setup.data.slice(start, end);
     });
+
+    watch(() => setup.selectItem, (val) => {
+        emit('update:selectItme', val)
+    })
 
 </script>

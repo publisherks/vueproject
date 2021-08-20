@@ -27,8 +27,10 @@
                     :key="`tr-${index}.td-${key}`"
                     :class="{
                         'align-l' : value.align === 'left',
-                        'align-r' : value.align === 'right'
+                        'align-r' : value.align === 'right',
+                        'cursor-p': props.views === true,
                     }"
+                    @click="props.views === true ? clickEvent(item) : ''"
                 >
                     <template
                         v-if="!value.type && !value.children"
@@ -83,12 +85,18 @@
             default() {
                 return {}
             }
-        }
+        },
+        views : {
+            type: Boolean,
+            default: false,
+        },
     })
 
     const setup = reactive({
         lists : computed(() => props.datas),
     });
+
+    const emit = defineEmits(['update:selectItme'])
 
     const columns = computed(() => {
         let column = {};
@@ -99,4 +107,8 @@
 
         return column;
     });
+
+    const clickEvent = (value) => {
+        emit('update:selectItme', value)
+    }
 </script>

@@ -5,6 +5,9 @@
             :maxlength="maxlength"
             :value="props.value"
             :disabled="props.disabled"
+            :class="{
+                'cursor-d' : props.disabled
+            }"
         >
         </textarea>
     </div>
@@ -27,6 +30,6 @@
         disabled: {
             type: Boolean,
             default: false
-        }
+        },
     });
 </script>

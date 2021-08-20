@@ -35,7 +35,8 @@
         },
 
         isChioce: (path) => {
-            return path === router.currentRoute.value.path ? true : false;
+            // return path === router.currentRoute.value.path ? true : false;
+            return path.split('/')[1] === router.currentRoute.value.path.split('/')[1] ? true : false;
         }
     }
 
