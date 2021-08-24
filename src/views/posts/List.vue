@@ -37,7 +37,7 @@
     import { reactive, defineProps, onMounted, computed, watch } from "vue";
     import { selectDefault }  from "@/js/common/common";
     import { userList }  from "@/js/api/userApi";
-    import { posts } from "@/js/api/postsApi";
+    import { postsList } from "@/js/api/postsApi";
     import { useRoute, useRouter } from "vue-router";
 
     const route  = useRoute();
@@ -67,6 +67,10 @@
                     align : "left",
                     label : "내용",
                     width : "*",
+                    option : {
+                        ellipsis : true,
+                        ellipsisLine : 1,
+                    },
                 },
                 userId : {
                     align : "center",
@@ -141,7 +145,7 @@
                 userId: setup.search?.datas?.field1?.value > 0 ? setup.search?.datas?.field1?.value : undefined,
             }
         }
-        const response = await posts(request);
+        const response = await postsList(request);
 
         let schFilter = {
             title : setup.search.datas.field2 || "",

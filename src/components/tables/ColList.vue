@@ -33,10 +33,16 @@
                     @click="props.views === true ? clickEvent(item) : ''"
                 >
                     <template
-                        v-if="!value.type && !value.children"
+                        v-if="!value.type && !value.children && !value.option"
                     >
                         {{ item[key] }}
                     </template>
+                    <div
+                        v-if="value.option"
+                        :class="value.option?.ellipsis ? 'ell-'+value.option?.ellipsisLine : ''"
+                    >
+                        {{ item[key] }}
+                    </div>
                     <v-input
                         v-if="value.type === 'input'"
                         class="pull"

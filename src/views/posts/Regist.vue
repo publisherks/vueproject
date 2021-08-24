@@ -1,20 +1,43 @@
 <template>
-    <div class="title-box mb-30">
-        <h2 class="main-title">{{ props.title }}</h2>
-    </div>
-    <v-table
-        class="mb-30"
-        type="row"
-        :column="setup.data.column"
-        :datas="setup.data.datas"
-        :width="setup.data.width"
-        :columnCount="setup.data.columnCount"
-    />
+    <form
+        @submit.prevent="onSave"
+    >
+        <div class="title-box mb-30">
+            <h2 class="main-title">{{ props.title }}</h2>
+        </div>
+        <v-table
+            class="mb-30"
+            type="row"
+            :column="setup.data.column"
+            :datas="setup.data.datas"
+            :width="setup.data.width"
+            :columnCount="setup.data.columnCount"
+        />
+        <btn-group
+            align="right"
+            class="mt-15"
+        >
+            <btn
+                text="취소"
+                kind="cancel"
+                iconCls="fal fa-times"
+                :fn="listback"
+            />
+            <btn
+                type="submit"
+                text="등록"
+                kind="main"
+                class="ml-15"
+                iconCls="far fa-sign-in"
+            />
+        </btn-group>
+    </form>
 </template>
 <script setup>
-    import { reactive, defineProps, computed } from "vue";
+    import { reactive, defineProps, onMounted, computed } from "vue";
     import { userList }  from "@/js/api/userApi";
-    import { posts } from "@/js/api/postsApi";
+    import { postsCreate } from "@/js/api/postsApi";
+    import { setMessageModal } from "@/js/pattern/singleton/Modal";
     import { useRoute, useRouter } from "vue-router";
 
     const route  = useRoute();
@@ -28,12 +51,16 @@
     });
 
     const setup = reactive({
+
+        users: [],
+
         data: {
             column: {
                 field1: {
                     align: "center",
                     label: "작성자",
-                    isDefault : true,
+                    type: "select",
+                    option : computed(() => setup.users?.map(({id, name}) => ({ value : id, text : name }))),
                 },
                 field2 : {
                     align: "left",
@@ -61,4 +88,54 @@
             columnCount: 1,
         }
     })
+
+    onMounted(async () => {
+        await userLists();
+    })
+
+    const userLists = async () => {
+        const response = await userList();
+
+        setup.users = response?.data?.map(({id, name}) => ({
+            id: id,
+            name: name
+        }))
+    }
+    
+    const onSave = async () => {
+        const request = {
+            userId: setup.data.datas.field1.value,
+            title: setup.data.datas.field2,
+            body: setup.data.datas.field3,
+        }
+
+        let response = await postsCreate(request);
+        let message = "";
+        let callback = undefined
+
+        if (response?.data) {
+            message = "등록 되었습니다."
+            callback = () => {
+                router.push({ name: 'Posts' });
+            }
+        } else {
+            message = "등록 실패 하였습니다."
+        }
+
+        messagePopup(message, callback)
+    }
+
+    const messagePopup = (message, callback) => {
+        setMessageModal({
+            status: true,
+            message: message,
+            callback: () => {
+                callback();
+            }
+        });
+    };
+
+    function listback() {
+        router.push({ name: 'Posts' })
+    }
 </script>

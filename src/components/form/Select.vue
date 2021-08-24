@@ -22,7 +22,7 @@
             :class="{ top : setup.top === true }"
         >
             <ul>
-                <li v-if="props.defaultValue">
+                <li v-if="props.defaultValue.length !== 0">
                     <a
                         v-on:click="setup.isOpen = false; select(defaultValue)"
                     >

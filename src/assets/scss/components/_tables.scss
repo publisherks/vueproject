@@ -1,5 +1,15 @@
 @charset "UTF-8";
 
+$lineSize : size(1, 10);
+
+@mixin ellipsis($lineSize : ()) {
+    @each $line in $lineSize {
+        div.ell-#{$line} {
+            @include textOverflow($line);
+        }
+    }
+}
+
 .tb-container {
     width: 100%;
     background-color: var(--content-bg-color);
@@ -141,6 +151,8 @@
                     min-height: 48px;
                     padding: 8px;
                 }
+
+                @include ellipsis($lineSize);
             }
 
             &.sticky th {
@@ -240,3 +252,5 @@
         }
     }
 }
+
+

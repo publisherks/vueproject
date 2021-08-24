@@ -8,13 +8,14 @@
             :class="{
                 'cursor-d' : props.disabled
             }"
+            @input="$emit('update:value', $event.target.value)"
         >
         </textarea>
     </div>
 </template>
 
 <script setup>
-    import { defineProps } from "vue";
+    import { defineProps, defineEmit } from "vue";
 
     const props = defineProps({
         placeholder: {
@@ -32,4 +33,6 @@
             default: false
         },
     });
+
+    const emit = defineEmit(["update:value"]);
 </script>

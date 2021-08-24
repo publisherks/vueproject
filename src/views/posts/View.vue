@@ -22,9 +22,10 @@
         class="mt-15"
     >
         <btn
-            text="수정"
-            kind="sub1"
-            iconCls="fal fa-edit"
+            text="목록으로"
+            kind="cancel"
+            iconCls="far fa-long-arrow-left"
+            :fn="listback"
         />
         <btn
             text="삭제"
@@ -33,18 +34,17 @@
             class="ml-15"
         />
         <btn
-            text="목록으로"
-            kind="cancel"
-            iconCls="far fa-long-arrow-left"
+            text="수정"
+            kind="sub1"
+            iconCls="fal fa-edit"
             class="ml-15"
-            :fn="listback"
         />
     </btn-group>
 </template>
 <script setup>
     import { reactive, defineProps, onMounted } from "vue";
     import { userList }  from "@/js/api/userApi";
-    import { posts } from "@/js/api/postsApi";
+    import { postsList } from "@/js/api/postsApi";
     import { useRoute, useRouter } from "vue-router";
 
     const route  = useRoute();
@@ -98,7 +98,7 @@
         }
 
         const userResponse = await userList();
-        const postsResponse = await posts(request);
+        const postsResponse = await postsList(request);
 
         postsResponse?.data?.map((item) => ([
             setup.rowTable.datas.field1 = item.title,
@@ -108,7 +108,6 @@
     }
 
     function listback() {
-        console.log(11);
         router.push({ name: 'Posts' })
     }
 </script>

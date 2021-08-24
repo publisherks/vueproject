@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'https://publisherks.github.io/my-json-server/',
+    baseURL: 'http://my-json-server.typicode.com/publisherks',
     headers: {
         "Content-Type": `application/json`
     }
