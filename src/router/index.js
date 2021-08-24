@@ -71,7 +71,7 @@ const routes = [
 ]
 
 const router = createRouter({
-    history : process.env.NODE_ENV === 'production' ? createWebHashHistory('/vueproject/') : createWebHistory(),
+    history : createWebHistory(),
     routes,
 });
 
