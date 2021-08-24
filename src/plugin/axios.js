@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'http://my-json-server.typicode.com/publisherks',
+    baseURL: 'https://nkstoyproject.herokuapp.com',
     headers: {
         "Content-Type": `application/json`
     }
