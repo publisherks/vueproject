@@ -152,10 +152,18 @@
             body : setup.search.datas.field3 || "",
         }
 
+        // response.data.filter(item => { 
+        //     console.log(item.title.toLowerCase(), schFilter.title.toLowerCase());
+        // })
+
         setup.datas = setup.search.datas.field2 || setup.search.datas.field3 ? [
-            ...response?.data.filter(item => 
-                item.title.toLowerCase().indexOf(schFilter.title.toLowerCase()) !== -1 && item.body.toLowerCase().indexOf(schFilter.body.toLowerCase()) !== -1
-            )] : response?.data;
+            ...response?.data.filter((item) => {
+                if (reg(schFilter.title) === false && reg(schFilter.body) === false) {
+                    let title = new RegExp(schFilter.title);
+                    let body = new RegExp(schFilter.body);
+                    return title.test(item.title) && body.test(item.body)
+                }
+            })] : response?.data;
 
         setup.lists.datas = [
             ...setup?.datas?.map(({id, title, body, userId}, index) => ({
@@ -166,6 +174,14 @@
                 userId : setup.users.find(item => item.id === userId)?.name,
             })).reverse()
         ];
+    }
+
+    const reg = (value) => {
+        return /[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9|\s]/.test(value);
+    }
+
+    const emptyValue = (value) => {
+        return value !== "" && value !== " ";
     }
 
     function regist() {
