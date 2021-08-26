@@ -53,6 +53,7 @@
                             v-model:value="setup.lists[key]"
                             :isDefault="column[key].isDefault"
                             :defaultValue="column[key].defaultValue"
+                            :value="column[key].value"
                         />
                         <v-calendar
                             v-if="column[key].type === 'calendar'"

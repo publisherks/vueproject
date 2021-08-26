@@ -43,7 +43,7 @@
 </template>
 
 <script setup>
-    import { reactive, defineEmit, defineProps, ref, nextTick } from "vue";
+    import { reactive, defineEmit, defineProps, ref, nextTick, computed } from "vue";
 
     const props = defineProps({
         datas: {
@@ -77,7 +77,7 @@
             type: Boolean,
             default : false
         },
-        input  : props.value,
+        input  : computed(() => props.value?.text),
     });
 
     const inputFocus = (event) => {

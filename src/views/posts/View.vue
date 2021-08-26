@@ -25,26 +25,29 @@
             text="목록으로"
             kind="cancel"
             iconCls="far fa-long-arrow-left"
-            :fn="listback"
+            :fn="back"
         />
         <btn
             text="삭제"
             kind="delete"
             iconCls="far fa-trash-alt"
             class="ml-15"
+            :fn="del"
         />
         <btn
             text="수정"
             kind="sub1"
             iconCls="fal fa-edit"
             class="ml-15"
+            :fn="modify"
         />
     </btn-group>
 </template>
 <script setup>
     import { reactive, defineProps, onMounted } from "vue";
     import { userList }  from "@/js/api/userApi";
-    import { postsList } from "@/js/api/postsApi";
+    import { postsList, postsDelete } from "@/js/api/postsApi";
+    import { setMessageModal } from "@/js/pattern/singleton/Modal";
     import { useRoute, useRouter } from "vue-router";
 
     const route  = useRoute();
@@ -101,13 +104,48 @@
         const postsResponse = await postsList(request);
 
         postsResponse?.data?.map((item) => ([
-            setup.rowTable.datas.field1 = item.title,
+            setup.rowTable.datas.field1 = item?.title,
             setup.rowTable.datas.field2 = userResponse?.data?.find(i => i.id === item.userId)?.name,
-            setup.data.body = item.body.split('\n').join('<br />'),
+            setup.data.body = item?.body?.split('\n').join('<br />'),
         ]))
     }
 
-    function listback() {
+    const back = () => {
         router.push({ name: 'Posts' })
     }
+
+    const del = async () => {
+        const request = {
+            params: {
+                id: route.params.postsIdx,
+            }
+        }
+
+        const postsResponse = await postsDelete(route.params.postsIdx);
+
+        let message = "삭제 되었습니다."
+        let callback = () => {
+            router.push({ name: 'Posts' });
+        }
+        messagePopup(message, callback)
+    }
+
+    const modify = () => {
+        router.push({
+            name: "PostsChange",
+            params: {
+                postsIdx: route.params.postsIdx
+            }
+        })
+    }
+
+    const messagePopup = (message, callback) => {
+        setMessageModal({
+            status: true,
+            message: message,
+            callback: () => {
+                callback();
+            }
+        });
+    };
 </script>

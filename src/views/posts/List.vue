@@ -152,10 +152,6 @@
             body : setup.search.datas.field3 || "",
         }
 
-        // response.data.filter(item => { 
-        //     console.log(item.title.toLowerCase(), schFilter.title.toLowerCase());
-        // })
-
         setup.datas = setup.search.datas.field2 || setup.search.datas.field3 ? [
             ...response?.data.filter((item) => {
                 if (reg(schFilter.title) === false && reg(schFilter.body) === false) {
@@ -180,11 +176,7 @@
         return /[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9|\s]/.test(value);
     }
 
-    const emptyValue = (value) => {
-        return value !== "" && value !== " ";
-    }
-
-    function regist() {
+    const regist = () => {
         router.push({ name: "PostsRegist" })
     }
 
