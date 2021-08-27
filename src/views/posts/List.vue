@@ -62,8 +62,12 @@
                     align : "left",
                     label : "제목",
                     width : "30%",
+                    option : {
+                        ellipsis : true,
+                        ellipsisLine : 1,
+                    },
                 },
-                body : {
+                content : {
                     align : "left",
                     label : "내용",
                     width : "*",
@@ -75,7 +79,12 @@
                 userId : {
                     align : "center",
                     label : "작성자",
-                    width : "10%",
+                    width : "5%",
+                },
+                createdAt : {
+                    align : "center",
+                    label : "작성일",
+                    width : "5%",
                 },
             },
             datas: [],
@@ -149,25 +158,26 @@
 
         let schFilter = {
             title : setup.search.datas.field2 || "",
-            body : setup.search.datas.field3 || "",
+            content : setup.search.datas.field3 || "",
         }
 
         setup.datas = setup.search.datas.field2 || setup.search.datas.field3 ? [
             ...response?.data.filter((item) => {
-                if (reg(schFilter.title) === false && reg(schFilter.body) === false) {
+                if (reg(schFilter.title) === false && reg(schFilter.content) === false) {
                     let title = new RegExp(schFilter.title);
-                    let body = new RegExp(schFilter.body);
-                    return title.test(item.title) && body.test(item.body)
+                    let content = new RegExp(schFilter.content);
+                    return title.test(item.title) && content.test(item.content)
                 }
             })] : response?.data;
 
         setup.lists.datas = [
-            ...setup?.datas?.map(({id, title, body, userId}, index) => ({
+            ...setup?.datas?.map(({id, title, content, userId, createdAt}, index) => ({
                 id : id,
                 index : index + 1,
                 title : title,
-                body : body,
+                content : content,
                 userId : setup.users.find(item => item.id === userId)?.name,
+                createdAt : $moment(createdAt).format('YYYY-MM-DD'),
             })).reverse()
         ];
     }

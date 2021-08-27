@@ -123,7 +123,7 @@
                     value : setup?.users?.find(i => i.id === item.userId)?.id,
                 },
                 setup.data.datas.field1 = item?.title,
-                setup.data.datas.field3 = item?.body,
+                setup.data.datas.field3 = item?.content,
             ]))
         }
     }
@@ -132,20 +132,18 @@
         const request = {
             userId: setup.data.datas.field2.value,
             title: setup.data.datas.field1,
-            body: setup.data.datas.field3,
+            content: setup.data.datas.field3,
         }
 
         let response = "",
-            message = "";
+            message = "",
+            callback = undefined;
 
         if (setup.isModify) {
             response = await postsModify(route?.params?.postsIdx, request);
         } else {
             response = await postsCreate(request);
         }
-        
-
-        let callback = undefined
 
         if (response?.data) {
             message = setup.isModify ? "수정 되었습니다." : "등록 되었습니다."

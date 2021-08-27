@@ -29,6 +29,7 @@
                         {{ column[key].label }}
                     </th>
                     <td
+                        :colspan="column[key].colspan"
                         :class="{
                             'align-l' : column[key].align === 'left',
                             'align-r' : column[key].align === 'right',

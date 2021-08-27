@@ -2,7 +2,7 @@
  * Select Box Default Value
  */
 const selectDefault = {
-    text: "All",
+    text: "전체",
     value: 0
 }
 

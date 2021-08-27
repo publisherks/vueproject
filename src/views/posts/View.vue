@@ -14,7 +14,7 @@
         <h2 class="sub-title">내용</h2>
     </div>
     <div class="view-box"
-        v-html="setup.data.body"
+        v-html="setup.data.content"
     >
     </div>
     <btn-group
@@ -62,7 +62,7 @@
 
     const setup = reactive({
         data : {
-            body : '',
+            content : '',
         },
 
         rowTable: {
@@ -70,21 +70,27 @@
                 field1 : {
                     align: "left",
                     label: "제목",
+                    colspan: 3,
                 },
                 field2 : {
                     align: "left",
                     label: "작성자",
                 },
+                field3 : {
+                    align: "left",
+                    label: "등록일",
+                },
             },
             datas: {
                 field1 : undefined,
                 field2 : undefined,
+                field3 : undefined,
             },
             width: {
                 title: "10%",
-                content: "90%",
+                content: "40%",
             },
-            columnCount: 1,
+            columnCount: 2,
         },
 
     });
@@ -106,7 +112,8 @@
         postsResponse?.data?.map((item) => ([
             setup.rowTable.datas.field1 = item?.title,
             setup.rowTable.datas.field2 = userResponse?.data?.find(i => i.id === item.userId)?.name,
-            setup.data.body = item?.body?.split('\n').join('<br />'),
+            setup.rowTable.datas.field3 = $moment(item.createdAt).format('YYYY-MM-DD'),
+            setup.data.content = item?.content?.split('\n').join('<br />'),
         ]))
     }
 
