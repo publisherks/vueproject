@@ -1,7 +1,5 @@
 <template>
-    <form
-        @submit.prevent="onSave"
-    >
+    <form @submit.prevent="onSave">
         <div class="title-box mb-30">
             <h2 class="main-title">{{ props.title }}</h2>
         </div>
@@ -35,13 +33,12 @@
 </template>
 <script setup>
     import { reactive, defineProps, onMounted, computed } from "vue";
-    import { userList }  from "@/js/api/userApi";
     import { postsCreate, postsList, postsModify } from "@/js/api/postsApi";
-    import { isEmpty }  from "@/js/common/common";
+    import { isEmpty } from "@/js/common/common";
     import { setMessageModal } from "@/js/pattern/singleton/Modal";
     import { useRoute, useRouter } from "vue-router";
 
-    const route  = useRoute();
+    const route = useRoute();
     const router = useRouter();
 
     const props = defineProps({
@@ -52,110 +49,107 @@
     });
 
     const setup = reactive({
-
         users: [],
 
         data: {
             column: {
-                field1 : {
+                field1: {
                     align: "left",
                     label: "제목",
                     type: "input",
                     placeholder: "제목을 입력하세요.",
                 },
                 field2: {
-                    align: "center",
-                    label: "작성자",
-                    type: "select",
-                    option : computed(() => setup.users?.map(({id, name}) => ({ value : id, text : name }))),
+                    align: "left",
+                    label: "닉네임",
+                    type: "input",
+                    placeholder: "닉네임을 입력하세요.",
                 },
-                field3 : {
+                field3: {
                     align: "left",
                     label: "내용",
                     type: "textarea",
                     placeholder: "내용을 입력하세요.",
                     regist: true,
+                    colspan: 3,
                 },
             },
             datas: {
-                field1 : undefined,
-                field2 : undefined,
-                field3 : undefined,
+                field1: undefined,
+                field2: undefined,
+                field3: undefined,
             },
             width: {
                 title: "10%",
-                content: "90%",
+                content: "40%",
             },
-            columnCount: 1,
+            columnCount: 2,
         },
 
         isModify: computed(() => !isEmpty(route?.params?.postsIdx)),
-    })
+    });
 
     onMounted(async () => {
-        await userLists();
-
         await modifyData();
-    })
-
-    const userLists = async () => {
-        const response = await userList();
-
-        setup.users = response?.data?.map(({id, name}) => ({
-            id: id,
-            name: name
-        }))
-    }
+    });
 
     const modifyData = async () => {
         if (setup.isModify) {
             const request = {
                 params: {
                     id: route.params.postsIdx,
-                }
-            }
+                },
+            };
 
             const postsResponse = await postsList(request);
 
-            postsResponse?.data?.map((item) => ([
-                setup.data.datas.field2 = {
-                    text : setup?.users?.find(i => i.id === item.userId)?.name,
-                    value : setup?.users?.find(i => i.id === item.userId)?.id,
-                },
-                setup.data.datas.field1 = item?.title,
-                setup.data.datas.field3 = item?.content,
-            ]))
+            postsResponse?.data?.map((item) => [
+                (setup.data.datas.field1 = item?.title),
+                (setup.data.datas.field2 = item?.name),
+                (setup.data.datas.field3 = item?.content),
+            ]);
         }
-    }
-    
+    };
+
     const onSave = async () => {
         const request = {
-            userId: setup.data.datas.field2.value,
             title: setup.data.datas.field1,
+            name: setup.data.datas.field2,
             content: setup.data.datas.field3,
-        }
+            createdAt: $moment().format("YYYY-MM-DD hh:mm:ss"),
+        };
 
         let response = "",
             message = "",
             callback = undefined;
 
-        if (setup.isModify) {
-            response = await postsModify(route?.params?.postsIdx, request);
+        if (!setup.data.datas?.field1) {
+            message = "제목은 필수입니다."
+        } else if (!setup.data.datas?.field2) {
+            message = "닉네임은 필수입니다."
+        } else if (!setup.data.datas?.field3) {
+            message = "내용은 필수입니다."
         } else {
-            response = await postsCreate(request);
-        }
-
-        if (response?.data) {
-            message = setup.isModify ? "수정 되었습니다." : "등록 되었습니다."
-            callback = () => {
-                router.push({ name: 'Posts' });
+            if (setup.isModify) {
+                response = await postsModify(route?.params?.postsIdx, request);
+            } else {
+                response = await postsCreate(request);
             }
-        } else {
-            message = setup.isModify ? "수정 실패 하였습니다." : "등록 실패 하였습니다."
+
+            message = setup.isModify ? "수정 되었습니다." : "등록 되었습니다.";
+            callback = () => {
+                console.log(response);
+                router.push({
+                    name: "PostsView",
+                    params: {
+                        postsIdx: response.data.id,
+                    },
+                });
+            };
         }
 
-        messagePopup(message, callback)
-    }
+        messagePopup(message, callback);
+    };
 
     const messagePopup = (message, callback) => {
         setMessageModal({
@@ -163,11 +157,16 @@
             message: message,
             callback: () => {
                 callback();
-            }
+            },
         });
     };
 
     const back = () => {
-        router.push({ name: 'Posts' })
-    }
+        router.push({
+            name: setup.isModify ? "PostsView" : "Posts",
+            params: {
+                postsIdx: route?.params?.postsIdx,
+            },
+        })
+    };
 </script>

@@ -2,14 +2,24 @@
     <div class="title-box mb-30">
         <h2 class="main-title">{{ props.title }}</h2>
     </div>
-    <v-table
-        class="mb-30"
-        type="row"
-        :column="setup.search.column"
-        :datas="setup.search.datas"
-        :width="setup.search.width"
-        :columnCount="setup.search.columnCount"
-    />
+    <v-container class="mb-30">
+        <v-row>
+            <v-col cols="4" class="pr-10">
+                <v-input
+                    class="pull"
+                    :placeholder="`제목`"
+                    v-model:value="setup.search.datas.field1"
+                />
+            </v-col>
+            <v-col cols="8" class="pl-10">
+                <v-input
+                    class="pull"
+                    :placeholder="`내용`"
+                    v-model:value="setup.search.datas.field2"
+                />
+            </v-col>
+        </v-row>
+    </v-container>
     <div class="title-box mb-20">
         <h3 class="sub-title">게시판 목록</h3>
         <btn-group
@@ -35,10 +45,9 @@
 </template>
 <script setup>
     import { reactive, defineProps, onMounted, computed, watch } from "vue";
-    import { selectDefault }  from "@/js/common/common";
-    import { userList }  from "@/js/api/userApi";
     import { postsList } from "@/js/api/postsApi";
     import { useRoute, useRouter } from "vue-router";
+    import { reg }  from "@/js/common/common";
 
     const route  = useRoute();
     const router = useRouter();
@@ -61,7 +70,7 @@
                 title : {
                     align : "left",
                     label : "제목",
-                    width : "30%",
+                    width : "25%",
                     option : {
                         ellipsis : true,
                         ellipsisLine : 1,
@@ -76,77 +85,34 @@
                         ellipsisLine : 1,
                     },
                 },
-                userId : {
+                name : {
                     align : "center",
                     label : "작성자",
-                    width : "5%",
+                    width : "10%",
                 },
                 createdAt : {
                     align : "center",
                     label : "작성일",
-                    width : "5%",
+                    width : "6%",
                 },
             },
             datas: [],
             views: true,
         },
 
-        users : [],
-
         datas : [],
 
         search: {
-            column : {
-                field1 : {
-                    align: "center",
-                    label: "작성자",
-                    type: "select",
-                    option : computed(() => setup.users?.map(({id, name}) => ({ value : id, text : name }))),
-                    isDefault : true,
-                    defaultValue : selectDefault,
-                },
-                field2 : {
-                    align: "left",
-                    label: "제목",
-                    type: "input",
-                    placeholder: "제목을 입력하세요.",
-                },
-                field3 : {
-                    align: "left",
-                    label: "내용",
-                    type: "input",
-                    placeholder: "내용을 입력하세요.",
-                },
-            },
             datas: {
                 field1 : undefined,
                 field2 : undefined,
-                field3 : undefined,
             },
-            width: {
-                title: "9%",
-                content: "20%",
-            },
-            columnCount: 3,
         },
-
-        selectItem : "",
     })
 
     onMounted(async () => {
-        await userLists();
-
         postsLists();
     })
-
-    const userLists = async () => {
-        const response = await userList();
-
-        setup.users = response?.data?.map(({id, name}) => ({
-            id: id,
-            name: name
-        }))
-    }
 
     const postsLists = async () => {
         const request = {
@@ -157,11 +123,11 @@
         const response = await postsList(request);
 
         let schFilter = {
-            title : setup.search.datas.field2 || "",
-            content : setup.search.datas.field3 || "",
+            title : setup.search.datas.field1 || "",
+            content : setup.search.datas.field2 || "",
         }
 
-        setup.datas = setup.search.datas.field2 || setup.search.datas.field3 ? [
+        setup.datas = setup.search.datas.field1 || setup.search.datas.field2 ? [
             ...response?.data.filter((item) => {
                 if (reg(schFilter.title) === false && reg(schFilter.content) === false) {
                     let title = new RegExp(schFilter.title);
@@ -171,35 +137,26 @@
             })] : response?.data;
 
         setup.lists.datas = [
-            ...setup?.datas?.map(({id, title, content, userId, createdAt}, index) => ({
+            ...setup?.datas?.map(({id, title, name, content, createdAt}, index) => ({
                 id : id,
                 index : index + 1,
                 title : title,
-                content : content,
-                userId : setup.users.find(item => item.id === userId)?.name,
+                name : name,
+                content : content?.split('\n')[0],
                 createdAt : $moment(createdAt).format('YYYY-MM-DD'),
             })).reverse()
         ];
-    }
-
-    const reg = (value) => {
-        return /[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9|\s]/.test(value);
     }
 
     const regist = () => {
         router.push({ name: "PostsRegist" })
     }
 
-
     watch(() => setup.search.datas.field1, (val) => {
         postsLists();
     })
 
     watch(() => setup.search.datas.field2, (val) => {
-        postsLists();
-    })
-
-    watch(() => setup.search.datas.field3, (val) => {
         postsLists();
     })
 

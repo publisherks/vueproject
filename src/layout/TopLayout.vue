@@ -19,19 +19,6 @@
                 v-on:click="setup.userMenuOpen = !setup.userMenuOpen"
             ></i>
             <div class="user-menu">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>0001</td>
-                        </tr>
-                        <tr>
-                            <td>maum0001</td>
-                        </tr>
-                        <tr>
-                            <td>정훈</td>
-                        </tr>
-                    </tbody>
-                </table>
                 <ul>
                     <li @click="setLeftMenu(layoutState.leftMenu = !layoutState.leftMenu)">
                         <template
@@ -43,8 +30,6 @@
                             상단메뉴로 보기
                         </template>
                     </li>
-                    <li @click="setPasswordChange(true)">비밀번호 변경</li>
-                    <li @click="logout">로그아웃</li>
                 </ul>
             </div>
         </div>

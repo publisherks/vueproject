@@ -1,7 +1,8 @@
 <template>
     <div
         class="modal modal-overlay"
-        v-on:click.self="modalCloseHook"
+        @:click.self="modalCloseHook"
+        @:keyup.enter="modalConfirmHook"
     >
         <div class="modal-contanier">
             <div class="modal-top">
@@ -17,7 +18,8 @@
             <div class="modal-contents">
                 <p
                     v-html="message"
-                    class="sub-text mb-30 align-c">
+                    class="sub-text mb-30 align-c"
+                >
                 </p>
                 <div class="btn-box flex-c mt-30">
                     <btn
@@ -25,6 +27,7 @@
                         kind="main"
                         iconCls="fal fa-check"
                         :fn="modalConfirmHook"
+                        ref="confirmBtn"
                     />
                 </div>
             </div>
@@ -32,17 +35,16 @@
     </div>
 </template>
 <script setup>
-
-    import { state }       from "@/js/pattern/singleton/Modal";
-    import { defineProps } from "vue";
+    import { state } from "@/js/pattern/singleton/Modal";
+    import { defineProps, ref } from "vue";
 
     const props = defineProps({
-        title   : {
-            type    : String,
-            default : "",
+        title: {
+            type: String,
+            default: "",
         },
-        message : {
-            type : String,
+        message: {
+            type: String,
         },
     });
 
@@ -52,8 +54,16 @@
 
     const modalConfirmHook = () => {
         state.messageModal.status = false;
-        state.messageModal.callback?.()
-        console.log(state.messageModal.callback?.())
+        state.messageModal.callback?.();
+        console.log(state.messageModal.callback?.());
+    };
+
+    const autoFocus = () => {
+        const confirmBtn = ref(null);
+
+        if (state.messageModal.focus) {
+            confirmBtn.value.focus();
+        }
     };
 </script>
 <style lang="scss" scoped>

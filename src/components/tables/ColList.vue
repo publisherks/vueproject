@@ -30,18 +30,18 @@
                         'align-r' : value.align === 'right',
                         'cursor-p': props.views === true,
                     }"
-                    @click="props.views === true ? clickEvent(item) : ''"
+                    @click="props.views === true ? $emit('update:selectItme', item) : ''"
                 >
                     <template
                         v-if="!value.type && !value.children && !value.option"
                     >
-                        {{ item[key] }}
+                        {{ isEmpty(item[key]) ? '-' : item[key] }}
                     </template>
                     <div
                         v-if="value.option"
                         :class="value.option?.ellipsis ? 'ell-'+value.option?.ellipsisLine : ''"
                     >
-                        {{ item[key] }}
+                        {{ isEmpty(item[key]) ? '-' : item[key] }}
                     </div>
                     <v-input
                         v-if="value.type === 'input'"
@@ -68,7 +68,7 @@
                             :class="{
                                 'ml-10' : childIndex > 0
                             }"
-                            :fn="childItem.fn"
+                            @click="$emit('btnEvent', item)"
                         />
                     </template>
                 </td>
@@ -78,6 +78,7 @@
 </template>
 <script setup>
     import { reactive, computed, defineProps } from "vue";
+    import { isEmpty }  from "@/js/common/common";
 
     const props = defineProps({
         column: {
@@ -102,7 +103,7 @@
         lists : computed(() => props.datas),
     });
 
-    const emit = defineEmits(['update:selectItme'])
+    defineEmits(['update:selectItme', 'btnEvent'])
 
     const columns = computed(() => {
         let column = {};
@@ -114,7 +115,12 @@
         return column;
     });
 
-    const clickEvent = (value) => {
-        emit('update:selectItme', value)
-    }
+    // const clickEvent = (value) => {
+    //     emit('update:selectItme', value)
+    // }
+
+    // const btnClick = (item, index, chIdx) => {
+    //     console.log(11, item, index, chIdx)
+    //     emit('btnEvent', {item, index, chIdx})
+    // }
 </script>

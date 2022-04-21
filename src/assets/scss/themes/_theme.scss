@@ -32,6 +32,35 @@ $colors-default: (
     total-color : #15141b,
 );
 
+$colors-light: (
+    main-color : #4971ff,
+    sub-btn1-color : #733dec,
+    sub-btn2-color : #c045e3,
+    btn-shadow : rgba(0, 0, 0, 0.64),
+    btn-disable-color : #c8c7ca,
+    gray-color : #6a6571,
+    gray-color-active : rgba(106, 101, 113, 0.64),
+    red-color : #f43827,
+    red-color-active : rgba(244, 56, 39, 0.64),
+    bg-color : #ffffff,
+    content-bg-color : #f1f1f1,
+    text-color1 : #000000,
+    text-color2 : #363537,
+    text-color3 : #706c75,
+    text-color4 : #ffffff,
+    text-disable-color : #9d98a4,
+    table-th-color : #dfdde3,
+    border-color : #afadb2,
+    box-shadow : rgba(0, 0, 0, 0.3),
+    modal-border : #c9c6cc,
+    complete-color : #00aeff,
+    total-color : #ffffff,
+    unable-color : #8b8791,
+    change-color : rgba(73, 113, 255, 0.12),
+    toggle-bg : rgba(106, 101, 113, 0.8),
+    toggle-text-color : #ffffff,
+);
+
 @function hexToRGB($hex) {
     @return red($hex),green($hex),blue($hex);
 }
@@ -73,6 +102,6 @@ $colors-default: (
     @include generate_colors($colors-default);
 }
 
-// [data-theme="light"] {
-//     @include generate_colors($colors-light);
-// }
+[data-theme="light"] {
+    @include generate_colors($colors-light);
+}

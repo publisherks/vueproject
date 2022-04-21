@@ -10,6 +10,21 @@ const component = {
 
 const routes = [
     {
+        path: "/login",
+        name: "LoginLayout",
+        component: load("layout/LoginLayout"),
+        children: [
+            {
+                path: "",
+                name: "login",
+                component: load("views/login/Login"),
+                meta: {
+                    ignore: true
+                }
+            }
+        ]
+    },
+    {
         path: "/",
         name: "MainLayout",
         component: load("layout/MainLayout"),
@@ -31,7 +46,7 @@ const routes = [
                         name      : "Posts",
                         component : load("views/posts/List"),
                         meta      : {
-                            navigation : "게시글 목록",
+                            navigation : "자유 게시판",
                         },
                     },
                     {
@@ -64,6 +79,34 @@ const routes = [
                             },
                         ]
                     },
+                ]
+            },
+            {
+                path      : "petitionMoorage",
+                component: load(component.children),
+                children: [
+                    {
+                        path      : "",
+                        name      : "PetitionMoorage",
+                        component : load("views/petitionMoorage/List"),
+                        meta      : {
+                            navigation : "청원 계류현황",
+                        },
+                    }
+                ]
+            },
+            {
+                path      : "petitionProcessing",
+                component: load(component.children),
+                children: [
+                    {
+                        path      : "",
+                        name      : "PetitionProcessing",
+                        component : load("views/petitionProcessing/List"),
+                        meta      : {
+                            navigation : "청원 계류현황",
+                        },
+                    }
                 ]
             },
         ]

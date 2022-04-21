@@ -12,6 +12,7 @@
         :datas="paginatedData"
         :views="props.views"
         v-model:selectItme="setup.selectItem"
+        @btn-event="btnClick($event)"
     />
     <RowListTable
         :class="[
@@ -78,11 +79,15 @@
                 return {}
             }
         },
+        pageNum: {
+            type: Number,
+            default: 1,
+        }
     });
 
     const setup = reactive({
         data: computed(() => props.datas),
-        pageNum: 1,
+        pageNum: props.pageNum,
         selectItem: '',
     });
 
@@ -94,7 +99,7 @@
         return page;
     });
 
-    const emit = defineEmits(['update:selectItme'])
+    const emit = defineEmits(['update:selectItme', 'btnEvent', 'update:pageNum'])
 
     const paginatedData = computed(() => {
         const start = (setup.pageNum - 1) * props.limit,
@@ -107,4 +112,15 @@
         emit('update:selectItme', val)
     })
 
+    watch(() => setup.pageNum, (val) => {
+        emit('update:pageNum', val)
+    })
+
+    watch(() => props.pageNum, (val) => {
+        setup.pageNum = val
+    })
+
+    const btnClick = (data) => {
+        emit('btnEvent', data)
+    }
 </script>

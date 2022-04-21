@@ -45,7 +45,6 @@
 </template>
 <script setup>
     import { reactive, defineProps, onMounted } from "vue";
-    import { userList }  from "@/js/api/userApi";
     import { postsList, postsDelete } from "@/js/api/postsApi";
     import { setMessageModal } from "@/js/pattern/singleton/Modal";
     import { useRoute, useRouter } from "vue-router";
@@ -106,13 +105,12 @@
             }
         }
 
-        const userResponse = await userList();
         const postsResponse = await postsList(request);
 
         postsResponse?.data?.map((item) => ([
             setup.rowTable.datas.field1 = item?.title,
-            setup.rowTable.datas.field2 = userResponse?.data?.find(i => i.id === item.userId)?.name,
-            setup.rowTable.datas.field3 = $moment(item.createdAt).format('YYYY-MM-DD'),
+            setup.rowTable.datas.field2 = item?.name,
+            setup.rowTable.datas.field3 = item?.createdAt,
             setup.data.content = item?.content?.split('\n').join('<br />'),
         ]))
     }

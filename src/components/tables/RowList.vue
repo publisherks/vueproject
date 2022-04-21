@@ -55,6 +55,7 @@
                             :isDefault="column[key].isDefault"
                             :defaultValue="column[key].defaultValue"
                             :value="column[key].value"
+                            :placeholder="column[key].placeholder"
                         />
                         <v-calendar
                             v-if="column[key].type === 'calendar'"

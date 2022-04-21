@@ -7,7 +7,17 @@ const menu = [
     {
         path : "/posts",
         icon : "far fa-list-ul",
-        menuName : "게시판",
+        menuName : "자유 게시판",
+    },
+    {
+        path : "/petitionMoorage",
+        icon : "far fa-list-ul",
+        menuName : "청원 계류현황",
+    },
+    {
+        path : "/petitionProcessing",
+        icon : "far fa-list-ul",
+        menuName : "청원 처리현황",
     },
 ]
 
