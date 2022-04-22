@@ -12,4 +12,4 @@ heroku create my-project
 
 git push heroku master
 
-### https://github.com/jesperorb/json-server-heroku#deploy-to-heroku
+#### https://github.com/jesperorb/json-server-heroku#deploy-to-heroku
