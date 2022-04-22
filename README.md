@@ -1,24 +1,13 @@
 # vueproject
 
-## Project setup
-```
-npm install
-```
+### heroku git 배포방법
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+heroku-cli 설치
+https://devcenter.heroku.com/articles/heroku-cli
 
-### Compiles and minifies for production
-```
-npm run build
-```
+heroku login
 
-### Lints and fixes files
-```
-npm run lint
-```
+- 프로젝트 생성시
+heroku create my-project
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+git push heroku master
