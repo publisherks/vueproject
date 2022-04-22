@@ -1,6 +1,6 @@
 # vueproject
 
-### heroku git 배포방법
+## heroku git 배포방법
 
 heroku-cli 설치
 https://devcenter.heroku.com/articles/heroku-cli
@@ -11,3 +11,5 @@ heroku login
 heroku create my-project
 
 git push heroku master
+
+#### https://github.com/jesperorb/json-server-heroku#deploy-to-heroku
