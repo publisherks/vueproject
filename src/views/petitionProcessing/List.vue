@@ -31,10 +31,10 @@
     />
 </template>
 <script setup>
-    import { reactive, defineProps, onMounted, computed, watch } from "vue";
+    import { reactive, defineProps, onMounted, onUnmounted, watch } from "vue";
     import { petitionProcessing } from "@/js/api/petitionApi";
     import { useRoute, useRouter } from "vue-router";
-    import { selectDefault, reg }  from "@/js/common/common";
+    import { isEmpty, reg }  from "@/js/common/common";
 
     const route  = useRoute();
     const router = useRouter();
@@ -157,11 +157,19 @@
             },
         },
         pageNum: 1,
+        setInterval: "",
     });
     
     onMounted(async () => {
         list();
+        setup.setInterval = setInterval(() => {
+            list();
+        }, 600000);
     })
+
+    onUnmounted(() => {
+        clearInterval(setup.setInterval);
+    });
 
     const list = async () => {
         const request = {
@@ -199,6 +207,10 @@
                 LINK_URL: item.LINK_URL
             }))
         ]
+
+        if (isEmpty(data)) {
+            clearInterval(setup.setInterval);
+        }
     }
     
     const onBtnEvent = (item) => {

@@ -24,10 +24,10 @@
     />
 </template>
 <script setup>
-    import { reactive, defineProps, onMounted, computed, watch } from "vue";
+    import { reactive, defineProps, onMounted, onUnmounted, watch } from "vue";
     import { petitionMoorage } from "@/js/api/petitionApi";
     import { useRoute, useRouter } from "vue-router";
-    import { reg }  from "@/js/common/common";
+    import { isEmpty, reg }  from "@/js/common/common";
 
     const route  = useRoute();
     const router = useRouter();
@@ -108,11 +108,19 @@
                 field1 : undefined,
             },
         },
+        setInterval: "",
     });
     
     onMounted(async () => {
-        list();
+        await list();
+        setup.setInterval = setInterval(() => {
+            list();
+        }, 600000);
     })
+
+    onUnmounted(() => {
+        clearInterval(setup.setInterval);
+    });
 
     const list = async () => {
         const request = {
@@ -127,7 +135,6 @@
         
         const response = await petitionMoorage(request);
         const data = response.data.nvqbafvaajdiqhehi[1].row;
-        console.log(response.data.nvqbafvaajdiqhehi[1].row)
 
         setup.datas = setup.search.datas.field1 ? [
             ...data?.filter((item) => {
@@ -150,6 +157,11 @@
                 LINK_URL: item.LINK_URL
             }))
         ]
+
+        if (isEmpty(data)) {
+            clearInterval(setup.setInterval);
+        }
+        
     }
     
     const onBtnEvent = (item) => {
