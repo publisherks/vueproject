@@ -11,7 +11,11 @@
 
     .logo {
         height: 55px;
-        @include mar-pad(ml 24, pt 17, pb 22);
+        @include mar-pad(ml 24, pt 17, pr 60, pb 22);
+
+        img {
+            width: 100%;
+        }
     }
 
     .side-btn {

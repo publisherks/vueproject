@@ -3,7 +3,7 @@
         id="sideNav">
         <h2 class="logo">
             <img
-                src="@/assets/images/logo-gray.png"
+                src="@/assets/images/logo.png"
                 alt="" />
         </h2>
         <a
