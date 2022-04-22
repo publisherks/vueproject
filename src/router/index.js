@@ -38,6 +38,34 @@ const routes = [
                 },
             },
             {
+                path      : "petitionMoorage",
+                component: load(component.children),
+                children: [
+                    {
+                        path      : "",
+                        name      : "PetitionMoorage",
+                        component : load("views/petitionMoorage/List"),
+                        meta      : {
+                            navigation : "청원 계류현황",
+                        },
+                    }
+                ]
+            },
+            {
+                path      : "petitionProcessing",
+                component: load(component.children),
+                children: [
+                    {
+                        path      : "",
+                        name      : "PetitionProcessing",
+                        component : load("views/petitionProcessing/List"),
+                        meta      : {
+                            navigation : "청원 계류현황",
+                        },
+                    }
+                ]
+            },
+            {
                 path      : "posts",
                 component: load(component.children),
                 children: [
@@ -79,34 +107,6 @@ const routes = [
                             },
                         ]
                     },
-                ]
-            },
-            {
-                path      : "petitionMoorage",
-                component: load(component.children),
-                children: [
-                    {
-                        path      : "",
-                        name      : "PetitionMoorage",
-                        component : load("views/petitionMoorage/List"),
-                        meta      : {
-                            navigation : "청원 계류현황",
-                        },
-                    }
-                ]
-            },
-            {
-                path      : "petitionProcessing",
-                component: load(component.children),
-                children: [
-                    {
-                        path      : "",
-                        name      : "PetitionProcessing",
-                        component : load("views/petitionProcessing/List"),
-                        meta      : {
-                            navigation : "청원 계류현황",
-                        },
-                    }
                 ]
             },
         ]
