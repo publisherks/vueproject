@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
+    "gridstack": "^5.0.0",
     "lowdb": "^2.1.0",
     "moment": "^2.29.1",
     "node-sass": "^6.0.0",

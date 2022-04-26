@@ -131,6 +131,7 @@
             message = "내용은 필수입니다."
         } else {
             if (setup.isModify) {
+                console.log(route?.params?.postsIdx, request);
                 response = await postsModify(route?.params?.postsIdx, request);
             } else {
                 response = await postsCreate(request);

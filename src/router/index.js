@@ -31,10 +31,18 @@ const routes = [
         children  : [
             {
                 path      : "/",
-                name      : "Styleguide",
-                component : load("components/guide/guide"),
+                name      : "Dashboard",
+                component : load("views/dashboard/View"),
                 meta      : {
-                    navigation : "Style Guide",
+                    navigation : "Dashboard",
+                },
+            },
+            {
+                path      : "/dashboardSet",
+                name      : "DashboardSet",
+                component : load("views/dashboard/set/View"),
+                meta      : {
+                    navigation : "Dashboard Setting",
                 },
             },
             {
@@ -82,7 +90,7 @@ const routes = [
                         name      : "PostsView",
                         component : load("views/posts/View"),
                         meta      : {
-                            navigation : "게시글 보기",
+                            navigation : "자유 게시판 -> 게시글 보기",
                         },
                     },
                     {
@@ -94,7 +102,7 @@ const routes = [
                                 name      : "PostsRegist",
                                 component : load("views/posts/Regist"),
                                 meta      : {
-                                    navigation : "게시글 작성",
+                                    navigation : "자유 게시판 -> 게시글 작성",
                                 },
                             },
                             {
@@ -102,12 +110,20 @@ const routes = [
                                 name      : "PostsChange",
                                 component : load("views/posts/Regist"),
                                 meta      : {
-                                    navigation : "게시글 수정",
+                                    navigation : "자유 게시판 -> 게시글 수정",
                                 },
                             },
                         ]
                     },
                 ]
+            },
+            {
+                path      : "/styleGuide",
+                name      : "Styleguide",
+                component : load("components/guide/guide"),
+                meta      : {
+                    navigation : "Style Guide",
+                },
             },
         ]
     }

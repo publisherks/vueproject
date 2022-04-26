@@ -14,7 +14,6 @@
 
 <script setup>
     import { onMounted } from "vue";
-    import { selectDefault, isEmpty }  from "@/js/common/common";
     import { state as modalState } from "@/js/pattern/singleton/Modal";
     import MessageModal            from "@/components/Modal/MessageModal";
 

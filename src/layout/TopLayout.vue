@@ -30,32 +30,33 @@
                             상단메뉴로 보기
                         </template>
                     </li>
+                    <li 
+                        @click="router.push('/dashboardSet')"
+                        :class="{
+                            on: router.currentRoute.value.path.split('/')[1] === 'dashboardSet'
+                        }"
+                    >
+                            대시보드 설정
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
-    <transition
-        name="modal"
-        appear
-    >
-        <password-change-modal 
-            v-if="state.passwordChangeModal"
-            title="비밀번호 변경"
-        />
-    </transition>
 </template>
 <script setup>
     import Navi     from "@/layout/Navi";
     import CateNav  from "@/layout/CateNav";
     
     import { state as layoutState, setLeftMenu } from "@/js/pattern/singleton/Layout";
-    import { state, setPasswordChange }       from "@/js/pattern/singleton/Modal";
     
-    import passwordChangeModal from "@/components/Modal/PasswordChange";
-
     import { reactive } from "vue";
+    import { useRoute, useRouter } from "vue-router";
+
+    const router = useRouter();
 
     const setup = reactive({
         userMenuOpen: false,
     })
+
+    console.log();
 </script>

@@ -177,7 +177,8 @@
                     transition: background-color .3s;
 
                     &:hover,
-                    &:focus {
+                    &:focus,
+                    &.on {
                         outline: none;
                         background-color: var(--main-color);
                     }
