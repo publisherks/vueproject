@@ -121,7 +121,7 @@
 
         let response = "",
             message = "",
-            callback = undefined;
+            callbackData = "";
 
         if (!setup.data.datas?.field1) {
             message = "제목은 필수입니다."
@@ -138,26 +138,32 @@
             }
 
             message = setup.isModify ? "수정 되었습니다." : "등록 되었습니다.";
-            callback = () => {
-                console.log(response);
-                router.push({
-                    name: "PostsView",
-                    params: {
-                        postsIdx: response.data.id,
-                    },
-                });
-            };
+            callbackData = response.data.id
+            // callback = () => {
+            //     console.log(response);
+            //     router.push({
+            //         name: "PostsView",
+            //         params: {
+            //             postsIdx: response.data.id,
+            //         },
+            //     });
+            // };
         }
 
-        messagePopup(message, callback);
+        messagePopup(message, callbackData);
     };
 
-    const messagePopup = (message, callback) => {
+    const messagePopup = (message, callbackData) => {
         setMessageModal({
             status: true,
             message: message,
             callback: () => {
-                callback();
+                router.push({
+                    name: "PostsView",
+                    params: {
+                        postsIdx: callbackData,
+                    },
+                });
             },
         });
     };

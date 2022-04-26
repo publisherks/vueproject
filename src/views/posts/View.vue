@@ -129,10 +129,7 @@
         const postsResponse = await postsDelete(route.params.postsIdx);
 
         let message = "삭제 되었습니다."
-        let callback = () => {
-            router.push({ name: 'Posts' });
-        }
-        messagePopup(message, callback)
+        messagePopup(message)
     }
 
     const modify = () => {
@@ -144,12 +141,12 @@
         })
     }
 
-    const messagePopup = (message, callback) => {
+    const messagePopup = (message) => {
         setMessageModal({
             status: true,
             message: message,
             callback: () => {
-                callback();
+                router.push({ name: 'Posts' });
             }
         });
     };

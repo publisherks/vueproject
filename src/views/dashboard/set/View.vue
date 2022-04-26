@@ -110,8 +110,7 @@
         console.log("idx", idx)
         
         let response = "",
-            message = "",
-            callback = undefined;
+            message = "";
 
         idx.forEach(async (e) => {
             let no = e + 1;
@@ -126,22 +125,18 @@
         })
 
         message = "저장 되었습니다.";
-        callback = () => {
-            console.log(response);
-            router.push({
-                name: "Dashboard",
-            });
-        };
         
-        messagePopup(message, callback);
+        messagePopup(message);
     }
 
-    const messagePopup = (message, callback) => {
+    const messagePopup = (message) => {
         setMessageModal({
             status: true,
             message: message,
             callback: () => {
-                callback();
+                router.push({
+                    name: "Dashboard",
+                });
             }
         });
     };

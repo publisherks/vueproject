@@ -55,7 +55,6 @@
     const modalConfirmHook = () => {
         state.messageModal.status = false;
         state.messageModal.callback?.();
-        console.log(state.messageModal.callback?.());
     };
 
     const autoFocus = () => {
