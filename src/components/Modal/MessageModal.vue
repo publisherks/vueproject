@@ -36,7 +36,7 @@
 </template>
 <script setup>
     import { state } from "@/js/pattern/singleton/Modal";
-    import { defineProps, ref } from "vue";
+    import { defineProps } from "vue";
 
     const props = defineProps({
         title: {
@@ -55,14 +55,6 @@
     const modalConfirmHook = () => {
         state.messageModal.status = false;
         state.messageModal.callback?.();
-    };
-
-    const autoFocus = () => {
-        const confirmBtn = ref(null);
-
-        if (state.messageModal.focus) {
-            confirmBtn.value.focus();
-        }
     };
 </script>
 <style lang="scss" scoped>
