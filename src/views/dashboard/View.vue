@@ -5,7 +5,6 @@
     <div class="grid-stack">
         <div
             class="grid-stack-item"
-            ref="widgets"
             v-for="({x, y, w, h} = {}, index) in setup.widgets"
             v-bind:key="`widgets${index}`"
             v-bind="{
