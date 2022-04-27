@@ -46,7 +46,7 @@
         widgets: []
     })
 
-    onMounted(async () => {
+    onMounted(() => {
         widgetView();
     })
 
