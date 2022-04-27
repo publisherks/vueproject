@@ -27,7 +27,6 @@
                         kind="main"
                         iconCls="fal fa-check"
                         :fn="modalConfirmHook"
-                        ref="confirmBtn"
                     />
                 </div>
             </div>
