@@ -10,8 +10,9 @@
         </h1>
         <Navi v-if="!layoutState.leftMenu" />
         <CateNav v-if="layoutState.leftMenu" />
+        <ToggleTheme />
         <div
-            class="user"
+            class="user ml-10"
             :class="{ open: setup.userMenuOpen }"
         >
             <i
@@ -46,6 +47,7 @@
 <script setup>
     import Navi     from "@/layout/Navi";
     import CateNav  from "@/layout/CateNav";
+    import ToggleTheme  from "@/layout/ToggleTheme";
     
     import { state as layoutState, setLeftMenu } from "@/js/pattern/singleton/Layout";
     

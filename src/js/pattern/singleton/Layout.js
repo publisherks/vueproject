@@ -4,6 +4,7 @@ export const state = reactive({
     leftMenu : !localStorage.getItem("leftMenu") ? true : false,
     leftReduce : localStorage.getItem("leftReduce") ? true : false,
     isCate : true,
+    isTheme : !localStorage.getItem("lightTheme") ? 'default' : 'light',
 });
 
 export function setLeftMenu (boolean) {
@@ -18,4 +19,9 @@ export function setLeftReduce (boolean) {
 
 export function setIsCate (boolean) {
     state.isCate = boolean;
+}
+
+export function setIsTheme (theme) {
+    state.isTheme = theme;
+    theme === 'default' ? localStorage.removeItem('lightTheme', true) : localStorage.setItem('lightTheme', true);
 }

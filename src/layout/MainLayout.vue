@@ -17,18 +17,4 @@
     import ContentLayout from "@/layout/ContentLayout";
 
     import { state as layoutState } from "@/js/pattern/singleton/Layout";
-
-    import { reactive, watch, nextTick } from "vue";
-
-    const setup = reactive({
-        theme: "default",
-    });
-
-    watch(() => setup.theme, (value) => {
-        nextTick(() => {
-            document.querySelector("html").setAttribute("data-theme", value);
-        });
-    }, {
-        immediate: true,
-    });
 </script>

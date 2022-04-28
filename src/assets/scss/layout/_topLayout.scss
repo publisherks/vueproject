@@ -2,6 +2,7 @@
 
 .top-container {
     display: flex;
+    align-items: center;
     @include mar-pad(pt 24, pb 20);
 
     h1.logo {
@@ -99,7 +100,6 @@
     }
 
     .user {
-        @include mar-pad(ml auto);
         cursor: pointer;
         position: relative;
 

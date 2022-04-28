@@ -1,0 +1,91 @@
+@charset "utf-8";
+
+$toggleSize : rem(24px);
+
+.toggle-box {
+    position: relative;
+    width: rem(70px);
+    height: $toggleSize;
+
+    input {
+        @include position(absolute, $top: 0, $left: 0);
+        width: 0;
+        height: 0;
+        opacity: 0;
+
+        &:checked + label {
+            &:after {
+                opacity: 0;
+            }
+
+            &::before {
+                opacity: 1;
+            }
+
+            .handle {
+                left: 48px;
+
+                &:after {
+                    content: "\f186";
+                }
+            }
+        }
+    }
+
+    label {
+        display: block;
+        width: rem(70px);
+        height: $toggleSize;
+        border-radius: rem(12px);
+        background-color: var(--toggle-bg);
+        transition: background .25s;
+        cursor: pointer;
+
+        &:after,
+        &::before {
+            @include position(absolute, $top: 0, $right: 0, $left: 0, $bottom: 0);
+            display: flex;
+            align-items: center;
+            font-size: rem(12px);
+            font-weight: 700;
+            color: var(--toggle-text-color);
+            transition: color .25s, opacity .25s;
+            opacity: 0;
+        }
+
+        &:after {
+            content:'라이트';
+            padding-right: 9px;
+            justify-content: flex-end;
+            opacity: 1;
+        }
+
+        &:before {
+            content:'다크';
+            padding-left: 15px;
+            justify-content: flex-start;
+        }
+
+        .handle {
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--bg-color);
+            transition: left .25s, background .25s;
+
+            &:after {
+                content: "\f185";
+                font-size: rem(11px);
+                color: var(--toggle-bg);
+                @extend .fontawesomeSolid;
+                transition: color .25s;
+            }
+        }
+    }
+}
