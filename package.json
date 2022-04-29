@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "chart.js": "^3.7.1",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
     "gridstack": "^5.0.0",

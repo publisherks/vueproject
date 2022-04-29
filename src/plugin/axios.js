@@ -8,18 +8,37 @@ const api = axios.create({
 });
 
 // 국회정보 key
-const key = "a878d7a7c5f84397afcd772a1340fe2f";
+const petitionKey = "a878d7a7c5f84397afcd772a1340fe2f";
+// 코로나 정보 key
+const covidKey = "uBa47fFhzx4TAiwEhOwGmedr9H7OvRQJh1QmZG08GM7kN0MPsrjyPk8JdnWmpHqQiAyFqTDyvku4Xepd9yj+yg==";
 
 // 국회정보
 const petitionApi = axios.create({
     baseURL: "https://open.assembly.go.kr/portal/openapi",
     params: {
-        key: key,
+        key: petitionKey,
         type: "json"
+    }
+});
+
+// 코로나 정보
+const covidTotalApi = axios.create({
+    baseURL: "http://openapi.data.go.kr",
+    params: {
+        serviceKey: covidKey,
+    }
+});
+
+// 코로나 정보
+const covidApi = axios.create({
+    params: {
+        serviceKey: covidKey,
     }
 });
 
 export {
     api,
-    petitionApi
+    petitionApi,
+    covidTotalApi,
+    covidApi
 };

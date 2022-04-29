@@ -121,3 +121,18 @@ body,
     @include mar-pad(pl 17, pr 17, pt 13, pb 13);
     overflow: auto;
 }
+
+.grid-stack-item .widget {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .top {
+        display: flex;
+        align-items: center;
+        padding: 0 rem(15px);
+        font-size: rem(14px);
+        height: rem(40px);
+        background: var(--table-th-color);
+    }
+}

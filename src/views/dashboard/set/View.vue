@@ -15,7 +15,7 @@
     <div class="grid-stack">
         <div
             class="grid-stack-item"
-            v-for="({x, y, w, h, id } = {}, index) in setup.widgets"
+            v-for="({x, y, w, h, id, data} = {}) in setup.widgets"
             v-bind:key="`widgets${id}`"
             v-bind="{
                 id: `widget${id}`,
@@ -26,7 +26,10 @@
             }"
         >
             <div class="grid-stack-item-content box">
-                item {{index}}
+                <component
+                    :is="getWidget(data.type)"
+                    :name="data.label"
+                />
             </div>
         </div>
     </div>
@@ -39,6 +42,10 @@
     import { widgetList, widgetModify } from "@/js/api/widgetApi";
     import { setMessageModal } from "@/js/pattern/singleton/Modal";
     import { useRouter } from "vue-router";
+
+    import Bar from "../widget/bar"
+    import Line from "../widget/line"
+    import Pie from "../widget/pie"
 
     const router = useRouter();
 
@@ -114,7 +121,6 @@
 
         idx.forEach(async (e) => {
             let no = e + 1;
-            console.log(no);
             const request = {
                 x: setup.widgets[e].x,
                 y: setup.widgets[e].y,
@@ -140,6 +146,11 @@
             }
         });
     };
+
+    const getWidget = (type) => {
+        const TYPE = type === 'Bar' ? Bar : type === 'Line' ? Line : Pie;
+        return TYPE;
+    }
 </script>
 
 <style lang="sass" scoped>
