@@ -5,5 +5,5 @@ export async function covidState(request) {
 
 
 export async function covidDecideState(request) {
-    return await $covidApi.get("/1790387/covid19CurrentStatusKorea/covid19CurrentStatusKoreaJason", request).catch(e => { console.error(e);});
+    return await $covidApi.get("https://nkscorsserver.herokuapp.com/http://apis.data.go.kr/1790387/covid19CurrentStatusKorea/covid19CurrentStatusKoreaJason", request).catch(e => { console.error(e);});
 }

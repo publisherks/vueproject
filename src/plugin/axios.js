@@ -33,7 +33,7 @@ const covidTotalApi = axios.create({
 const covidApi = axios.create({
     params: {
         serviceKey: covidKey,
-    }
+    },
 });
 
 export {
