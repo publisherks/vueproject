@@ -25,6 +25,7 @@
     const protocol = () => {
         if(window.location.protocol === "https:") {
             window.location.protocol = "http";
+            console.log(window.location.protocol)
         }
     }
 </script>
