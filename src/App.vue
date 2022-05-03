@@ -19,7 +19,14 @@
 
     onMounted(() => {
         // console.log(process.env)
+        protocol();
     })
+
+    const protocol = () => {
+        if(window.location.protocol === "https:") {
+            window.location.protocol = "http";
+        }
+    }
 </script>
 
 <style lang="scss">
