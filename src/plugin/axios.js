@@ -23,7 +23,6 @@ const petitionApi = axios.create({
 
 // 코로나 정보
 const covidTotalApi = axios.create({
-    baseURL: "http://openapi.data.go.kr",
     params: {
         serviceKey: covidKey,
     }

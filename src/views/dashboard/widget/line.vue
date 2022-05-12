@@ -49,12 +49,12 @@
 
         const res2 = await covidDecideState()
 
-        console.log(res2?.data?.response);
+        console.log('covidDecideState ',res2?.data?.response);
 
         let totalDecideCnt = response?.data?.response?.body?.items?.item[0]?.decideCnt;
         let totalDeathCnt = response?.data?.response?.body?.items?.item[0]?.deathCnt;
 
-        console.log(response.data.response, totalDecideCnt, totalDeathCnt)
+        console.log('covidState ',response.data.response, totalDecideCnt, totalDeathCnt)
 
     }
 

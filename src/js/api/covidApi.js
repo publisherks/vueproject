@@ -1,6 +1,6 @@
 // 코로나 감염 현황
 export async function covidState(request) {
-    return await $covidTotalApi.get("http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson", request).catch(e => { console.error(e);});
+    return await $covidTotalApi.get("https://nkscorsserver.herokuapp.com/http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson", request).catch(e => { console.error(e);});
 }
 
 
