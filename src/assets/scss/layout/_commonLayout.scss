@@ -118,7 +118,7 @@ body,
     border-radius: 4px;
     background-color: var(--content-bg-color);
     outline: none;
-    @include mar-pad(pl 17, pr 17, pt 13, pb 13);
+    @include pad(pl 17, pr 17, pt 13, pb 13);
     overflow: auto;
 }
 
@@ -134,5 +134,43 @@ body,
         font-size: rem(14px);
         height: rem(40px);
         background: var(--table-th-color);
+    }
+
+    .con {
+        flex: 1 0 auto;
+        @include pad(p 30);
+
+        // .chart-legend {
+        //     display: flex;
+        //     align-items: center;
+        //     height: 20px;
+
+        //     p {
+        //         display: flex;
+        //         flex-direction: row;
+        //         align-items: center;
+        //         font-size: rem(12px);
+        //         color: var(--text-color3);
+        //         @include mar(mr 15);
+
+        //         i {
+        //             display: block;
+        //             width: rem(12px);
+        //             height: rem(12px);
+        //             @include mar(mr 5);
+        //         }
+        //     }
+        // }
+
+        .chart-box {
+            height: 100%;
+        }
+    }
+
+    .bot {
+        display: flex;
+        align-items: center;
+        padding: 0 rem(15px);
+        height: rem(40px);
     }
 }

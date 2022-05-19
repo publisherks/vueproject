@@ -36,7 +36,7 @@
             }
 
             &.prev {
-                @include mar-pad(mr 7);
+                @include mar(mr 7);
                 border-radius: 5px 0 0 5px;
                 @include border('r', 1px solid var(--border-color));
 
@@ -46,7 +46,7 @@
             }
 
             &.next {
-                @include mar-pad(ml 7);
+                @include mar(ml 7);
                 border-radius: 0 5px 5px 0;
                 @include border('l', 1px solid var(--border-color));
 

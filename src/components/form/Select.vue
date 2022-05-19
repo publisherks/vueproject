@@ -43,7 +43,7 @@
 </template>
 
 <script setup>
-    import { reactive, defineEmit, defineProps, ref, nextTick, computed } from "vue";
+    import { reactive, defineEmits, defineProps, ref, nextTick, computed } from "vue";
 
     const props = defineProps({
         datas: {
@@ -69,7 +69,7 @@
         }
     });
     
-    const emit = defineEmit(["update"]);
+    const emit = defineEmits(["update"]);
 
     const setup = reactive({
         isOpen : false,

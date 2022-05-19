@@ -3,14 +3,14 @@
 .top-container {
     display: flex;
     align-items: center;
-    @include mar-pad(pt 24, pb 20);
+    @include pad(pt 24, pb 20);
 
     h1.logo {
         display: flex;
         align-items: flex-end;
         max-width: 100%;
         max-height: rem(36px);
-        @include mar-pad(mr 33);
+        @include mar(mr 33);
 
         a {
             width: 100%;
@@ -28,15 +28,15 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            @include mar-pad(mt -24, mb -20);
+            @include mar(mt -24, mb -20);
 
             >li {
                 >a {
                     height: 80px;
-                    @include mar-pad(pl 30, pr 30);
+                    @include pad(pl 30, pr 30);
         
                     >i {
-                        @include mar-pad(mr 9);
+                        @include mar(mr 9);
                     }
                 }
                 &.depth1 {
@@ -49,7 +49,7 @@
                     >.sub-nav {
                         display: none;
                         @include position(absolute, $top: 100%, $right: 0, $left: 0);
-                        @include mar-pad(pt 8);
+                        @include pad(pt 8);
                         height: 0;
                         opacity: 0;
                         overflow: hidden;
@@ -69,7 +69,8 @@
                         &.show {
                             display: block;
                             height: auto;
-                            @include mar-pad(pt 8, mt 8);
+                            @include mar(mt 8);
+                            @include pad(pt 8);
                             animation-name: fadeInUp;
                             pointer-events: auto;
 
@@ -91,7 +92,7 @@
         color: var(--text-color3);
 
         i {
-            @include mar-pad(ml 8, mr 8);
+            @include mar(ml 8, mr 8);
         }
 
         strong {
@@ -112,7 +113,7 @@
             height: auto;
             animation-name: fadeInUp;
             pointer-events: auto;
-            @include mar-pad(mt 8);
+            @include mar(mt 8);
             overflow: visible;
         }
 
@@ -169,7 +170,7 @@
                     align-items: center;
                     width: 100%;
                     min-height: 40px;
-                    @include mar-pad(pl 20, pr 20);
+                    @include pad(pl 20, pr 20);
                     font-size: rem(14px);
                     font-weight: 400;
                     color: var(--text-color1);

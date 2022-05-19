@@ -2,11 +2,10 @@
 
 button[class*=btn-] {
     outline: none;
-    border: none;
     border-radius: 5px;
 
     i {
-        @include mar-pad(mr 6);
+        @include mar(mr 6);
     }
 }
 
@@ -14,7 +13,10 @@ button[class*=btn-] {
     height: 40px;
     font-size: rem(15px);
     font-weight: 700;
-    @include mar-pad(pl 20, pr 20);
+    color: var(--text-color4);
+    border-width: 1px;
+    border-style: solid;
+    @include pad(pl 20, pr 20);
     @include box-shadow(2px 2.2px 5px 0 var(--btn-shadow));
     transition: color .25s, background-color .25s;
 
@@ -39,12 +41,12 @@ button[class*=btn-] {
     height: 32px;
     font-size: rem(12px);
     font-weight: 700;
-    @include mar-pad(pl 15, pr 15);
+    @include pad(pl 15, pr 15);
     border-radius: 4px;
     transition: color .25s, background-color .25s;
 
     i {
-        @include mar-pad(mr 4);
+        @include mar(mr 4);
     }
 
     &:active {
@@ -54,6 +56,7 @@ button[class*=btn-] {
 
     &:disabled {
         color: rgba(var(--RGB_text-color1), .3);
+        border-color: var(--btn-disable-color) !important;
         background-color: var(--btn-disable-color) !important;
         box-shadow: none;
         cursor: auto;
@@ -83,16 +86,19 @@ $btns: (
 @mixin btnsGenerate($btns : ()) {
     @each $key, $value in $btns {
         .btn-#{$key} {
-            color: var(--text-color1);
+            border-color: var(--#{$value}-color);
             background-color: var(--#{$value}-color);
             &:active {
+                border-color: rgba(var(--RGB-#{$value}-color), .5);
                 background-color: rgba(var(--RGB-#{$value}-color), .5);
             }
         }
 
         .btn-tb.btn-#{$key} {
+            border-color: rgba(var(--RGB-#{$value}-color), .8);
             background-color: rgba(var(--RGB-#{$value}-color), .8);
             &:active {
+                border-color: rgba(var(--RGB-#{$value}-color), .4);
                 background-color: rgba(var(--RGB-#{$value}-color), .4);
             }
         }

@@ -24,7 +24,7 @@
             height: 13px;
             @include border('', 1px solid var(--border-color));
             background-color: var(--content-bg-color);
-            @include mar-pad(mr 8);
+            @include mar(mr 8);
             border-radius: 50%;
             transition: all .25s;
 

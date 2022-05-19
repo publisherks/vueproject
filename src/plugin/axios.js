@@ -22,13 +22,6 @@ const petitionApi = axios.create({
 });
 
 // 코로나 정보
-const covidTotalApi = axios.create({
-    params: {
-        serviceKey: covidKey,
-    }
-});
-
-// 코로나 정보
 const covidApi = axios.create({
     params: {
         serviceKey: covidKey,
@@ -38,6 +31,5 @@ const covidApi = axios.create({
 export {
     api,
     petitionApi,
-    covidTotalApi,
     covidApi
 };

@@ -5,10 +5,10 @@
     <div class="grid-stack">
         <div
             class="grid-stack-item"
-            v-for="({x, y, w, h} = {}, index) in setup.widgets"
-            v-bind:key="`widgets${index}`"
+            v-for="({x, y, w, h, id, data}  = {}) in setup.widgets"
+            v-bind:key="`widgets${id}`"
             v-bind="{
-                id: `widget${index}`,
+                id: `widget${id}`,
                 'gs-x': x,
                 'gs-y': y,
                 'gs-w': w,
@@ -16,7 +16,10 @@
             }"
         >
             <div class="grid-stack-item-content box">
-                item {{index}}
+                <component
+                    :is="getWidget(data.type)"
+                    :name="data.label"
+                />
             </div>
         </div>
     </div>
@@ -26,6 +29,10 @@
     import { GridStack } from "gridstack";
     import "gridstack/dist/h5/gridstack-dd-native";
     import { widgetList } from "@/js/api/widgetApi";
+
+    import Bar from "@/views/dashboard/widget/bar"
+    import Line from "@/views/dashboard/widget/line"
+    import Pie from "@/views/dashboard/widget/pie"
 
     const props = defineProps({
         title: {
@@ -61,6 +68,11 @@
     const initGridStack = () => {
         setup.grids = GridStack.init(setup.gridOption);
         setup.grids.cellHeight(setup.grids.cellWidth());
+    }
+
+    const getWidget = (type) => {
+        const TYPE = type === 'Bar' ? Bar : type === 'Line' ? Line : Pie;
+        return TYPE;
     }
 </script>
 

@@ -4,13 +4,14 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    @include mar-pad(pl 30, ml 200);
+    @include pad(pl 30);
+    @include mar(ml 200);
     width: calc(100% - 200px);
     transition: margin .25s, width .25s;
 
     .top-container,
     .contents {
-        @include mar-pad(pr 30);
+        @include pad(pr 30);
     }
 
     .contents.hide-cate-navi {
@@ -24,7 +25,7 @@
         line-height: 1;
 
         i {
-            @include mar-pad(ml 8, mr 8);
+            @include mar(ml 8, mr 8);
         }
 
         strong {

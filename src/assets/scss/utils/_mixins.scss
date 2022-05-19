@@ -38,17 +38,27 @@
     }
 }
 
+
 /**
     margin, padding 값을 만들어 주는 mixin.
     @param {Arglist} $kind-values  margin or padding 넣을 속성 값
 */
-@mixin mar-pad($kind-values...) {
+@mixin mar($kind-values...) {
+    
+    @each $kind-value in $kind-values {
+        @include make-kinds(nth($kind-value, 1),nth($kind-value, 2));
+    };
+}
+
+/**
+    margin, padding 값을 만들어 주는 mixin.
+    @param {Arglist} $kind-values  margin or padding 넣을 속성 값
+*/
+@mixin pad($kind-values...) {
 
     @each $kind-value in $kind-values {
         @include make-kinds(nth($kind-value, 1), nth($kind-value, 2));
     }
-
-    ;
 }
 
 /**

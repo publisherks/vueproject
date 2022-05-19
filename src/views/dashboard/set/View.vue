@@ -43,9 +43,9 @@
     import { setMessageModal } from "@/js/pattern/singleton/Modal";
     import { useRouter } from "vue-router";
 
-    import Bar from "../widget/bar"
-    import Line from "../widget/line"
-    import Pie from "../widget/pie"
+    import Bar from "@/views/dashboard/widget/bar"
+    import Line from "@/views/dashboard/widget/line"
+    import Pie from "@/views/dashboard/widget/pie"
 
     const router = useRouter();
 

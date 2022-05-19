@@ -20,13 +20,13 @@
         @include border('', 1px solid var(--modal-border));
         background-color: var(--content-bg-color);
         @include box-shadow(3.3px 3.7px 30px 0 rgba(var(--RGB-box-shadow), .9));
-        @include mar-pad(pt 20, pb 20, pl 25, pr 25);
+        @include pad(pt 20, pb 20, pl 25, pr 25);
     }
 
     &-top {
         display: flex;
         align-items: center;
-        @include mar-pad(mb 32);
+        @include mar(mb 32);
 
         .close-btn {
             margin-left: auto;

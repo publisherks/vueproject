@@ -11,7 +11,8 @@
 
     .logo {
         height: 55px;
-        @include mar-pad(ml 24, pt 17, pr 60, pb 22);
+        @include mar(ml 24);
+        @include pad(pt 17, pr 60, pb 22);
 
         img {
             width: 100%;
@@ -35,11 +36,11 @@
         >ul>li {
             >a {
                 height: 50px;
-                @include mar-pad(pl 24, pr 20);
+                @include pad(pl 24, pr 20);
 
                 >i {
                     width: rem(16px);
-                    @include mar-pad(mr 10);
+                    @include mar(mr 10);
                 }
             }
         }

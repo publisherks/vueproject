@@ -23,7 +23,7 @@
                 font-weight: 700;
                 color: var(--text-color3);
                 background-color: var(--table-th-color);
-                @include mar-pad(pl 26);
+                @include pad(pl 26);
                 text-align: left;
             }
 
@@ -31,10 +31,10 @@
                 font-size: rem(12px);
                 color: var(--text-color1);
                 text-align: left;
-                @include mar-pad(pl 24, pr 24);
+                @include pad(pl 24, pr 24);
 
                 &.img-td {
-                    @include mar-pad(p 0);
+                    @include pad(p 0);
                     height: 80px;
                     text-align: center;
 

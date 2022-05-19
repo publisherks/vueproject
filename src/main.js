@@ -9,6 +9,7 @@ import FontAwesomeIcon from "@/assets/all.css";
 // buttons
 import BtnGroup     from "@/components/form/BtnGroup";
 import Btn          from "@/components/form/Button";
+import TabBtn       from "@/components/form/TabBtn";
 
 // grid layout
 import VContainer   from "@/components/grid/Container";
@@ -35,6 +36,7 @@ createApp(App)
     .use(FontAwesomeIcon)
     .component('BtnGroup', BtnGroup)
     .component('Btn', Btn)
+    .component('TabBtn', TabBtn)
     .component('VContainer', VContainer)
     .component('VRow', VRow)
     .component('VCol', VCol)

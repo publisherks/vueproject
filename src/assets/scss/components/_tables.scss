@@ -43,7 +43,7 @@ $lineSize : size(1, 10);
                 height: 40px;
                 @include border('l', 1px solid var(--border-color));
                 background-color: var(--table-th-color);
-                @include mar-pad(pt 8, pb 8);
+                @include pad(pt 8, pb 8);
 
                 &.bb {
                     @include border('b', 1px solid var(--border-color) !important);
@@ -86,11 +86,11 @@ $lineSize : size(1, 10);
                 height: 48px;
                 @include border('', 1px solid var(--table-th-color));
                 border-top: none;
-                @include mar-pad(p 8);
+                @include pad(p 8);
                 word-break: keep-all;
 
                 &.img-td {
-                    @include mar-pad(pt 0, pb 0);
+                    @include pad(pt 0, pb 0);
                     height: 80px;
 
                     img {
@@ -100,7 +100,7 @@ $lineSize : size(1, 10);
                 }
 
                 &.states-box {
-                    @include mar-pad(p 0);
+                    @include pad(p 0);
 
                     &.enough {
                         // 만족
@@ -191,7 +191,7 @@ $lineSize : size(1, 10);
         >tr {
             >th {
                 @include border('', 1px solid var(--border-color), none, 1px solid var(--border-color));
-                @include mar-pad(pt 14, pb 14, pr 24, pl 24);
+                @include pad(pt 14, pb 14, pr 24, pl 24);
                 border-left: none;
                 text-align: left;
 
@@ -217,7 +217,7 @@ $lineSize : size(1, 10);
             }
 
             >td {
-                @include mar-pad(pt 14, pb 14, pr 24, pl 24);
+                @include pad(pt 14, pb 14, pr 24, pl 24);
                 @include border('b', 1px solid var(--table-th-color));
                 font-size: rem(15px);
                 text-align: left;

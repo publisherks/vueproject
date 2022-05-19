@@ -20,7 +20,7 @@ $height-table: 36px;
         background-color: var(--content-bg-color);
         @include border('', 1px solid var(--border-color));
         outline: none;
-        @include mar-pad(pl 17, pr 30);
+        @include pad(pl 17, pr 30);
         transition: border .25s;
 
         &:focus {
@@ -51,7 +51,7 @@ $height-table: 36px;
         display: flex;
         align-items: center;
         @include position(absolute, $top: 0, $right: 0, $bottom: 0);
-        @include mar-pad(pl 10, pr 10);
+        @include pad(pl 10, pr 10);
         outline: none;
         cursor: pointer;
 
@@ -67,7 +67,7 @@ $height-table: 36px;
         display: flex;
         align-items: center;
         @include position(absolute, $top: 0, $right: 0, $bottom: 0);
-        @include mar-pad(pl 10, pr 10);
+        @include pad(pl 10, pr 10);
         font-size: rem(15px);
         font-weight: 400;
         color: var(--text-color1);
@@ -116,7 +116,7 @@ $height-table: 36px;
         position: relative;
 
         >input {
-            @include mar-pad(pl 17, pr 40);
+            @include pad(pl 17, pr 40);
             cursor: pointer;
 
             &:focus+.icon {
@@ -164,7 +164,7 @@ $height-table: 36px;
         position: relative;
 
         >input {
-            @include mar-pad(pl 17, pr 40);
+            @include pad(pl 17, pr 40);
             cursor: pointer;
         }
 
@@ -190,7 +190,7 @@ $height-table: 36px;
 
     &.quantity {
         >input {
-            @include mar-pad(pl 40, pr 40);
+            @include pad(pl 40, pr 40);
             text-align: center;
         }
 
@@ -218,7 +218,7 @@ $height-table: 36px;
 
 .select-items {
     @include position(absolute, $top: calc(100% + 13px), $right: 0, $left: 0);
-    @include mar-pad(pt 8);
+    @include pad(pt 8);
     height: 0;
     overflow: hidden;
     opacity: 0;
@@ -232,7 +232,7 @@ $height-table: 36px;
     &.top {
         top: auto;
         bottom: calc(100% + 13px);
-        @include mar-pad(pb 8);
+        @include pad(pb 8);
 
         @include arrow-creat(14px, 9px, 'bot', var(--border-color), var(--content-bg-color), $left: 10px);
     }
@@ -251,7 +251,7 @@ $height-table: 36px;
             align-items: center;
             width: 100%;
             min-height: $height-default;
-            @include mar-pad(pl 20, pr 20);
+            @include pad(pl 20, pr 20);
             font-size: rem(14px);
             font-weight: 400;
             color: var(--text-color1);
@@ -290,7 +290,7 @@ $height-table: 36px;
     &.show {
         display: block;
         height: auto;
-        @include mar-pad(pt 8, mt 8);
+        @include pad(pt 8, mt 8);
         animation-name: fadeInUp;
         pointer-events: auto;
     }
@@ -324,18 +324,18 @@ $height-table: 36px;
             width: 242px;
 
             &.left {
-                @include mar-pad(pt 9, pb 9, pl 9);
+                @include pad(pt 9, pb 9, pl 9);
 
                 .calendar-table {
-                    @include mar-pad(pr 9);
+                    @include pad(pr 9);
                 }
             }
 
             &.right {
-                @include mar-pad(pt 9, pb 9, pr 9);
+                @include pad(pt 9, pb 9, pr 9);
 
                 .calendar-table {
-                    @include mar-pad(pl 9);
+                    @include pad(pl 9);
                 }
             }
 
@@ -358,7 +358,7 @@ $height-table: 36px;
                                 border: none;
                                 font-size: rem(12px);
                                 color: var(--main-color);
-                                @include mar-pad(pl 10, pr 32);
+                                @include pad(pl 10, pr 32);
                                 text-align: center;
                                 cursor: pointer;
                             }
@@ -372,7 +372,7 @@ $height-table: 36px;
                         .select-items>ul li>a {
                             min-height: 32px;
                             font-size: rem(12px);
-                            @include mar-pad(p 0);
+                            @include pad(p 0);
                             justify-content: center;
                         }
                     }
@@ -451,7 +451,7 @@ $height-table: 36px;
         background-color: var(--content-bg-color);
         @include border('', 1px solid var(--border-color));
         outline: none;
-        @include mar-pad(pl 17, pr 17, pt 13, pb 13);
+        @include pad(pl 17, pr 17, pt 13, pb 13);
         resize: none;
 
         &:focus {

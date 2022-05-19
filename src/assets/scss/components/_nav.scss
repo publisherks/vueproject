@@ -40,7 +40,7 @@
                 font-size: rem(13.5px);
                 @extend .fontawesomeRegular;
                 color: var(--gray-color);
-                @include mar-pad(ml auto);
+                @include mar(ml auto);
                 transition: transform .25s;
             }
 
@@ -64,7 +64,7 @@
                     height: 0;
                     font-size: 0;
                     opacity: 0;
-                    @include mar-pad(pl 59);
+                    @include pad(pl 59);
                     color: var(--text-color1);
                     overflow: hidden;
                     transition: color .25s, font-size .5s .25s, height .25s, opacity .25s;
