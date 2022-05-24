@@ -87,13 +87,16 @@
     const gridDrag = () => {
         setup.grids.on('dragstop resizestop', (event, el) => {
             let node = el.gridstackNode;
-            let id = parseInt(el.getAttribute('id').substr(6)) - 1;
-            Object.entries(node).forEach((el) => {
-                let key = el[0],
-                    value = el[1];
-                if(Object.keys(setup.widgets[id]).includes(key)) {
-                    setup.widgets[id][key] = el[1];
-                }
+            console.log(node, setup.grids.getGridItems());
+            setup.grids.getGridItems().forEach((item) => {
+                let id = parseInt(item.getAttribute('id').substr(6)) - 1;
+                Object.entries(item.gridstackNode).forEach((el) => {
+                    let key = el[0],
+                        value = el[1];
+                    if(Object.keys(setup.widgets[id]).includes(key)) {
+                        setup.widgets[id][key] = el[1];
+                    }
+                })
             })
         })
     }
@@ -114,7 +117,7 @@
         })
 
         idx = idx.filter((value, index) => idx.indexOf(value) === index);
-        console.log("idx", idx)
+        console.log("idx = ", idx, " setup.widgets = ", setup.widgets)
         
         let response = "",
             message = "";
