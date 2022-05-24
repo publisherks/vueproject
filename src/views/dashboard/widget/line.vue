@@ -24,6 +24,10 @@
     let color = {
         grid: layoutState.isTheme === "default" ? "#ffffff" : "#000000",
         tick: layoutState.isTheme === "default" ? "#9d98a4" : "#706c75",
+        line1: getRandomColor('#0000ff', 10),
+        line2: getRandomColor('#ff0000', 10),
+        line3: getRandomColor('#FF00FF', 10),
+        line4: getRandomColor('#FFA500', 10),
     }
 
     const props = defineProps({
@@ -62,13 +66,9 @@
 
         const res = await covidInfState(request);
 
-        // const res2 = await covidDecideState()
-
         if (res.data.response.header.resultCode !== '00') {
             clearInterval(setup.setInterval);
         }
-
-        console.log(res);
 
         let items = Object.values(res.data.response.body.items.item.reverse());
 
@@ -110,8 +110,14 @@
                     labels: {
                         boxWidth: 12,
                         fontColor: color.tick,
-                        lineWidth: 0,
-                    }
+                        pointStyle: 'line',
+                        usePointStyle: true,
+                    },
+                },
+                tooltip: {
+                    boxWidth: 6,
+                    boxHeight: 6,
+                    boxPadding: 3,
                 },
                 zoom: {
                     zoom: {
@@ -194,32 +200,36 @@
                     {
                         label: "확진자 수",
                         data: [],
-                        borderColor: getRandomColor('#0000ff', 10),
-                        backgroundColor: getRandomColor('#0000ff', 10),
+                        borderColor: color.line1,
+                        backgroundColor: color.line1,
+                        borderWidth: 4,
                         pointRadius: 0,
                         key: "decideCnt",
                     },
                     {
                         label: "사망자 수",
                         data: [],
-                        borderColor: getRandomColor('#ff0000', 10),
-                        backgroundColor: getRandomColor('#ff0000', 10),
+                        borderColor: color.line2,
+                        backgroundColor: color.line2,
+                        borderWidth: 4,
                         pointRadius: 0,
                         key: "deathCnt",
                     },
                     {
                         label: "누적 확진자 수",
                         data: [],
-                        borderColor: getRandomColor('#FF00FF', 10),
-                        backgroundColor: getRandomColor('#FF00FF', 10),
+                        borderColor: color.line3,
+                        backgroundColor: color.line3,
+                        borderWidth: 4,
                         pointRadius: 0,
                         key: "totalDecideCnt",
                     },
                     {
                         label: "누적 사망자 수",
                         data: [],
-                        borderColor: getRandomColor('#FFA500', 10),
-                        backgroundColor: getRandomColor('#FFA500', 10),
+                        borderColor: color.line4,
+                        backgroundColor: color.line4,
+                        borderWidth: 4,
                         pointRadius: 0,
                         key: "totalDeathCnt",
                     }
