@@ -132,12 +132,14 @@ body,
         align-items: center;
         padding: 0 rem(15px);
         font-size: rem(14px);
-        height: rem(40px);
+        flex: 0 0 rem(40px);
         background: var(--table-th-color);
     }
 
     .con {
-        flex: 1 0 auto;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
         @include pad(p 30);
 
         // .chart-legend {
@@ -163,14 +165,8 @@ body,
         // }
 
         .chart-box {
-            height: 100%;
+            flex: 1 0 auto;
+            // height: calc(100% - 2px);
         }
-    }
-
-    .bot {
-        display: flex;
-        align-items: center;
-        padding: 0 rem(15px);
-        height: rem(40px);
     }
 }

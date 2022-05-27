@@ -1,5 +1,13 @@
 import axios from "axios";
 
+import { reactive, watch } from "vue";
+import { setLoding } from "@/components/Loading/state";
+import { setMessageModal } from "@/js/pattern/singleton/Modal";
+
+const setup = reactive({
+    apiRequestStatus: false,
+});
+
 const api = axios.create({
     baseURL: process.env.VUE_APP_API,
     // headers: {
@@ -26,6 +34,33 @@ const covidApi = axios.create({
     params: {
         serviceKey: covidKey,
     },
+});
+
+covidApi.interceptors.request.use(request => {
+    setup.apiRequestStatus = true;
+    return request;
+}, error => {
+    setup.apiRequestStatus = false;
+    messagePopup('데이터를 불러오지 못하였습니다.');
+})
+
+covidApi.interceptors.response.use(response => {
+    setup.apiRequestStatus = false;
+    return response;
+}, error => {
+    setup.apiRequestStatus = false;
+    messagePopup('데이터를 불러오지 못하였습니다.');
+})
+
+const messagePopup = (message) => {
+    setMessageModal({
+        status: true,
+        message: message,
+    });
+};
+
+watch(() => setup.apiRequestStatus, value => {
+    setLoding("loadingStatus", value);
 });
 
 export {

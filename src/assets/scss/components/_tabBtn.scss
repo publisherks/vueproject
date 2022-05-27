@@ -18,7 +18,7 @@
         }
 
         &:not(.active) {
-            background-color: var(--btn-shadow);
+            background-color: var(--btn-disable-color);
         }
     }
 }

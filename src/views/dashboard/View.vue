@@ -17,7 +17,7 @@
         >
             <div class="grid-stack-item-content box">
                 <component
-                    :is="getWidget(data.type)"
+                    :is="getWidget(id)"
                     :name="data.label"
                 />
             </div>
@@ -28,11 +28,12 @@
     import { reactive, defineProps, onMounted, nextTick } from "vue";
     import { GridStack } from "gridstack";
     import "gridstack/dist/h5/gridstack-dd-native";
-    import { widgetList } from "@/js/api/widgetApi";
 
-    import Bar from "@/views/dashboard/widget/bar"
-    import Line from "@/views/dashboard/widget/line"
-    import Pie from "@/views/dashboard/widget/pie"
+    import WidgetLine from "@/views/dashboard/widget/widget1"
+    import WidgetBar from "@/views/dashboard/widget/widget2"
+    import WidgetPie from "@/views/dashboard/widget/widget3"
+
+    import { widgetList } from "@/js/api/widgetApi";
 
     const props = defineProps({
         title: {
@@ -70,9 +71,21 @@
         setup.grids.cellHeight(setup.grids.cellWidth());
     }
 
-    const getWidget = (type) => {
-        const TYPE = type === 'Bar' ? Bar : type === 'Line' ? Line : Pie;
-        return TYPE;
+    const getWidget = (id) => {
+        let type;
+
+        switch(id) {
+            case 1:
+                type = WidgetLine;
+                break;
+            case 2:
+                type = WidgetBar;
+                break;
+            case 3:
+                type = WidgetPie;
+                break;
+        }
+        return type;
     }
 </script>
 

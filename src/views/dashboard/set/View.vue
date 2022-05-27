@@ -27,7 +27,7 @@
         >
             <div class="grid-stack-item-content box">
                 <component
-                    :is="getWidget(data.type)"
+                    :is="getWidget(id)"
                     :name="data.label"
                 />
             </div>
@@ -38,14 +38,13 @@
     import { reactive, defineProps, onMounted, nextTick, watch } from "vue";
     import { GridStack } from "gridstack";
     import "gridstack/dist/h5/gridstack-dd-native";
-    import { isEmpty } from "@/js/common/common";
     import { widgetList, widgetModify } from "@/js/api/widgetApi";
     import { setMessageModal } from "@/js/pattern/singleton/Modal";
     import { useRouter } from "vue-router";
 
-    import Bar from "@/views/dashboard/widget/bar"
-    import Line from "@/views/dashboard/widget/line"
-    import Pie from "@/views/dashboard/widget/pie"
+    import WidgetLine from "@/views/dashboard/widget/widget1"
+    import WidgetBar from "@/views/dashboard/widget/widget2"
+    import WidgetPie from "@/views/dashboard/widget/widget3"
 
     const router = useRouter();
 
@@ -150,9 +149,21 @@
         });
     };
 
-    const getWidget = (type) => {
-        const TYPE = type === 'Bar' ? Bar : type === 'Line' ? Line : Pie;
-        return TYPE;
+    const getWidget = (id) => {
+        let type;
+
+        switch(id) {
+            case 1:
+                type = WidgetLine;
+                break;
+            case 2:
+                type = WidgetBar;
+                break;
+            case 3:
+                type = WidgetPie;
+                break;
+        }
+        return type;
     }
 </script>
 
