@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { reactive, watch } from "vue";
-import { setLoding } from "@/components/Loading/state";
+import { state, setLoding } from "@/components/Loading/state";
 import { setMessageModal } from "@/js/pattern/singleton/Modal";
 
 const setup = reactive({
@@ -31,26 +31,59 @@ const petitionApi = axios.create({
 
 // 코로나 정보
 const covidApi = axios.create({
+    baseURL: "https://nkscorsserver.herokuapp.com/http://openapi.data.go.kr/openapi/service/rest/Covid19",
     params: {
         serviceKey: covidKey,
     },
 });
 
-covidApi.interceptors.request.use(request => {
-    setup.apiRequestStatus = true;
-    return request;
-}, error => {
-    setup.apiRequestStatus = false;
-    messagePopup('데이터를 불러오지 못하였습니다.');
-})
+const covidSidoApi = axios.create({
+    baseURL: "https://nkscorsserver.herokuapp.com/http://openapi.data.go.kr/openapi/service/rest/Covid19",
+    params: {
+        serviceKey: covidKey,
+    },
+});
 
-covidApi.interceptors.response.use(response => {
-    setup.apiRequestStatus = false;
-    return response;
-}, error => {
-    setup.apiRequestStatus = false;
-    messagePopup('데이터를 불러오지 못하였습니다.');
-})
+const apiLoding = (api, key) => {
+    api.interceptors.request.use(request => {
+        setLoding(key, true);
+        console.log(key, state);
+        return request;
+    }, error => {
+        setLoding(key, false);
+        messagePopup('데이터를 불러오지 못하였습니다.');
+    })
+
+    api.interceptors.response.use(response => {
+        setLoding(key, false);
+        console.log(key, state);
+        return response;
+    }, error => {
+        setLoding(key, false);
+        messagePopup('데이터를 불러오지 못하였습니다.');
+    })
+}
+
+apiLoding(covidApi, "covidStatus");
+apiLoding(covidSidoApi, "covidSidoStatus");
+
+// covidApi.interceptors.request.use(request => {
+//     setLoding("covidStatus", true);
+//     console.log(state);
+//     return request;
+// }, error => {
+//     setLoding("covidStatus", false);
+//     messagePopup('데이터를 불러오지 못하였습니다.');
+// })
+
+// covidApi.interceptors.response.use(response => {
+//     setLoding("covidStatus", false);
+//     console.log(state);
+//     return response;
+// }, error => {
+//     setLoding("covidStatus", false);
+//     messagePopup('데이터를 불러오지 못하였습니다.');
+// })
 
 const messagePopup = (message) => {
     setMessageModal({
@@ -59,12 +92,9 @@ const messagePopup = (message) => {
     });
 };
 
-watch(() => setup.apiRequestStatus, value => {
-    setLoding("loadingStatus", value);
-});
-
 export {
     api,
     petitionApi,
-    covidApi
+    covidApi,
+    covidSidoApi
 };

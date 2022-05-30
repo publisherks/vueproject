@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
 import App           from './App.vue'
 import router        from "./router";
-import store         from "./store";
 import plugin        from "./plugin";
 
 import FontAwesomeIcon from "@/assets/all.css";
@@ -31,7 +30,6 @@ import VQuantity     from "@/components/form/Quantity";
 
 createApp(App)
     .use(router)
-    .use(store)
     .use(plugin)
     .use(FontAwesomeIcon)
     .component('BtnGroup', BtnGroup)

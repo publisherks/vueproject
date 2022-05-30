@@ -76,7 +76,7 @@
                         if ( isEmpty(value) === false && isEmpty(props.totalValue) === false) {
                             percent = `(${(value / props.totalValue * 100).toFixed(1)}%)`;
                         }
-                        return `${value} ${percent}`;
+                        return `${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ${percent}`;
                     }
                 }
             },
@@ -168,6 +168,7 @@
         chart.data.labels = [];
         chart.data.datasets.map((i) => i.data = []);
 
+        // eslint-disable-next-line vue/no-mutating-props
         props?.datas?.sort((a, b) => a[type] > b[type] ? -1 : a[type] < b[type] ? 1 : 0).map(item => {
             if (isEmpty(item) === true) {
                 return ;

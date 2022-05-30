@@ -8,12 +8,17 @@
                 :datas="setup.chartData"
             />
         </div>
+        <loading
+            v-show="loadingStatus.covidStatus"
+        />
     </div>
 </template>
 <script setup>
-    import { reactive, defineProps, onMounted, ref } from "vue";
+    import { reactive, defineProps, onMounted, watch } from "vue";
     import { covidInfState } from "@/js/api/covidApi";
     import { isEmpty } from "@/js/common/common";
+    import { state as loadingStatus, setLoding } from "@/components/Loading/state";
+    import Loading from "@/components/Loading/Loading";
 
     import ChartLine from "@/views/dashboard/chart/Line"
 
@@ -32,9 +37,9 @@
 
     onMounted(() => {
         getData();
-        // setup.setInterval = setInterval(async () => {
-        //     await getData();
-        // }, 600000);
+        setup.setInterval = setInterval(async () => {
+            await getData();
+        }, 600000);
     })
 
     const getData = async () => {
@@ -76,6 +81,4 @@
             }
         }
     }
-
-    
 </script>

@@ -38,7 +38,6 @@
 </template>
 <script setup>
     import { computed, reactive } from "vue";
-    import store from "@/store";
 
     const setup = reactive({
         id : "",

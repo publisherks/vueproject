@@ -1,10 +1,11 @@
 import { reactive } from "vue";
 
 export const state = reactive({
-    loadingStatus : true,
+    covidStatus: false,
+    covidSidoStatus: false,
+    loadingStatus : false,
 });
 
 export function setLoding (type, val) {
     state[type] = val;
 }
-
