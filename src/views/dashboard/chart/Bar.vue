@@ -76,7 +76,6 @@
                         if ( isEmpty(value) === false && isEmpty(props.totalValue) === false) {
                             percent = `(${(value / props.totalValue * 100).toFixed(1)}%)`;
                         }
-                        console.log(value);
                         return `${value?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ${percent}`;
                     }
                 }
