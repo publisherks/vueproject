@@ -46,7 +46,7 @@
         grids: undefined,
         gridOption: {
             column: 12,
-            float: true,
+            float: false,
             disableResize: true,
             disableDrag:true,
         },

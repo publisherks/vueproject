@@ -59,7 +59,7 @@
         grids: undefined,
         gridOption: {
             column: 12,
-            float: true,
+            float: false,
         },
         widgets: [],
     })
@@ -86,7 +86,7 @@
     const gridDrag = () => {
         setup.grids.on('dragstop resizestop', (event, el) => {
             let node = el.gridstackNode;
-            console.log(node, setup.grids.getGridItems());
+            // console.log(node, setup.grids.getGridItems());
             setup.grids.getGridItems().forEach((item) => {
                 let id = parseInt(item.getAttribute('id').substr(6)) - 1;
                 Object.entries(item.gridstackNode).forEach((el) => {
@@ -116,7 +116,7 @@
         })
 
         idx = idx.filter((value, index) => idx.indexOf(value) === index);
-        console.log("idx = ", idx, " setup.widgets = ", setup.widgets)
+        // console.log("idx = ", idx, " setup.widgets = ", setup.widgets)
         
         let response = "",
             message = "";

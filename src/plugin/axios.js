@@ -47,7 +47,6 @@ const covidSidoApi = axios.create({
 const apiLoding = (api, key) => {
     api.interceptors.request.use(request => {
         setLoding(key, true);
-        console.log(key, state);
         return request;
     }, error => {
         setLoding(key, false);
@@ -56,7 +55,6 @@ const apiLoding = (api, key) => {
 
     api.interceptors.response.use(response => {
         setLoding(key, false);
-        console.log(key, state);
         return response;
     }, error => {
         setLoding(key, false);
@@ -67,23 +65,6 @@ const apiLoding = (api, key) => {
 apiLoding(covidApi, "covidStatus");
 apiLoding(covidSidoApi, "covidSidoStatus");
 
-// covidApi.interceptors.request.use(request => {
-//     setLoding("covidStatus", true);
-//     console.log(state);
-//     return request;
-// }, error => {
-//     setLoding("covidStatus", false);
-//     messagePopup('데이터를 불러오지 못하였습니다.');
-// })
-
-// covidApi.interceptors.response.use(response => {
-//     setLoding("covidStatus", false);
-//     console.log(state);
-//     return response;
-// }, error => {
-//     setLoding("covidStatus", false);
-//     messagePopup('데이터를 불러오지 못하였습니다.');
-// })
 
 const messagePopup = (message) => {
     setMessageModal({
