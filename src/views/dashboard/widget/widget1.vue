@@ -38,8 +38,10 @@
     onMounted(() => {
         getData();
         setup.setInterval = setInterval(async () => {
-            await getData();
-        }, 600000);
+            if ( String($moment().minutes()).substr(String($moment().minutes()).length -1, String($moment().minutes()).length) === '0' ) {
+                await getData();
+            }
+        }, 60000);
     })
 
     const getData = async () => {

@@ -3,6 +3,7 @@ import { reactive } from "vue";
 export const state = reactive({
     covidStatus: false,
     covidSidoStatus: false,
+    covidGenAgeCaseStatus: false,
     loadingStatus : false,
 });
 

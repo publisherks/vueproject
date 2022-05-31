@@ -4,23 +4,23 @@
             {{ name }}
         </div>
         <div class="con">
-            <div class="chart-box">
-                <!-- <canvas ref="pieChart"></canvas> -->
-            </div>
+            <chart-pie
+            />
         </div>
+        <loading
+            v-show="loadingStatus.covidGenAgeCaseStatus"
+        />
     </div>
 </template>
 <script setup>
     import { reactive, defineProps, onMounted, ref, nextTick, watch } from "vue";
-    import { covidSidoInfState, covidDecideState } from "@/js/api/covidApi";
-    import Chart from 'chart.js/auto';
-    import { state as layoutState } from "@/js/pattern/singleton/Layout";
-    
-    let chart = {};
-    let color = {
-        grid: layoutState.isTheme === "default" ? "#ffffff" : "#000000",
-    }
+    import { covidGenAgeCaseInf } from "@/js/api/covidApi";
+    import { state as loadingStatus, setLoding } from "@/components/Loading/state";
+    import Loading from "@/components/Loading/Loading";
+    import { isEmpty } from "@/js/common/common";
 
+    import ChartPie from "@/views/dashboard/chart/Pie"
+    
     const props = defineProps({
         name: {
             type: String,
@@ -37,7 +37,7 @@
     // const pieChart = ref(null);
 
     onMounted(async () => {
-        // getData();
+        getData();
         // setup.setInterval = setInterval(async () => {
         //     await getData();
         // }, 600000);
@@ -54,7 +54,7 @@
             }
         }
 
-        const res = await covidSidoInfState(request);
+        const res = await covidGenAgeCaseInf(request);
 
         if (res.data.response.header.resultCode !== '00') {
             clearInterval(setup.setInterval);
@@ -66,8 +66,5 @@
 
         if (isEmpty(setup.data)) {
         }
-    }
-
-    const initChart = () => {
     }
 </script>

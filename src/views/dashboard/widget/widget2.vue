@@ -52,6 +52,7 @@
             week: [],
             all: [],
         },
+        isGetData: false,
         setInterval: "",
         total: {
             def: "",
@@ -115,13 +116,54 @@
     const totalValue = computed(() => setup.type.value === 1 ? setup.total.def : setup.type.value === 2 ? setup.total.death : setup.total.clear )
 
     onMounted(() => {
-        getData();
+        initData();
         setup.setInterval = setInterval(async () => {
-            await getData();
-        }, 600000);
+            if ( String($moment().minutes()).substr(String($moment().minutes()).length -1, String($moment().minutes()).length) === '0' ) {
+                setup.isGetData = false;
+                await getData();
+            }
+        }, 60000);
     })
 
+    const initData = async () => {
+
+        setLoding("covidSidoStatus", true);
+
+        const request = {
+            params: {
+                startCreateDt: $moment().subtract(7, 'd').format("YYYYMMDD"),
+                endCreateDt: $moment().format("YYYYMMDD")
+            }
+        }
+
+        const res = await covidSidoInfState(request);
+
+        setLoding("covidSidoStatus", false);
+
+        if (res.data.response.header.resultCode !== '00') {
+            clearInterval(setup.setInterval);
+        }
+
+        let items = Object.values(res.data.response.body.items.item);
+
+        if (isEmpty(setup.datas.week)) {
+            addData("week", items);
+        }
+
+        if (isEmpty(setup.datas.today)) {
+            items = Object.values(items).filter((item, index) => $moment(item.createDt).format("YYYY/MM/DD") >= $moment().subtract(1, 'd').format("YYYY/MM/DD"))
+            addData("today", items);
+        }
+
+        setData(setup.term.value);
+        getData();
+    }
+
     const getData = async () => {
+        if ( setup.isGetData === true) {
+            return
+        }
+
         const request = {
             params: {
                 startCreateDt: $moment("20200101").format("YYYYMMDD"),
@@ -141,15 +183,7 @@
             addData("all", items);
         }
 
-        if (isEmpty(setup.datas.week)) {
-            items = Object.values(items).filter((item, index) => $moment(item.createDt).format("YYYY/MM/DD") >= $moment().subtract(7, 'd').format("YYYY/MM/DD"))
-            addData("week", items);
-        }
-
-        if (isEmpty(setup.datas.today)) {
-            items = Object.values(items).filter((item, index) => $moment(item.createDt).format("YYYY/MM/DD") >= $moment().subtract(1, 'd').format("YYYY/MM/DD"))
-            addData("today", items);
-        }
+        setup.isGetData = true;
 
         setData(setup.term.value);
     }
@@ -219,6 +253,17 @@
     }
 
     watch(() => setup.term, (val) => {
-        setData(val.value);
+        if ( val.value !== 3 || setup.isGetData === true) {
+            setData(val.value);
+        } else {
+            setLoding("covidSidoStatus", true);
+        }
+    })
+
+    watch(() => setup.isGetData, (val) => {
+        if ( val === true) {
+            setLoding("covidSidoStatus", false);
+            setData(setup.term.value);
+        }
     })
 </script>

@@ -17,8 +17,8 @@
     let color = {
         grid: layoutState.isTheme === "default" ? "#ffffff" : "#000000",
         tick: layoutState.isTheme === "default" ? "#9d98a4" : "#706c75",
-        line1: getRandomColor('#0000ff', 10),
-        line2: getRandomColor('#ff0000', 10),
+        line1: getRandomColor('#0000FF', 10),
+        line2: getRandomColor('#FF0000', 10),
         line3: getRandomColor('#FF00FF', 10),
         line4: getRandomColor('#FFA500', 10),
     }

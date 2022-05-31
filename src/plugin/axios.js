@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { reactive, watch } from "vue";
-import { state, setLoding } from "@/components/Loading/state";
+import { setLoding } from "@/components/Loading/state";
 import { setMessageModal } from "@/js/pattern/singleton/Modal";
 
 const setup = reactive({
@@ -44,6 +44,13 @@ const covidSidoApi = axios.create({
     },
 });
 
+const covidGenAgeCaseApi = axios.create({
+    baseURL: "https://nkscorsserver.herokuapp.com/http://openapi.data.go.kr/openapi/service/rest/Covid19",
+    params: {
+        serviceKey: covidKey,
+    },
+});
+
 const apiLoding = (api, key) => {
     api.interceptors.request.use(request => {
         setLoding(key, true);
@@ -63,7 +70,8 @@ const apiLoding = (api, key) => {
 }
 
 apiLoding(covidApi, "covidStatus");
-apiLoding(covidSidoApi, "covidSidoStatus");
+// apiLoding(covidSidoApi, "covidSidoStatus");
+apiLoding(covidGenAgeCaseApi, "covidGenAgeCaseStatus");
 
 
 const messagePopup = (message) => {
@@ -77,5 +85,6 @@ export {
     api,
     petitionApi,
     covidApi,
-    covidSidoApi
+    covidSidoApi,
+    covidGenAgeCaseApi
 };

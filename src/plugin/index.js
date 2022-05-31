@@ -8,5 +8,6 @@ export default {
         window.$petitionApi = axios.petitionApi;
         window.$covidApi = axios.covidApi;
         window.$covidSidoApi = axios.covidSidoApi;
+        window.$covidGenAgeCaseApi = axios.covidGenAgeCaseApi;
     }
 };
