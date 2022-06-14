@@ -160,8 +160,8 @@
                     {
                         data: [],
                         borderWidth: 4,
-                        backgroundColor: [ color.polar1, color.polar3, color.polar4, color.polar5, color.polar6, color.polar7, color.polar8, color.polar9 ],
-                        borderColor: [ color.polar1, color.polar3, color.polar4, color.polar5, color.polar6, color.polar7, color.polar8, color.polar9 ],
+                        backgroundColor: [ color.polar1, color.polar2, color.polar3, color.polar4, color.polar5, color.polar6, color.polar7, color.polar8, color.polar9 ],
+                        borderColor: [ color.polar1, color.polar2, color.polar3, color.polar4, color.polar5, color.polar6, color.polar7, color.polar8, color.polar9 ],
                     },
                 ],
             },
@@ -213,4 +213,13 @@
             deep: true,
         }
     );
+
+    watch(() => layoutState.isTheme, (val) => {
+        chart.destroy();
+        color.grid = val === "default" ? "#ffffff" : "#000000";
+        nextTick(() => {
+            initChart()
+            updateChart(TYPE.value);
+        });
+    })
 </script>
