@@ -3,6 +3,7 @@ import { reactive } from "vue";
 export const state = reactive({
     leftMenu : !localStorage.getItem("leftMenu") ? true : false,
     leftReduce : localStorage.getItem("leftReduce") ? true : false,
+    userMenu : false,
     isCate : true,
     isTheme : !localStorage.getItem("lightTheme") ? 'default' : 'light',
 });
@@ -15,6 +16,10 @@ export function setLeftMenu (boolean) {
 export function setLeftReduce (boolean) {
     state.leftReduce = boolean;
     state.leftReduce ? localStorage.setItem("leftReduce", true) : localStorage.removeItem("leftReduce");
+}
+
+export function setUserMenu (boolean) {
+    state.userMenu = boolean;
 }
 
 export function setIsCate (boolean) {

@@ -224,11 +224,11 @@
                         isolClearCnt: (clearCnt || 0) - (compare.isolClearCnt || 0),
                         gubun: item.gubun
                     }
-                });
+                }).filter((item) => isEmpty(item) === false);
             }
         }
 
-        setup.data = setup.data.filter((item) => isEmpty(item) === false);
+        setup.data = setup.data;
 
         setup.chartData = [ ...setup.data ];
     }

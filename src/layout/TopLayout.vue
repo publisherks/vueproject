@@ -13,11 +13,11 @@
         <ToggleTheme />
         <div
             class="user ml-10"
-            :class="{ open: setup.userMenuOpen }"
+            :class="{ open: layoutState.userMenu }"
         >
             <i
                 class="fal fa-user-circle"
-                v-on:click="setup.userMenuOpen = !setup.userMenuOpen"
+                v-on:click="setUserMenu(layoutState.userMenu = !layoutState.userMenu)"
             ></i>
             <div class="user-menu">
                 <ul>
@@ -49,16 +49,19 @@
     import CateNav  from "@/layout/CateNav";
     import ToggleTheme  from "@/layout/ToggleTheme";
     
-    import { state as layoutState, setLeftMenu } from "@/js/pattern/singleton/Layout";
+    import { state as layoutState, setLeftMenu, setUserMenu } from "@/js/pattern/singleton/Layout";
     
-    import { reactive } from "vue";
+    import { watch } from "vue";
     import { useRoute, useRouter } from "vue-router";
 
     const router = useRouter();
+    const route = useRoute();
+    
+    watch(() => route.name, (val, oldVal) => {
+        if (val === oldVal) {
+            return;
+        }
+        setUserMenu(false);
+    });
 
-    const setup = reactive({
-        userMenuOpen: false,
-    })
-
-    console.log();
 </script>

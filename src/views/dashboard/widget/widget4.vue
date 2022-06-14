@@ -11,23 +11,27 @@
                     v-model:value="setup.type"
                 />
             </div>
-            <chart-pie
+            <chart-polar
                 :datas="setup.chartData"
+                :totalValue="totalValue"
                 :type="setup.type.value"
             />
         </div>
-        <loading v-show="loadingStatus.covidGenAgeCaseStatus" />
+        <loading
+            v-show="loadingStatus.covidGenAgeCaseStatus"
+        />
     </div>
 </template>
 <script setup>
-    import { reactive, defineProps, onMounted, ref, nextTick, watch } from "vue";
+    import { reactive, defineProps, onMounted, watch, computed } from "vue";
     import { covidGenAgeCaseInf } from "@/js/api/covidApi";
     import { state as loadingStatus } from "@/components/Loading/state";
     import Loading from "@/components/Loading/Loading";
     import { isEmpty } from "@/js/common/common";
 
-    import ChartPie from "@/views/dashboard/chart/Pie";
+    import ChartPolar from "@/views/dashboard/chart/polar"
 
+    
     const props = defineProps({
         name: {
             type: String,
@@ -40,8 +44,13 @@
         datas: {
             conf: [],
             death: [],
+            critical: [],
         },
         chartData: [],
+        total: {
+            conf: "",
+            death: "",
+        },
         setInterval: "",
         typeTab: [
             {
@@ -56,6 +65,12 @@
                 kind: "sub1",
                 size: "small",
             },
+            {
+                text: "치명률",
+                value: 3,
+                kind: "sub1",
+                size: "small",
+            },
         ],
         type: {
             text: "확진자",
@@ -64,6 +79,8 @@
             size: "small",
         },
     });
+
+    const totalValue = computed(() => setup.type.value === 1 ? setup.total.conf : setup.total.death )
 
     onMounted(async () => {
         initData();
@@ -97,7 +114,7 @@
 
         if (isEmpty(setup.datas.conf)) {
             setup.datas.conf = items.map((item) => {
-                if (item.gubun !== "남성" && item.gubun !== "여성") {
+                if (item.gubun === "남성" || item.gubun === "여성") {
                     return;
                 }
 
@@ -111,7 +128,7 @@
 
         if (isEmpty(setup.datas.death)) {
             setup.datas.death = items.map((item) => {
-                if (item.gubun !== "남성" && item.gubun !== "여성") {
+                if (item.gubun === "남성" || item.gubun === "여성") {
                     return;
                 }
 
@@ -122,6 +139,23 @@
                 };
             }).filter((item) => isEmpty(item) === false);
         }
+
+        if (isEmpty(setup.datas.critical)) {
+            setup.datas.critical = items.map((item) => {
+                if (item.gubun === "남성" || item.gubun === "여성") {
+                    return;
+                }
+
+                return {
+                    criticalRate: item.criticalRate,
+                    gubun: item.gubun,
+                };
+            }).filter((item) => isEmpty(item) === false);
+        }
+
+        console.log(setup.datas);
+        setup.total.conf = setup.datas.conf.reduce((prev, cur) => { return prev += cur.confCase }, 0);
+        setup.total.death = setup.datas.death.reduce((prev, cur) => { return prev += cur.death }, 0);
 
         setData(setup.type.value);
     };
@@ -136,9 +170,12 @@
             case 2:
                 datas = setup.datas.death;
                 break;
+            case 3:
+                datas = setup.datas.critical;
+                break;
         }
 
-        setup.data = datas;
+        setup.data = datas.filter((item) => isEmpty(item) === false);
 
         setup.chartData = [...setup.data];
     };

@@ -201,19 +201,15 @@
     watch(() => TYPE, (val) => {
         let barColor = '';
         if ( val.value === "defCnt" ) {
-            console.log(val.value, color.bar1);
             barColor = color.bar1;
         } else if ( val.value === "deathCnt" ) {
-        console.log(val.value, color.bar2);
             barColor = color.bar2;
         } else if ( val.value === "isolClearCnt" ) {
-        console.log(val.value, color.bar3);
             barColor = color.bar3;
         }
         chart.data.datasets.map((i) => {
             i.backgroundColor = barColor;
         });
-        console.log(val.value, color.bar2);
         nextTick(() => {
             updateChart(TYPE.value);
         });

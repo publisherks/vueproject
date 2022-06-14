@@ -5,7 +5,7 @@
     <div class="grid-stack">
         <div
             class="grid-stack-item"
-            v-for="({x, y, w, h, id, data}  = {}) in setup.widgets"
+            v-for="({x, y, w, h, id, data}  = {}, index) in setup.widgets"
             v-bind:key="`widgets${id}`"
             v-bind="{
                 id: `widget${id}`,
@@ -17,7 +17,7 @@
         >
             <div class="grid-stack-item-content box">
                 <component
-                    :is="getWidget(id)"
+                    :is="components[index].instance"
                     :name="data.label"
                 />
             </div>
@@ -25,15 +25,18 @@
     </div>
 </template>
 <script setup>
-    import { reactive, defineProps, onMounted, nextTick } from "vue";
+    import { reactive, defineProps, onMounted, nextTick, defineAsyncComponent } from "vue";
     import { GridStack } from "gridstack";
     import "gridstack/dist/h5/gridstack-dd-native";
 
-    import WidgetLine from "@/views/dashboard/widget/widget1"
-    import WidgetBar from "@/views/dashboard/widget/widget2"
-    import WidgetPie from "@/views/dashboard/widget/widget3"
-
     import { widgetList } from "@/js/api/widgetApi";
+
+    const components = [
+        { name: 'widget1', instance: defineAsyncComponent(() => import("@/views/dashboard/widget/widget1"))},
+        { name: 'widget2', instance: defineAsyncComponent(() => import("@/views/dashboard/widget/widget2"))},
+        { name: 'widget3', instance: defineAsyncComponent(() => import("@/views/dashboard/widget/widget3"))},
+        { name: 'widget4', instance: defineAsyncComponent(() => import("@/views/dashboard/widget/widget4"))}
+    ]
 
     const props = defineProps({
         title: {
@@ -69,23 +72,6 @@
     const initGridStack = () => {
         setup.grids = GridStack.init(setup.gridOption);
         setup.grids.cellHeight(setup.grids.cellWidth());
-    }
-
-    const getWidget = (id) => {
-        let type;
-
-        switch(id) {
-            case 1:
-                type = WidgetLine;
-                break;
-            case 2:
-                type = WidgetBar;
-                break;
-            case 3:
-                type = WidgetPie;
-                break;
-        }
-        return type;
     }
 </script>
 
