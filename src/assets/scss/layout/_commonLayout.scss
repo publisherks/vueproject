@@ -135,6 +135,12 @@ body,
         font-size: rem(14px);
         flex: 0 0 rem(40px);
         background: var(--table-th-color);
+
+        span.info {
+            margin-left: auto;
+            font-size: rem(12px);
+            color: var(--text-color3);
+        }
     }
 
     .con {
@@ -144,27 +150,33 @@ body,
         height: calc(100% - 40px);
         @include pad(p 30);
 
-        // .chart-legend {
-        //     display: flex;
-        //     align-items: center;
-        //     height: 20px;
+        .chart-legend {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 20px;
 
-        //     p {
-        //         display: flex;
-        //         flex-direction: row;
-        //         align-items: center;
-        //         font-size: rem(12px);
-        //         color: var(--text-color3);
-        //         @include mar(mr 15);
+            p {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                font-size: rem(12px);
+                color: var(--text-color1);
+                @include mar(mr 15);
+                cursor: pointer;
 
-        //         i {
-        //             display: block;
-        //             width: rem(12px);
-        //             height: rem(12px);
-        //             @include mar(mr 5);
-        //         }
-        //     }
-        // }
+                i {
+                    display: block;
+                    width: rem(12px);
+                    height: rem(12px);
+                    @include mar(mr 5);
+                }
+                
+                &.hidden {
+                    color: var(--text-color3);
+                }
+            }
+        }
 
         .chart-box {
             // flex: 1 0 auto;

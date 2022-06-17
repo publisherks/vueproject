@@ -2,6 +2,7 @@
     <div class="widget">
         <div class="top">
             {{ name }}
+            <span class="info">* 확대 : 영역 드래그 | 초기화 : 더블클릭</span>
         </div>
         <div class="con">
             <chart-line

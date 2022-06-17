@@ -1,4 +1,15 @@
 <template>
+    <div class="chart-legend">
+        <p
+         v-for="(item, index) in setup.label"
+         :key="`label${index}`"
+         @click="labelClickEvent(item, index)"
+         :class="{hidden : item.hidden === true}"
+        >
+            <i :style="{ backgroundColor:item.backgroundColor }"></i>
+            {{item.label}}
+        </p>
+    </div>
     <div class="chart-box">
         <canvas ref="lineChart"></canvas>
     </div>
@@ -17,6 +28,7 @@
     let color = {
         grid: layoutState.isTheme === "default" ? "#ffffff" : "#000000",
         tick: layoutState.isTheme === "default" ? "#9d98a4" : "#706c75",
+        legend: layoutState.isTheme === "default" ? "#ffffff" : "#000000",
         line1: getRandomColor('#0000FF', 10),
         line2: getRandomColor('#FF0000', 10),
         line3: getRandomColor('#FF00FF', 10),
@@ -34,6 +46,7 @@
 
     const setup = reactive({
         click: 0,
+        label: "",
     })
 
     const lineChart = ref(null);
@@ -52,14 +65,7 @@
                 intersect: false
             },
             plugins: {
-                legend: {
-                    labels: {
-                        boxWidth: 12,
-                        fontColor: color.tick,
-                        pointStyle: 'line',
-                        usePointStyle: true,
-                    },
-                },
+                legend: false,
                 tooltip: {
                     boxWidth: 6,
                     boxHeight: 6,
@@ -150,6 +156,7 @@
                         borderWidth: 4,
                         pointRadius: 0,
                         key: "decideCnt",
+                        hidden: false,
                     },
                     {
                         label: "사망자 수",
@@ -159,6 +166,7 @@
                         borderWidth: 4,
                         pointRadius: 0,
                         key: "deathCnt",
+                        hidden: false,
                     },
                     {
                         label: "누적 확진자 수",
@@ -168,6 +176,7 @@
                         borderWidth: 4,
                         pointRadius: 0,
                         key: "totalDecideCnt",
+                        hidden: true,
                     },
                     {
                         label: "누적 사망자 수",
@@ -177,10 +186,21 @@
                         borderWidth: 4,
                         pointRadius: 0,
                         key: "totalDeathCnt",
+                        hidden: true,
                     }
                 ]
             },
             options: option,
+            plugins: [
+                {
+                    afterUpdate({data: chart = {}} = {}) {
+                        if ( isEmpty(setup.label) === true) {
+                            setup.label = getLabelHTML(chart.datasets);
+                        }
+                        console.log('afterUpdate ', setup.label)
+                    },
+                },
+            ],
             type: 'line'
         })
     }
@@ -204,6 +224,26 @@
         });
 
         chart.update();
+    }
+
+    const getLabelHTML = (datasets = []) => {
+        console.log(datasets)
+        return datasets.filter(({label} = {}) => (label !== {})).map(({backgroundColor, label, hidden}) => {
+            return {
+                backgroundColor : backgroundColor,
+                label : label,
+                hidden : hidden,
+            }
+        })
+    }
+
+    const labelClickEvent = (item, index) => {
+        let meta = chart.getDatasetMeta(index)
+        item.hidden = !item.hidden;
+        meta.hidden = item.hidden
+        // setup.label[index].hidden = (meta.hidden = !meta.hidden)
+        console.log('click ',setup.label[index], item.hidden, meta.hidden)
+        chart.update()
     }
 
     watch(() => props.datas, (val, oldVal) => {
