@@ -2,6 +2,17 @@
     <div class="chart-box">
         <canvas ref="pieChart"></canvas>
     </div>
+    <div class="chart-legend">
+        <p
+            v-for="(item, index) in setup.label"
+            :key="`label${index}`"
+            @click="labelClickEvent(item, index)"
+            :class="{hidden : item.hidden === true}"
+        >
+            <i :style="{ backgroundColor:item.backgroundColor }"></i>
+            {{item.label}}
+        </p>
+    </div>
 </template>
 
 <script setup>
@@ -28,6 +39,10 @@
         type: Number,
     });
 
+    const setup = reactive({
+        label: "",
+    })
+
     const TYPE = computed(() => {
         let type = "";
         switch (props.type) {
@@ -53,26 +68,19 @@
             maintainAspectRatio: false,
             responsive: true,
             plugins: {
-                legend: {
-                    position: "bottom",
-                    labels: {
-                        boxWidth: 12,
-                        pointStyle: 'line',
-                        usePointStyle: true,
-                        font: {
-                            color: color.tick,
-                        },
-                    },
-                },
+                legend: false,
                 tooltip: false,
                 datalabels: {
                     align: "center",
                     anchor: "center",
                     textAlign: "center",
                     color: color.tick,
+                    display: "auto",
                     formatter: (value, context) => {
                         let percent = props.datas[context.dataIndex][props.type === 1 ? "confCaseRate" : "deathRate"];
-                        return `${context.chart.data.labels[context.dataIndex]}\n${value?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")} (${percent}%)`;
+                        let label = `${context.chart.data.labels[context.dataIndex]}\n${value?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")} (${percent}%)`;
+                        let meta = context.chart.getDatasetMeta(0).data[context.dataIndex];
+                        return meta.hidden ? '' : label;
                     }
                 }
             },
@@ -90,12 +98,21 @@
                         data: [],
                         borderWidth: 4,
                         borderColor: [ color.pie1, color.pie2 ],
-                        backgroundColor: [ color.pie1, color.pie2 ]
+                        backgroundColor: [ color.pie1, color.pie2 ],
                     },
                 ],
             },
             options: option,
-            plugins: [ChartDataLabels],
+            plugins: [
+                ChartDataLabels,
+                {
+                    afterUpdate({data: chart = {}} = {}) {
+                        if ( isEmpty(setup.label) === true) {
+                            setup.label = getLabelHTML(chart.labels, chart.datasets);
+                        }
+                    },
+                },
+            ],
             type: "pie",
         });
     };
@@ -122,6 +139,20 @@
 
         chart.update();
     };
+
+    const getLabelHTML = (labels, datasets) => {
+        return labels.map((item, index) => ({
+            label : item,
+            backgroundColor : datasets[0].backgroundColor[index],
+            hidden : false,
+        }));
+    }
+
+    const labelClickEvent = (item, index) => {
+        chart.toggleDataVisibility(index)
+        item.hidden = !chart.getDataVisibility(index);
+        chart.update()
+    }
 
     watch(() => props.datas, (val, oldVal) => {
             if (val === oldVal) {

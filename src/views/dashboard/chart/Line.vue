@@ -197,7 +197,6 @@
                         if ( isEmpty(setup.label) === true) {
                             setup.label = getLabelHTML(chart.datasets);
                         }
-                        console.log('afterUpdate ', setup.label)
                     },
                 },
             ],
@@ -227,7 +226,6 @@
     }
 
     const getLabelHTML = (datasets = []) => {
-        console.log(datasets)
         return datasets.filter(({label} = {}) => (label !== {})).map(({backgroundColor, label, hidden}) => {
             return {
                 backgroundColor : backgroundColor,
@@ -241,8 +239,6 @@
         let meta = chart.getDatasetMeta(index)
         item.hidden = !item.hidden;
         meta.hidden = item.hidden
-        // setup.label[index].hidden = (meta.hidden = !meta.hidden)
-        console.log('click ',setup.label[index], item.hidden, meta.hidden)
         chart.update()
     }
 

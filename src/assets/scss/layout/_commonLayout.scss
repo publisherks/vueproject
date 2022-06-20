@@ -154,6 +154,7 @@ body,
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-wrap: wrap;
             height: 20px;
 
             p {
@@ -174,6 +175,18 @@ body,
                 
                 &.hidden {
                     color: var(--text-color3);
+
+                    i {
+                        background-color: var(--text-color3) !important;
+                    }
+
+                    &:hover {
+                        color: var(--text-color1);
+
+                        i {
+                            background-color: var(--text-color1) !important;
+                        }
+                    }
                 }
             }
         }

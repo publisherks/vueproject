@@ -2,6 +2,17 @@
     <div class="chart-box">
         <canvas ref="polarChart"></canvas>
     </div>
+    <div class="chart-legend">
+        <p
+            v-for="(item, index) in setup.label"
+            :key="`label${index}`"
+            @click="labelClickEvent(item, index)"
+            :class="{hidden : item.hidden === true}"
+        >
+            <i :style="{ backgroundColor:item.backgroundColor }"></i>
+            {{item.label}}
+        </p>
+    </div>
 </template>
 
 <script setup>
@@ -36,6 +47,10 @@
         totalValue: Number,
         type: Number,
     });
+
+    const setup = reactive({
+        label: "",
+    })
 
     const TYPE = computed(() => {
         let type = '';
@@ -114,17 +129,7 @@
                 }
             },
             plugins: {
-                legend: {
-                    position: "bottom",
-                    labels: {
-                        boxWidth: 12,
-                        pointStyle: 'line',
-                        usePointStyle: true,
-                        font: {
-                            color: color.tick,
-                        },
-                    },
-                },
+                legend: false,
                 tooltip: {
                     boxWidth: 6,
                     boxHeight: 6,
@@ -166,6 +171,16 @@
                 ],
             },
             options: option,
+            plugins: [
+                {
+                    afterUpdate({data: chart = {}} = {}) {
+                        if ( isEmpty(setup.label) === true) {
+                            setup.label = getLabelHTML(chart.labels, chart.datasets);
+                        }
+                        console.log('afterUpdate ', setup.label)
+                    },
+                }
+            ],
             type: "polarArea",
         });
     };
@@ -202,11 +217,24 @@
         chart.update();
     };
 
-    watch(() => props.datas, (val, oldVal) => {
-            if (val === oldVal) {
-                return;
-            }
+    const getLabelHTML = (labels, datasets) => {
+        return labels.map((item, index) => ({
+            label : item,
+            backgroundColor : datasets[0].backgroundColor[index],
+            hidden : false,
+        }));
+    }
 
+    const labelClickEvent = (item, index) => {
+        chart.toggleDataVisibility(index)
+        item.hidden = !chart.getDataVisibility(index);
+        chart.update()
+    }
+
+    watch(() => props.datas, (val, oldVal) => {
+        if (val === oldVal) {
+            return;
+        }
             updateChart(TYPE.value);
         },
         {
