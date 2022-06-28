@@ -38,7 +38,7 @@
     </div>
 </template>
 <script setup>
-    import { defineProps, defineEmit, reactive, watch, computed, nextTick } from "vue";
+    import { defineProps, reactive, watch, computed } from "vue";
 
     const props = defineProps({
         count: Number,
@@ -50,10 +50,10 @@
         pageCount : 10,
     })
 
-    const emit = defineEmit(["update"]);
+    const emit = defineEmits(["update"]);
 
     const pages = reactive({
-        page: setup.currentPage - (setup.currentPage % setup.pageCount) + 1,
+        page: computed(() => setup.currentPage - (setup.currentPage % setup.pageCount) + 1),
         pageGroup : computed(() => {
             let page = pages.page;
             if(setup.currentPage % setup.pageCount === 0) {

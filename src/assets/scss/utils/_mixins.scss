@@ -244,7 +244,7 @@
         content: '';
         display: block;
         position: absolute;
-
+        transition: all .25s;
     }
 
     &::before {
@@ -296,7 +296,6 @@
             top: auto;
             bottom: $defaultPosition;
             border-top: $height solid $bdColor;
-            ;
             border-right: ($width / 2) solid transparent;
             border-bottom: none;
             border-left: ($width / 2) solid transparent;

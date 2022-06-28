@@ -2,6 +2,7 @@ import { reactive } from "vue";
 
 export const state = reactive({
     passwordChangeModal : false,
+    tourViewModal: false,
     messageModal : {
         status : false,
         message : "",
@@ -10,6 +11,10 @@ export const state = reactive({
 
 export function setPasswordChange (boolean) {
     state.passwordChangeModal = boolean;
+}
+
+export function setTourView (boolean) {
+    state.tourViewModal = boolean;
 }
 
 export function setMessageModal (options) {

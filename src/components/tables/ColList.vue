@@ -18,66 +18,89 @@
             </tr>
         </thead>
         <tbody>
-            <tr
-                v-for="(item, index) in setup.lists"
-                :key="`tr-${index}`"
+            <template
+                v-if="isEmpty(setup.lists) === false"
             >
-                <td
-                    v-for="(value, key) in columns"
-                    :key="`tr-${index}.td-${key}`"
-                    :class="{
-                        'align-l' : value.align === 'left',
-                        'align-r' : value.align === 'right',
-                        'cursor-p': props.views === true,
-                    }"
-                    @click="props.views === true ? $emit('update:selectItme', item) : ''"
+                <tr
+                    v-for="(item, index) in setup.lists"
+                    :key="`tr-${index}`"
                 >
-                    <template
-                        v-if="!value.type && !value.children && !value.option"
+                    <td
+                        v-for="(value, key) in columns"
+                        :key="`tr-${index}.td-${key}`"
+                        :class="{
+                            'align-l' : value.align === 'left',
+                            'align-r' : value.align === 'right',
+                            'cursor-p': props.views === true,
+                            'img-td' : value.type === 'image'
+                        }"
+                        @click="props.views === true ? $emit('update:selectItem', item) : ''"
                     >
-                        {{ isEmpty(item[key]) ? '-' : item[key] }}
-                    </template>
-                    <div
-                        v-if="value.option"
-                        :class="value.option?.ellipsis ? 'ell-'+value.option?.ellipsisLine : ''"
-                    >
-                        {{ isEmpty(item[key]) ? '-' : item[key] }}
-                    </div>
-                    <v-input
-                        v-if="value.type === 'input'"
-                        class="pull"
-                        :placeholder="value.placeholder"
-                        v-model:value="item[key]"
-                    />
-                    <v-select
-                        v-if="value.type === 'select'"
-                        class="pull"
-                        v-model:value="item[key]"
-                        :datas="value.option"
-                    />
-                    <template 
-                        v-if="value.children && value.type === 'button'"
-                    >
-                        <btn
-                            v-for="(childItem, childIndex) in value.children"
-                            :key="`tr-${index}.td-${key}.btn-${childIndex}`"
-                            size="small"
-                            :text="childItem.text"
-                            :kind="childItem.kind"
-                            :iconCls="childItem.icon"
-                            :class="{
-                                'ml-10' : childIndex > 0
-                            }"
-                            @click="$emit('btnEvent', item)"
+                        <template
+                            v-if="!value.type && !value.children && !value.option"
+                        >
+                            {{ isEmpty(item[key]) ? '-' : item[key] }}
+                        </template>
+                        <div
+                            v-if="value.option"
+                            :class="value.option?.ellipsis ? 'ell-'+value.option?.ellipsisLine : ''"
+                        >
+                            {{ isEmpty(item[key]) ? '-' : item[key] }}
+                        </div>
+                        <v-input
+                            v-if="value.type === 'input'"
+                            class="pull"
+                            :placeholder="value.placeholder"
+                            v-model:value="item[key]"
                         />
-                    </template>
-                </td>
-            </tr>
+                        <v-select
+                            v-if="value.type === 'select'"
+                            class="pull"
+                            v-model:value="item[key]"
+                            :datas="value.option"
+                        />
+                        <img
+                            v-if="value.type === 'image' && isEmpty(item[key]) === false"
+                            :src="item[key]"
+                        />
+                        <template
+                            v-if="value.type === 'image' && isEmpty(item[key])"
+                        >-</template>
+                        <template 
+                            v-if="value.children && value.type === 'button'"
+                        >
+                            <btn
+                                v-for="(childItem, childIndex) in value.children"
+                                :key="`tr-${index}.td-${key}.btn-${childIndex}`"
+                                size="small"
+                                :text="childItem.text"
+                                :kind="childItem.kind"
+                                :iconCls="childItem.icon"
+                                :class="{
+                                    'ml-10' : childIndex > 0
+                                }"
+                                @click="$emit('btnEvent', item)"
+                            />
+                        </template>
+                    </td>
+                </tr>
+            </template>
+            <template
+                v-else
+            >
+                <tr>
+                    <td
+                        :colspan="Object.keys(columns).length"
+                    >
+                        {{ props.placeholder ?? `데이터가 없습니다.` }}
+                    </td>
+                </tr>
+            </template>
         </tbody>
     </table>
 </template>
 <script setup>
-    import { reactive, computed, defineProps } from "vue";
+    import { reactive, computed, defineProps, watch } from "vue";
     import { isEmpty }  from "@/js/common/common";
 
     const props = defineProps({
@@ -97,13 +120,24 @@
             type: Boolean,
             default: false,
         },
+        selectItem : {
+            type: Object,
+            default() {
+                return {}
+            }
+        },
+        placeholder: {
+            type: String,
+            default: "",
+        },
     })
 
     const setup = reactive({
         lists : computed(() => props.datas),
+        selectItem: {},
     });
 
-    defineEmits(['update:selectItme', 'btnEvent'])
+    const emit = defineEmits(['update:selectItem', 'btnEvent'])
 
     const columns = computed(() => {
         let column = {};
@@ -113,6 +147,18 @@
         });
 
         return column;
+    });
+
+    const listClick = (value) => {
+        setup.selectItem = value;
+    }
+
+    watch(() => setup.selectItem, (val) => {
+        emit('update:selectItem', val)
+    });
+
+    watch(() => props.selectItem, (val) => {
+        setup.selectItem = val;
     });
 
     // const clickEvent = (value) => {

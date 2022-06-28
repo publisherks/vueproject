@@ -3,29 +3,36 @@
         class="tb-container"
         :class="[
             $attrs.class,
-            { 'left-th' : props.type === 'row' }
+            { 
+                'left-th' : props.type === 'row',
+                'pos-rel' : props.loading
+            }
         ]"
     >
-    <ColListTable
-        v-if="props.type === 'col'"
-        :column="props.column"
-        :datas="paginatedData"
-        :views="props.views"
-        v-model:selectItme="setup.selectItem"
-        @btn-event="btnClick($event)"
-    />
-    <RowListTable
-        :class="[
-            $attrs.class,
-            { 'left-th' : props.type === 'row' }
-        ]"
-        v-if="props.type === 'row'"
-        :width="props.width"
-        :columnCount="props.columnCount"
-        :column="props.column"
-        :datas="props.datas"
-        :buttonCell="props.buttonCell"
-    />
+        <ColListTable
+            v-if="props.type === 'col'"
+            :column="props.column"
+            :datas="paginatedData"
+            :views="props.views"
+            :placeholder="props.placeholder"
+            v-model:selectItem="setup.selectItem"
+            @btn-event="$emit('btnEvent', $event)"
+        />
+        <RowListTable
+            :class="[
+                $attrs.class,
+                { 'left-th' : props.type === 'row' }
+            ]"
+            v-if="props.type === 'row'"
+            :width="props.width"
+            :columnCount="props.columnCount"
+            :column="props.column"
+            :datas="props.datas"
+            :buttonCell="props.buttonCell"
+        />
+        <Loading
+            v-if="props.loading && props.loadingKey"
+        />
     </div>
     <Pagination 
         v-if="props.type === 'col'"
@@ -35,9 +42,11 @@
     />
 </template>
 <script setup>
+    import { defineProps, reactive, computed, defineEmits, watch } from "vue";
     import ColListTable from "./ColList";
     import RowListTable from "./RowList";
-    import { defineProps, reactive, computed, defineEmits, watch } from "vue";
+    import Loading from "@/components/Loading/Loading";
+    import { state as loadingStatus } from "@/components/Loading/state";
 
     const props = defineProps({
         column : {
@@ -63,7 +72,7 @@
         },
         columnCount : {
             type: Number,
-            default: 0
+            default: 1
         },
         limit: {
             type: Number,
@@ -82,6 +91,17 @@
         pageNum: {
             type: Number,
             default: 1,
+        },
+        placeholder: {
+            type: String,
+            default: "",
+        },
+        loading: {
+            type: Boolean,
+            default: false,
+        },
+        loadingKey: {
+            type: String,
         }
     });
 
@@ -99,7 +119,7 @@
         return page;
     });
 
-    const emit = defineEmits(['update:selectItme', 'btnEvent', 'update:pageNum'])
+    const emit = defineEmits(['update:selectItem', 'btnEvent', 'update:pageNum'])
 
     const paginatedData = computed(() => {
         const start = (setup.pageNum - 1) * props.limit,
@@ -109,7 +129,11 @@
     });
 
     watch(() => setup.selectItem, (val) => {
-        emit('update:selectItme', val)
+        emit('update:selectItem', val)
+    })
+
+    watch(() => props.selectItem, (val) => {
+        setup.selectItem = val;
     })
 
     watch(() => setup.pageNum, (val) => {
@@ -119,8 +143,4 @@
     watch(() => props.pageNum, (val) => {
         setup.pageNum = val
     })
-
-    const btnClick = (data) => {
-        emit('btnEvent', data)
-    }
 </script>

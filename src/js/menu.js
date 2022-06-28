@@ -5,15 +5,15 @@ const menu = [
         menuName : "Dashboard",
     },
     {
-        path : "/petitionMoorage",
-        icon : "far fa-file-alt",
-        menuName : "청원 계류현황",
+        path : "/touristSpot",
+        icon : "fas fa-plane-departure",
+        menuName : "관광정보",
     },
-    {
-        path : "/petitionProcessing",
-        icon : "far fa-file-alt",
-        menuName : "청원 처리현황",
-    },
+    // {
+    //     path : "/petitionProcessing",
+    //     icon : "far fa-file-alt",
+    //     menuName : "청원 처리현황",
+    // },
     {
         path : "/posts",
         icon : "far fa-list-ul",

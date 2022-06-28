@@ -17,8 +17,8 @@ const api = axios.create({
 
 // 국회정보 key
 const petitionKey = "a878d7a7c5f84397afcd772a1340fe2f";
-// 코로나 정보 key
-const covidKey = "uBa47fFhzx4TAiwEhOwGmedr9H7OvRQJh1QmZG08GM7kN0MPsrjyPk8JdnWmpHqQiAyFqTDyvku4Xepd9yj+yg==";
+// 공공데이터 포털 인증key
+const dataKey = process.env.VUE_APP_DATA_KEY;
 
 // 국회정보
 const petitionApi = axios.create({
@@ -33,21 +33,32 @@ const petitionApi = axios.create({
 const covidApi = axios.create({
     baseURL: "https://nkscorsserver.herokuapp.com/http://openapi.data.go.kr/openapi/service/rest/Covid19",
     params: {
-        serviceKey: covidKey,
+        serviceKey: dataKey,
     },
 });
 
 const covidSidoApi = axios.create({
     baseURL: "https://nkscorsserver.herokuapp.com/http://openapi.data.go.kr/openapi/service/rest/Covid19",
     params: {
-        serviceKey: covidKey,
+        serviceKey: dataKey,
     },
 });
 
 const covidGenAgeCaseApi = axios.create({
     baseURL: "https://nkscorsserver.herokuapp.com/http://openapi.data.go.kr/openapi/service/rest/Covid19",
     params: {
-        serviceKey: covidKey,
+        serviceKey: dataKey,
+    },
+});
+
+
+// 코로나 정보
+const tourApi = axios.create({
+    baseURL: "https://nkscorsserver.herokuapp.com/http://api.visitkorea.or.kr/openapi/service/rest/KorService",
+    params: {
+        serviceKey: dataKey,
+        MobileOS: "ETC",
+        MobileApp: "AppTest"
     },
 });
 
@@ -70,7 +81,6 @@ const apiLoding = (api, key) => {
 }
 
 apiLoding(covidApi, "covidStatus");
-// apiLoding(covidSidoApi, "covidSidoStatus");
 apiLoding(covidGenAgeCaseApi, "covidGenAgeCaseStatus");
 
 
@@ -86,5 +96,6 @@ export {
     petitionApi,
     covidApi,
     covidSidoApi,
-    covidGenAgeCaseApi
+    covidGenAgeCaseApi,
+    tourApi
 };

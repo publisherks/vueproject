@@ -9,5 +9,6 @@ export default {
         window.$covidApi = axios.covidApi;
         window.$covidSidoApi = axios.covidSidoApi;
         window.$covidGenAgeCaseApi = axios.covidGenAgeCaseApi;
+        window.$tourApi = axios.tourApi;
     }
 };

@@ -39,7 +39,7 @@
         :column="setup.lists.column"
         :datas="setup.lists.datas"
         :views="setup.lists.views"
-        v-model:selectItme="setup.selectItem"
+        v-model:selectItem="setup.selectItem"
         :limit="10"
     />
 </template>
@@ -108,6 +108,8 @@
                 field2 : undefined,
             },
         },
+
+        selectItem: {},
     })
 
     onMounted(async () => {

@@ -90,6 +90,7 @@
         align-self: flex-end;
         font-size: rem(12px);
         color: var(--text-color3);
+        transition: all .25s;
 
         i {
             @include mar(ml 8, mr 8);
@@ -97,12 +98,14 @@
 
         strong {
             color: var(--text-color2);
+            transition: all .25s;
         }
     }
 
     .user {
         cursor: pointer;
         position: relative;
+        transition: all .25s;
 
         i {
             font-size: rem(36px);
@@ -131,6 +134,7 @@
             pointer-events: none;
             animation-duration: .4s;
             animation-fill-mode: both;
+            transition: all .25s;
 
             @include arrow-creat(14px, 9px, 'top', var(--border-color), var(--content-bg-color), $right: 10px, $top: -9px);
 
@@ -160,6 +164,7 @@
                     color: var(--text-color1);
                     line-height: 1;
                     text-align: left;
+                    transition: all .25s;
                 }
             }
 
@@ -175,7 +180,7 @@
                     font-weight: 400;
                     color: var(--text-color1);
                     white-space: nowrap;
-                    transition: background-color .3s;
+                    transition: all .3s;
 
                     &:hover,
                     &:focus,

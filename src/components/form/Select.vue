@@ -1,12 +1,15 @@
 <template>
-    <div class="input-box">
+    <div class="input-box"
+        :class="{ disabled : props.disabled }"
+    >
         <div
             class="select-input"
             :class="{ open : setup.isOpen }"
-            v-on:click="setup.isOpen = !setup.isOpen; position($event)"
+            v-on:click="if(!props.disabled) setup.isOpen = !setup.isOpen; position($event)"
         >
             <input
                 type="text"
+                :class="{ 'cursor-not' : props.disabled }"
                 :value="setup.input"
                 :placeholder="props.placeholder"
                 readonly
@@ -43,7 +46,7 @@
 </template>
 
 <script setup>
-    import { reactive, defineEmits, defineProps, ref, nextTick, computed } from "vue";
+    import { reactive, defineEmits, defineProps, ref, nextTick, computed, watch } from "vue";
 
     const props = defineProps({
         datas: {
@@ -53,6 +56,10 @@
             }
         },
         value: {},
+        disabled    : {
+            type : Boolean,
+            default : false,
+        },
         isDefault : {
             type : Boolean,
             default : false,
@@ -98,6 +105,12 @@
             }
         });
     };
+
+    watch(() => props.disabled, (val) => {
+        if ( val ) {
+            setup.isOpen = false;
+        }
+    })
 </script>
 
 <style scoped>

@@ -28,7 +28,22 @@
                     >
                         {{ column[key].label }}
                     </th>
+                    <template
+                        v-if="!column[key].type && !column[key].children"
+                    >
+                        <td
+                            :colspan="column[key].colspan"
+                            :class="{
+                                'align-l' : column[key].align === 'left',
+                                'align-r' : column[key].align === 'right',
+                                'align-c' : column[key].align === 'center',
+                            }"
+                            v-html="setup.lists[key]"
+                        >
+                        </td>
+                    </template>
                     <td
+                        v-else
                         :colspan="column[key].colspan"
                         :class="{
                             'align-l' : column[key].align === 'left',
@@ -36,11 +51,6 @@
                             'align-c' : column[key].align === 'center',
                         }"
                     >
-                        <template
-                            v-if="!column[key].type && !column[key].children"
-                        >
-                            {{ setup.lists[key] }}
-                        </template>
                         <v-input
                             class="pull"
                             v-if="column[key].type === 'input'"
@@ -70,6 +80,13 @@
                                 'regist-area' : column[key].regist
                             }"
                         />
+                        <img
+                            v-if="column[key].type === 'image' && isEmpty(column[key]) === false"
+                            :src="setup.lists[key]"
+                        />
+                        <template
+                            v-if="column[key].type === 'image' && isEmpty(column[key])"
+                        >-</template>
                     </td>
                 </template>
                 <td
@@ -92,7 +109,8 @@
     </table>
 </template>
 <script setup>
-    import { computed, defineProps, reactive, defineEmit } from "vue";
+    import { computed, defineProps, reactive, defineEmits } from "vue";
+    import { isEmpty }  from "@/js/common/common";
 
     const props = defineProps({
         column: {
@@ -115,7 +133,7 @@
         },
         columnCount : {
             type: Number,
-            default: 0
+            default: 1
         },
         buttonCell : {
             type: Array,
@@ -125,7 +143,7 @@
         }
     });
 
-    const emit = defineEmit(["update:date"], ["update:value"]);
+    const emit = defineEmits(["update:date"], ["update:value"]);
 
     const setup = reactive({
         lists : computed(() => props.datas)

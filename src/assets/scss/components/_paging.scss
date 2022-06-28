@@ -10,6 +10,7 @@
         width: auto;
         background-color: var(--table-th-color);
         border-radius: 5px;
+        transition: all .25s;
 
         a {
             display: flex;
@@ -20,7 +21,7 @@
             color: var(--text-color1);
             width: 24px;
             height: 40px;
-            transition: background-color .25s;
+            transition: all .25s;
 
             &.prev,
             &.next,

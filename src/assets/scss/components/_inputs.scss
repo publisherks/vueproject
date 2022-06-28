@@ -9,6 +9,7 @@ $height-table: 36px;
     height: $height-default;
     border-radius: 4px;
     position: relative;
+    transition: all .25s;
 
     input {
         font-size: rem(15px);
@@ -21,7 +22,7 @@ $height-table: 36px;
         @include border('', 1px solid var(--border-color));
         outline: none;
         @include pad(pl 17, pr 30);
-        transition: border .25s;
+        transition: all .25s;
 
         &:focus {
             border-color: var(--main-color);
@@ -78,13 +79,17 @@ $height-table: 36px;
     }
 
     &.disabled {
-        >input {
+        input {
             background-color: rgba(var(--RGB-content-bg-color), .5);
             @include border('', 1px solid rgba(var(--RGB-border-color), .5));
         }
 
         >.del {
             cursor: default;
+        }
+
+        .icon {
+            background-color: transparent !important;
         }
     }
 
@@ -123,6 +128,7 @@ $height-table: 36px;
                 background-color: rgba(var(--RGB-main-color), .2);
             }
         }
+
 
         .icon {
             display: flex;
@@ -244,6 +250,7 @@ $height-table: 36px;
         border-radius: 5px;
         @include overflow(auto, y);
         @include box-shadow(2px 2.2px 15px 0 var(--box-shadow));
+        transition: all .25s;
 
 
         li>a {
@@ -256,6 +263,7 @@ $height-table: 36px;
             font-weight: 400;
             color: var(--text-color1);
             cursor: pointer;
+            transition: all .25s;
 
             &:hover,
             &:focus {

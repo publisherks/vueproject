@@ -12,6 +12,7 @@
         line-height: 1;
         color: var(--red-color);
         margin-left: 5px;
+        transition: all .25s;
     }
 }
 
@@ -20,6 +21,7 @@
     font-weight: 500;
     line-height: 1;
     color: var(--text-color1);
+    transition: all .25s;
 }
 
 .modal-title {
@@ -27,6 +29,7 @@
     font-weight: 500;
     line-height: 1;
     color: var(--text-color1);
+    transition: all .25s;
 }
 
 .sub-title {
@@ -34,6 +37,7 @@
     font-weight: 500;
     line-height: 1;
     color: var(--text-color1);
+    transition: all .25s;
 }
 
 .input-title {
@@ -41,6 +45,7 @@
     font-weight: 700;
     line-height: 1;
     color: var(--text-color3);
+    transition: all .25s;
 
     &.required {
         &:after {
@@ -56,6 +61,7 @@
     font-weight: 500;
     line-height: 1;
     color: var(--text-color1);
+    transition: all .25s;
 }
 
 .sch-box {

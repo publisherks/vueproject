@@ -13,6 +13,8 @@
     }
 
     &-contanier {
+        display: flex;
+        flex-direction: column;
         width: auto;
         min-width: 400px;
         height: auto;
@@ -36,6 +38,10 @@
                 font-size: rem(25.6px);
             }
         }
+    }
+
+    &-contents {
+        flex: 0 1 auto;
     }
 }
 

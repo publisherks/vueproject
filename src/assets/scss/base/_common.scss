@@ -16,15 +16,15 @@
 .flex {display:flex !important;}
 .flex-wrap {display:flex !important;flex-wrap:wrap !important;}
 .clear {display:block !important;clear:both !important;overflow:hidden !important;}
-.over_hidden {overflow:hidden !important;}
-.over_scroll {overflow:scroll !important;}
-.over_auto {overflow:auto !important;}
-.over_x_hidden {overflow-x:hidden !important;}
-.over_x {overflow-x:scroll !important;}
-.over_x_auto {overflow-x:auto !important;}
-.over_y_hidden {overflow-y:hidden !important;}
-.over_y {overflow-y:scroll !important;}
-.over_y_auto {overflow-y:auto !important;}
+.over-hidden {overflow:hidden !important;}
+.over-scroll {overflow:scroll !important;}
+.over-auto {overflow:auto !important;}
+.over-x-hidden {overflow-x:hidden !important;}
+.over-x {overflow-x:scroll !important;}
+.over-x-auto {overflow-x:auto !important;}
+.over-y-hidden {overflow-y:hidden !important;}
+.over-y {overflow-y:scroll !important;}
+.over-y-auto {overflow-y:auto !important;}
 .align-l {text-align:left !important;}
 .align-r {text-align:right !important;}
 .align-c {text-align:center !important;}
@@ -99,6 +99,7 @@
 .b-none {border:none !important}
 .cursor-p {cursor:pointer !important;}
 .cursor-d {cursor:default !important;}
+.cursor-not {cursor:not-allowed !important;}
 .tb-fixed {table-layout:fixed !important;}
 .tb-auto {table-layout:auto !important;}
 .line1 {line-height:1 !important;}
