@@ -243,7 +243,7 @@
         const response = await areaBasedList(request);
         const data = response.data.response.body.items.item;
         
-        console.log(data)
+        // console.log(data)
 
         setLoding("tour", false);
 
