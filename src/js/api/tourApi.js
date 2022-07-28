@@ -8,6 +8,11 @@ export async function areaBasedList(request) {
     return await $tourApi.get("/areaBasedList", request).catch(e => { console.error(e);});
 }
 
+// 행사정보조회 조회
+export async function festival(request) {
+    return await $tourApi.get("/searchFestival", request).catch(e => { console.error(e);});
+}
+
 // 공통정보 조회
 export async function detailCommon(request) {
     return await $tourApi.get("/detailCommon", request).catch(e => { console.error(e);});

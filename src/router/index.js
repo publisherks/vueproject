@@ -57,16 +57,22 @@ const routes = [
                             navigation : "관광정보",
                         },
                     },
-                    {
-                        path      : ":tourIdx",
-                        name      : "TourView",
-                        component : load("views/tour/View"),
-                        meta      : {
-                            navigation : "관광정보 -> 상세정보",
-                        },
-                    },
                 ]
             },
+            // {
+            //     path      : "festival",
+            //     component: load(component.children),
+            //     children: [
+            //         {
+            //             path      : "",
+            //             name      : "Festival",
+            //             component : load("views/festival/List"),
+            //             meta      : {
+            //                 navigation : "행사정보",
+            //             },
+            //         },
+            //     ]
+            // },
             {
                 path      : "posts",
                 component: load(component.children),

@@ -16,7 +16,7 @@
             </div>
             <div class="modal-contents over-y-auto">
                 <div class="img-box mb-30 p-0"
-                    v-if="isEmpty(setup.data.image) === false"
+                    v-if="!isEmpty(setup.data.image)"
                 >
                     <img :src="setup.data.image" :alt="setup.title">
                 </div>
@@ -24,7 +24,17 @@
                     v-html="setup.data.content"
                 >
                 </div>
-                <template v-if="isEmpty(setup.infoTable.datas) === false">
+                <template v-if="!isEmpty(setup.introTable.datas)">
+                    <h4 class="sub-title mb-30">상세정보</h4>
+                    <v-table
+                        class="mb-30"
+                        type="row"
+                        :column="setup.introTable.column"
+                        :datas="setup.introTable.datas"
+                        :width="setup.introTable.width"
+                    />
+                </template>
+                <template v-if="!isEmpty(setup.infoTable.datas)">
                     <h4 class="sub-title mb-30">반복정보</h4>
                     <v-table
                         class="mb-30"
@@ -33,6 +43,19 @@
                         :datas="setup.infoTable.datas"
                         :width="setup.infoTable.width"
                     />
+                </template>
+                <template v-if="!isEmpty(setup.mapInfo)">
+                    <h4 class="sub-title mb-30">지도보기</h4>
+                    <div class="img-box mb-30 p-0" ref="map"></div>
+                </template>
+                <template v-if="!isEmpty(setup.imageData)">
+                    <h4 class="sub-title mb-30">이미지정보</h4>
+                    <div class="img-box mb-10 p-0"
+                        v-for="(item, index) in setup.imageData"
+                        :key="`img${index}`"
+                    >
+                        <img :src="item" :alt="setup.title">
+                    </div>
                 </template>
             </div>
             <div class="btn-box flex-c mt-30">
@@ -50,7 +73,7 @@
 
 <script setup>
     import { state }       from "@/js/pattern/singleton/Modal";
-    import { defineProps, reactive, onMounted } from "vue";
+    import { defineProps, reactive, onMounted, ref, onUnmounted } from "vue";
     import { isEmpty } from "@/js/common/common";
     import { detailCommon, detailIntro, detailInfo, detailImage } from "@/js/api/tourApi";
     import tourKey from '@/json/tour';
@@ -81,38 +104,28 @@
             },
         },
 
-        rowTable: {
-            column : {
-                field1 : {
-                    align: "left",
-                    label: "제목",
-                    colspan: 3,
-                },
-                field2 : {
-                    align: "left",
-                    label: "작성자",
-                },
-                field3 : {
-                    align: "left",
-                    label: "등록일",
-                },
-            },
-            datas: {
-                field1 : undefined,
-                field2 : undefined,
-                field3 : undefined,
-            },
+        introTable : {
+            column : {},
+            datas: {},
             width: {
-                title: "10%",
-                content: "40%",
+                title: "25%",
+                content: "75%",
             },
-            columnCount: 2,
         },
 
+        imageData: [],
+
+        mapInfo: {},
     });
+
+    const map = ref(null);
 
     onMounted(async () => {
         detail();
+    });
+
+    onUnmounted(() => {
+        removeScript()
     })
 
     const detail = async () => {
@@ -150,44 +163,62 @@
         const infoData = infoRes.data.response.body.items.item;
         const infoDataTotal = infoRes.data.response.body.totalCount;
         const imageData = imageRes.data.response.body.items.item;
+        const imageDataTotal = imageRes.data.response.body.totalCount;
         
         setLoding("tour", false);
-
-        // console.log("commonData = ", commonData,
-        //             "introData = ", introData,
-        //             "infoData = ", infoData,
-        //             "imageData = ", imageData)
-
-        console.log("infoData = ", infoData, infoDataTotal)
 
         setup.title = commonData.title;
         setup.data.image = commonData.firstimage;
         setup.data.content = `<h3 class="sub-title mb-10">개요</h3>${commonData.overview}`;
+        if (commonData.addr1) {
+            setup.introTable.column["field0"] = {
+                ...setup.introTable.column["field0"],
+                align: "left",
+                label: "주소"
+            }
+            setup.introTable.datas["field0"] = `${commonData.addr1 ?? ''} ${commonData.addr2 ?? ''}`;
+        }
+        setup.mapInfo = {
+            mapx: commonData.mapx,
+            mapy: commonData.mapy,
+            mlevel: commonData.mlevel
+        }
 
-        let tourJson = tourKey.info.hasOwnProperty(typeId) ? tourKey.info[typeId] : tourKey.info['common'];
-
-        console.log("tourJson = ", tourJson)
+        let tourInfoJson = tourKey.info.hasOwnProperty(typeId) ? tourKey.info[typeId] : tourKey.info['common'];
+        let tourintroJson = tourKey.intro[typeId];
 
         if ( typeId === 25 || typeId === 32) {
             let idx = 0;
             if ( infoDataTotal > 1) {
                 infoData?.map(item => {
-                    infoDataSet(tourJson, item, ((Object.keys(tourJson).length * idx) + 1));
+                    infoDataSet(tourInfoJson, item, ((Object.keys(tourInfoJson).length * idx) + 1));
                     idx++;
                 });
             } else {
-                infoDataSet(tourJson, infoData, idx);
+                infoDataSet(tourInfoJson, infoData, idx);
             }
         } else {
             if ( infoDataTotal > 1) {
                 infoData?.map(item => {
-                    commonInfoDataSet(tourJson, item);
-                    idx++;
+                    commonInfoDataSet(tourInfoJson, item);
                 });
             } else {
-                commonInfoDataSet(tourJson, infoData);
+                commonInfoDataSet(tourInfoJson, infoData);
             }
         }
+
+        introDataSet(tourintroJson, introData, commonData.homepage)
+
+        
+        if ( imageDataTotal > 1) {
+            imageData?.map(item => {
+                imageDataSet(item);
+            });
+        } else {
+            imageDataSet(imageData);
+        }
+
+        initMap()
     }
 
     const commonInfoDataSet = (json, obj) => {
@@ -215,7 +246,6 @@
     const infoDataSet = (json, obj, idx) => {
         for ( let key in obj) {
             if ( json.hasOwnProperty(key)) {
-                console.log(json[key], idx)
                 if ( key.includes("img") && !key.includes("alt")) {
                     setup.infoTable.column["field"+idx] = {
                         ...setup.infoTable.column["field"+idx],
@@ -231,6 +261,74 @@
                 idx++;
             }
         }
+    }
+
+    const introDataSet = (json, obj, homepage) => {
+        let idx = 1;
+        for ( let key in obj) {
+            if ( !isEmpty(obj[key]) && json.hasOwnProperty(key) ) {
+                setup.introTable.column["field"+idx] = {
+                    ...setup.introTable.column["field"+idx],
+                    align: "left",
+                    label: json[key]
+                }
+
+                let data = key.includes('date') ? $moment(`${obj[key]}`).format("YYYY년 MM월 DD일") : obj[key];
+                setup.introTable.datas["field"+idx] = data;
+                idx++;
+            }
+        }
+        
+        if(homepage) {
+            setup.introTable.column["field"+idx] = {
+                ...setup.introTable.column["field"+idx],
+                align: "left",
+                label: "링크"
+            }
+            setup.introTable.datas["field"+idx] = `${homepage}`;
+        }
+    }
+
+    const imageDataSet = (obj) => {
+        for ( let key in obj) {
+            if (key.includes('origin')) {
+                setup.imageData.push(obj[key]);
+            }
+        }
+    }
+
+    const initMap = () => {
+        const script = document.createElement("script");
+        /* global kakao */
+        script.src = `http://dapi.kakao.com/v2/maps/sdk.js?appkey=7dcf33b691a54853298f468dc5f0b0d0&autoload=false`;
+        script.setAttribute("key", "kakaomap");
+        document.head.appendChild(script);
+        script.onload = () => kakao.maps.load(createMap);
+    }
+
+    const createMap = () => {
+        const container = map.value;
+        const options = {
+            center: new kakao.maps.LatLng(setup.mapInfo.mapy, setup.mapInfo.mapx),
+            level: setup.mapInfo.mlevel,
+        };
+
+        const maps = new kakao.maps.Map(container, options);
+        
+        // 마커가 표시될 위치입니다 
+        let markerPosition  = new kakao.maps.LatLng(setup.mapInfo.mapy, setup.mapInfo.mapx); 
+
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            position: markerPosition
+        });
+
+        // 마커가 지도 위에 표시되도록 설정합니다
+        marker.setMap(maps);
+    }
+
+    const removeScript = () => {
+        document.querySelector("script[key='kakaomap']").remove()
     }
 
     const modalCloseHook = () => {

@@ -231,6 +231,11 @@ $lineSize : size(1, 10);
                 >img {
                     width: 100%;
                 }
+
+                >a {
+                    color: var(--main-color);
+                    text-decoration: underline;
+                }
             }
 
             &:last-child {

@@ -10,6 +10,11 @@ const menu = [
         menuName : "관광정보",
     },
     // {
+    //     path : "/festival",
+    //     icon : "fas fa-calendar-star",
+    //     menuName : "행사정보",
+    // },
+    // {
     //     path : "/petitionProcessing",
     //     icon : "far fa-file-alt",
     //     menuName : "청원 처리현황",

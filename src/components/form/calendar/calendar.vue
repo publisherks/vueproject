@@ -8,7 +8,7 @@
                 :value="datepicker.selectedDateText"
                 type="text"
                 autocomplete="off"
-                placeholder="날짜를 선택해주세요."
+                :placeholder="props.placeholder"
                 readonly
             >
             <i class="icon"></i>
@@ -273,7 +273,7 @@
 
 <script setup>
     import { hook }                                                                                                                      from "@/js/common/globalHook";
-    import { reactive, computed, onMounted, defineProps, defineEmit, ref, nextTick, watch, onUnmounted, onDeactivated, onBeforeUnmount } from "vue";
+    import { reactive, computed, onMounted, defineProps, ref, nextTick, watch, onUnmounted, onDeactivated, onBeforeUnmount } from "vue";
     import calendarCalculator                                                                                                            from "@/components/form/calendar/calendarCalculator";
     import { state }                                                                                                                     from "@/components/form/calendar/calendarCalculator";
 
@@ -293,9 +293,15 @@
             default     : false,
             description : "달력 범위 선택 여부",
         },
+        placeholder : {
+            type : String,
+            default : () => {
+                return "날짜를 선택해주세요."
+            }
+        }
     });
 
-    const emit = defineEmit(["update:date"]);
+    const emit = defineEmits(["update:date"]);
 
     const calendar = ref(null);
 

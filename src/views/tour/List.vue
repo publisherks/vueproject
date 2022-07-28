@@ -55,11 +55,8 @@
     import { areaCode, areaBasedList } from "@/js/api/tourApi";
     import { state as loadingStatus, setLoding } from "@/components/Loading/state";
     import { isEmpty } from "@/js/common/common";
-    import { useRouter } from "vue-router";
     import { state as modalState, setTourView } from "@/js/pattern/singleton/Modal";
     import ViewModal from "./modal/View.vue";
-
-    const router = useRouter();
 
     const props = defineProps({
         title: {
@@ -90,7 +87,7 @@
             },
             {
                 value: 15,
-                text: "축제/공연/행사"
+                text: "행사/공연/축제"
             },
             {
                 value: 25,
@@ -237,30 +234,47 @@
                 areaCode: areaCode ? areaCode : undefined,
                 sigunguCode: sggCode ? sggCode : undefined,
                 contentTypeId: setup.typeData.value ? setup.typeData.value : undefined,
-                numOfRows: 10
+                numOfRows: 10000
             }
         }
         const response = await areaBasedList(request);
         const data = response.data.response.body.items.item;
+        const total = response.data.response.body.totalCount;
         
-        // console.log(data)
-
         setLoding("tour", false);
 
-        setup.lists.datas = data.map((item, index) => ({
-            Index : index + 1,
-            contId : item.contentid,
-            contTypeId : item.contenttypeid,
-            image : item.firstimage2,
-            title : item.title,
-            addr1 : item.addr1,
-            addr2 : item.addr2,
-            tel : item.tel,
-            zipcode : item.zipcode,
-            readcount : item.readcount,
-            createdtime : $moment(item.createdtime, "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss"),
-            modifiedtime : $moment(item.modifiedtime, "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss")
-        }))
+        if (total > 1) {
+            setup.lists.datas = data?.map((item, index) => ({
+                Index : index + 1,
+                contId : item.contentid,
+                contTypeId : item.contenttypeid,
+                image : item.firstimage2,
+                title : item.title,
+                addr1 : item.addr1,
+                addr2 : item.addr2,
+                tel : item.tel,
+                zipcode : item.zipcode,
+                readcount : item.readcount,
+                createdtime : $moment(item.createdtime, "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss"),
+                modifiedtime : $moment(item.modifiedtime, "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss")
+            }))
+        } else {
+            setup.lists.datas = [{
+                Index : 1,
+                contId : data.contentid,
+                contTypeId : data.contenttypeid,
+                image : data.firstimage2,
+                title : data.title,
+                addr1 : data.addr1,
+                addr2 : data.addr2,
+                tel : data.tel,
+                zipcode : data.zipcode,
+                readcount : data.readcount,
+                createdtime : $moment(data.createdtime, "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss"),
+                modifiedtime : $moment(data.modifiedtime, "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss")
+            }];
+        }
+
     }
 
     watch(() => setup.areaData, (val) => {
