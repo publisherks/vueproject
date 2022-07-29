@@ -2,6 +2,7 @@ module.exports = {
     outputDir: 'docs',
     publicPath : '/',
     devServer: {
-        disableHostCheck: true
+        disableHostCheck: true,
+        historyApiFallback: true,
     }
 }
