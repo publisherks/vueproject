@@ -1,11 +1,8 @@
 @charset "UTF-8";
 
 #sideNav {
+    position: relative;
     width: 200px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
     background-color: var(--content-bg-color);
     transition: all .25s;
     z-index: 1;

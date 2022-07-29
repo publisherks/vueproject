@@ -4,12 +4,12 @@
             <a
                 href="#n"
                 class="first"
-                @click="pages.first"
+                @click.prevent="pages.first"
             ></a>
             <a
                 href="#n"
                 class="prev"
-                @click="pages.prev"
+                @click.prevent="pages.prev"
                 v-if="props.count > 10"
             ></a>
             <a
@@ -21,18 +21,18 @@
                     'ml-7' : index === 0,
                     'mr-7' : index === pages.pageGroup.length - 1
                 }"
-                @click="setup.currentPage = item"
+                @click.prevent="setup.currentPage = item"
             >{{ item }}</a>
             <a
                 href="#n"
                 class="next"
-                @click="pages.next"
+                @click.prevent="pages.next"
                 v-if="props.count > 10"
             ></a>
             <a
                 href="#n"
                 class="last"
-                @click="pages.last"
+                @click.prevent="pages.last"
             ></a>
         </div>
     </div>

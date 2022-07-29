@@ -44,9 +44,8 @@
                         <div
                             v-if="value.option"
                             :class="value.option?.ellipsis ? 'ell-'+value.option?.ellipsisLine : ''"
-                        >
-                            {{ isEmpty(item[key]) ? '-' : item[key] }}
-                        </div>
+                            v-html="isEmpty(item[key]) ? '-' : item[key]"
+                        />
                         <v-input
                             v-if="value.type === 'input'"
                             class="pull"

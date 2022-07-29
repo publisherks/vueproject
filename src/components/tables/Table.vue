@@ -30,9 +30,6 @@
             :datas="props.datas"
             :buttonCell="props.buttonCell"
         />
-        <Loading
-            v-if="props.loading && props.loadingKey"
-        />
     </div>
     <Pagination 
         v-if="props.type === 'col'"
@@ -45,8 +42,6 @@
     import { defineProps, reactive, computed, defineEmits, watch } from "vue";
     import ColListTable from "./ColList";
     import RowListTable from "./RowList";
-    import Loading from "@/components/Loading/Loading";
-    import { state as loadingStatus } from "@/components/Loading/state";
 
     const props = defineProps({
         column : {
@@ -96,13 +91,6 @@
             type: String,
             default: "",
         },
-        loading: {
-            type: Boolean,
-            default: false,
-        },
-        loadingKey: {
-            type: String,
-        }
     });
 
     const setup = reactive({

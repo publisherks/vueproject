@@ -9,11 +9,16 @@ const menu = [
         icon : "fas fa-plane-departure",
         menuName : "관광정보",
     },
-    // {
-    //     path : "/festival",
-    //     icon : "fas fa-calendar-star",
-    //     menuName : "행사정보",
-    // },
+    {
+        path : "/festival",
+        icon : "fas fa-calendar-star",
+        menuName : "행사정보",
+    },
+    {
+        path : "/stay",
+        icon : "fas fa-hotel",
+        menuName : "숙박정보",
+    },
     // {
     //     path : "/petitionProcessing",
     //     icon : "far fa-file-alt",

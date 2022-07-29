@@ -158,7 +158,12 @@ $lineSize : size(1, 10);
                     padding: 8px;
                 }
 
-                @include ellipsis($lineSize);
+                a {
+                    color: var(--main-color);
+                    text-decoration: underline;
+                }
+
+                @include ellipsis(1);
             }
 
             &.sticky th {

@@ -68,12 +68,17 @@ body,
 }
 
 #wrap {
-    display: flex;
+    display: grid;
+    grid-template-columns: min-content 1fr;
     width: 1920px;
     height: 100%;
     color: var(--text-color1);
     background-color: var(--bg-color);
     transition: all .25s;
+
+    &.posTop {
+        display: flex;
+    }
 }
 
 .contents {

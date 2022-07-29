@@ -59,20 +59,34 @@ const routes = [
                     },
                 ]
             },
-            // {
-            //     path      : "festival",
-            //     component: load(component.children),
-            //     children: [
-            //         {
-            //             path      : "",
-            //             name      : "Festival",
-            //             component : load("views/festival/List"),
-            //             meta      : {
-            //                 navigation : "행사정보",
-            //             },
-            //         },
-            //     ]
-            // },
+            {
+                path      : "festival",
+                component: load(component.children),
+                children: [
+                    {
+                        path      : "",
+                        name      : "Festival",
+                        component : load("views/festival/List"),
+                        meta      : {
+                            navigation : "행사정보",
+                        },
+                    },
+                ]
+            },
+            {
+                path      : "stay",
+                component: load(component.children),
+                children: [
+                    {
+                        path      : "",
+                        name      : "Stay",
+                        component : load("views/stay/List"),
+                        meta      : {
+                            navigation : "숙박정보",
+                        },
+                    },
+                ]
+            },
             {
                 path      : "posts",
                 component: load(component.children),

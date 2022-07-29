@@ -4,7 +4,7 @@
     </div>
     <v-container class="mb-30">
         <v-row>
-            <v-col cols="4">
+            <v-col cols="2">
                 <v-select
                     :datas="setup.areaOption"
                     v-model:value="setup.areaData"
@@ -13,7 +13,7 @@
                     class="pull"
                 />
             </v-col>
-            <v-col cols="4" class="pl-10">
+            <v-col cols="2" class="pl-10">
                 <v-select
                     :datas="setup.sggOption"
                     v-model:value="setup.sggData"
@@ -22,7 +22,7 @@
                     class="pull"
                 />
             </v-col>
-            <v-col cols="4" class="pl-10">
+            <v-col cols="2" class="pl-10">
                 <v-select
                     :datas="setup.typeOption"
                     v-model:value="setup.typeData"
@@ -49,14 +49,19 @@
         v-if="modalState.tourViewModal"
         :detailId="setup.detailId"
     />
+    <loading
+        v-show="loadingStatus.tour"
+        :fixed="true"
+    />
 </template>
 <script setup>
     import { reactive, defineProps, onMounted, watch } from "vue";
     import { areaCode, areaBasedList } from "@/js/api/tourApi";
-    import { state as loadingStatus, setLoding } from "@/components/Loading/state";
+    import { state as loadingStatus } from "@/components/Loading/state";
     import { isEmpty } from "@/js/common/common";
     import { state as modalState, setTourView } from "@/js/pattern/singleton/Modal";
-    import ViewModal from "./modal/View.vue";
+    import Loading from "@/components/Loading/Loading";
+    import ViewModal from "@/components/Modal/TourViewModal.vue";
 
     const props = defineProps({
         title: {
@@ -145,6 +150,10 @@
                     align : "center",
                     label : "전화번호",
                     width : "8%",
+                    option: {
+                        ellipsis: true,
+                        ellipsisLine: 1,
+                    }
                 },
                 zipcode : {
                     align : "center",
@@ -227,13 +236,11 @@
             sggCode  = setup.sggData.value,
             typeCode = setup.typeData.value;
 
-        setLoding("tour", true);
-
         const request = {
             params: {
-                areaCode: areaCode ? areaCode : undefined,
-                sigunguCode: sggCode ? sggCode : undefined,
-                contentTypeId: setup.typeData.value ? setup.typeData.value : undefined,
+                areaCode: areaCode ?? undefined,
+                sigunguCode: sggCode ?? undefined,
+                contentTypeId: typeCode ?? undefined,
                 numOfRows: 10000
             }
         }
@@ -241,8 +248,6 @@
         const data = response.data.response.body.items.item;
         const total = response.data.response.body.totalCount;
         
-        setLoding("tour", false);
-
         if (total > 1) {
             setup.lists.datas = data?.map((item, index) => ({
                 Index : index + 1,
@@ -252,7 +257,7 @@
                 title : item.title,
                 addr1 : item.addr1,
                 addr2 : item.addr2,
-                tel : item.tel,
+                tel : item.tel?.includes("<a href") ? '' : item.tel,
                 zipcode : item.zipcode,
                 readcount : item.readcount,
                 createdtime : $moment(item.createdtime, "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss"),
@@ -267,7 +272,7 @@
                 title : data.title,
                 addr1 : data.addr1,
                 addr2 : data.addr2,
-                tel : data.tel,
+                tel : data.tel?.includes("<a href") ? '' : data.tel,
                 zipcode : data.zipcode,
                 readcount : data.readcount,
                 createdtime : $moment(data.createdtime, "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss"),
@@ -277,7 +282,10 @@
 
     }
 
-    watch(() => setup.areaData, (val) => {
+    watch(() => setup.areaData, (val, oldVal) => {
+        if ( val !== oldVal) {
+            setup.sggData = { value: "", text: ""}
+        }
         list()
         sggList(val.value)
     })

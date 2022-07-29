@@ -9,7 +9,7 @@
         <a
             href="#"
             class="side-btn"
-            @click="setLeftReduce(layoutState.leftReduce = !layoutState.leftReduce)"
+            @click.prevent="setLeftReduce(layoutState.leftReduce = !layoutState.leftReduce)"
         >
             <i
                 class="fal"

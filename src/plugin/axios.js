@@ -82,6 +82,7 @@ const apiLoding = (api, key) => {
 
 apiLoding(covidApi, "covidStatus");
 apiLoding(covidGenAgeCaseApi, "covidGenAgeCaseStatus");
+apiLoding(tourApi, "tour");
 
 
 const messagePopup = (message) => {

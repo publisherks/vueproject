@@ -13,6 +13,11 @@ export async function festival(request) {
     return await $tourApi.get("/searchFestival", request).catch(e => { console.error(e);});
 }
 
+// 숙박정보조회 조회
+export async function stay(request) {
+    return await $tourApi.get("/searchStay", request).catch(e => { console.error(e);});
+}
+
 // 공통정보 조회
 export async function detailCommon(request) {
     return await $tourApi.get("/detailCommon", request).catch(e => { console.error(e);});
@@ -23,7 +28,7 @@ export async function detailIntro(request) {
     return await $tourApi.get("/detailIntro", request).catch(e => { console.error(e);});
 }
 
-// 소개정보 조회
+// 반복정보 조회
 export async function detailInfo(request) {
     return await $tourApi.get("/detailInfo", request).catch(e => { console.error(e);});
 }
