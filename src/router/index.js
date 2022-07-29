@@ -140,11 +140,15 @@ const routes = [
                 },
             },
         ]
-    }
+    },
+    {
+        path: "/*",
+        component: 404
+    },
 ]
 
 const router = createRouter({
-    history : createWebHistory(),
+    history : createWebHistory(process.env.BASE_URL),
     routes,
 });
 
