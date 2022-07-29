@@ -37,7 +37,7 @@
                             on: router.currentRoute.value.path.split('/')[1] === 'dashboardSet'
                         }"
                     >
-                            대시보드 설정
+                            코로나 현황판 설정
                     </li>
                 </ul>
             </div>

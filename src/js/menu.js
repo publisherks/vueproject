@@ -2,7 +2,7 @@ const menu = [
     {
         path : "/",
         icon : "fas fa-chart-pie",
-        menuName : "Dashboard",
+        menuName : "코로나 현황판",
     },
     {
         path : "/touristSpot",

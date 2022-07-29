@@ -34,7 +34,7 @@ const routes = [
                 name      : "Dashboard",
                 component : load("views/dashboard/View"),
                 meta      : {
-                    navigation : "Dashboard",
+                    navigation : "코로나 현황판",
                 },
             },
             {
@@ -42,7 +42,7 @@ const routes = [
                 name      : "DashboardSet",
                 component : load("views/dashboard/set/View"),
                 meta      : {
-                    navigation : "Dashboard Setting",
+                    navigation : "코로나 현황판 설정",
                 },
             },
             {
