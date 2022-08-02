@@ -177,7 +177,6 @@
                         if ( isEmpty(setup.label) === true) {
                             setup.label = getLabelHTML(chart.labels, chart.datasets);
                         }
-                        console.log('afterUpdate ', setup.label)
                     },
                 }
             ],
