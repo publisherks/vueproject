@@ -153,7 +153,7 @@
             }).filter((item) => isEmpty(item) === false);
         }
 
-        console.log(setup.datas);
+        // console.log(setup.datas);
         setup.total.conf = setup.datas.conf.reduce((prev, cur) => { return prev += cur.confCase }, 0);
         setup.total.death = setup.datas.death.reduce((prev, cur) => { return prev += cur.death }, 0);
 
