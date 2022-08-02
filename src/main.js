@@ -2,8 +2,12 @@ import { createApp } from 'vue'
 import App           from './App.vue'
 import router        from "./router";
 import plugin        from "./plugin";
+import store         from "./store";
 
 import FontAwesomeIcon from "@/assets/all.css";
+
+// GA
+import VueGtag from "vue-gtag-next";
 
 // buttons
 import BtnGroup     from "@/components/form/BtnGroup";
@@ -28,9 +32,14 @@ import VRadio        from "@/components/form/Radiobox";
 import VCalendar     from "@/components/form/calendar/calendar";
 import VQuantity     from "@/components/form/Quantity";
 
-createApp(App)
+const app = createApp(App);
+
+app.use(VueGtag, {
+        property: { id: "G-Q9YSQ38WC6"},
+    })
     .use(router)
     .use(plugin)
+    .use(store)
     .use(FontAwesomeIcon)
     .component('BtnGroup', BtnGroup)
     .component('Btn', Btn)
