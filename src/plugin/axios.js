@@ -54,11 +54,12 @@ const covidGenAgeCaseApi = axios.create({
 
 // 관광 정보
 const tourApi = axios.create({
-    baseURL: "https://nkscorsserver.herokuapp.com/http://api.visitkorea.or.kr/openapi/service/rest/KorService",
+    baseURL: "https://nkscorsserver.herokuapp.com/http://apis.data.go.kr/B551011/KorService",
     params: {
         serviceKey: dataKey,
         MobileOS: "ETC",
-        MobileApp: "AppTest"
+        MobileApp: "AppTest",
+        _type: "json"
     },
 });
 
