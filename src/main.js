@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App           from './App.vue'
 import router        from "./router";
 import plugin        from "./plugin";
-import store         from "./store";
+// import store         from "./store";
 
 import FontAwesomeIcon from "@/assets/all.css";
 
@@ -39,7 +39,7 @@ app.use(VueGtag, {
     })
     .use(router)
     .use(plugin)
-    .use(store)
+    // .use(store)
     .use(FontAwesomeIcon)
     .component('BtnGroup', BtnGroup)
     .component('Btn', Btn)
