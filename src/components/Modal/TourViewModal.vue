@@ -153,35 +153,41 @@
             }
         }
 
+        const imageRequest = {
+            params: {
+                contentId: props.detailId.contId,
+            }
+        }
+
         const commonRes = await detailCommon(commonRequest);
         const introRes = await detailIntro(request);
         const infoRes = await detailInfo(request);
-        const imageRes = await detailImage(request);
-        
-        const commonData = commonRes.data.response.body.items.item;
-        const introData = introRes.data.response.body.items.item;
-        const infoData = infoRes.data.response.body.items.item;
-        const infoDataTotal = infoRes.data.response.body.totalCount;
-        const imageData = imageRes.data.response.body.items.item;
-        const imageDataTotal = imageRes.data.response.body.totalCount;
-        
+        const imageRes = await detailImage(imageRequest);
+
+        const commonData = commonRes?.data.response.body.items?.item;
+        const introData = introRes?.data.response.body.items?.item;
+        const infoData = infoRes?.data.response.body.items?.item;
+        const infoDataTotal = infoRes?.data.response.body.totalCount;
+        const imageData = imageRes?.data.response.body.items?.item;
+        const imageDataTotal = imageRes?.data.response.body.totalCount;
+
         setLoding("tour", false);
 
-        setup.title = commonData.title;
-        setup.data.image = commonData.firstimage;
-        setup.data.content = `<h3 class="sub-title mb-10">개요</h3>${commonData.overview}`;
-        if (commonData.addr1) {
+        setup.title = commonData[0].title;
+        setup.data.image = commonData[0].firstimage;
+        setup.data.content = `<h3 class="sub-title mb-10">개요</h3>${commonData[0].overview}`;
+        if (commonData[0].addr1) {
             setup.introTable.column["field0"] = {
                 ...setup.introTable.column["field0"],
                 align: "left",
                 label: "주소"
             }
-            setup.introTable.datas["field0"] = `${commonData.addr1 ?? ''} ${commonData.addr2 ?? ''}`;
+            setup.introTable.datas["field0"] = `${commonData[0].addr1 ?? ''} ${commonData[0].addr2 ?? ''}`;
         }
         setup.mapInfo = {
-            mapx: commonData.mapx,
-            mapy: commonData.mapy,
-            mlevel: commonData.mlevel
+            mapx: commonData[0].mapx,
+            mapy: commonData[0].mapy,
+            mlevel: commonData[0].mlevel
         }
 
         let tourInfoJson = tourKey.info.hasOwnProperty(typeId) ? tourKey.info[typeId] : tourKey.info['common'];
@@ -194,28 +200,28 @@
                     infoDataSet(tourInfoJson, item, ((Object.keys(tourInfoJson).length * idx) + 1));
                     idx++;
                 });
-            } else {
-                infoDataSet(tourInfoJson, infoData, idx);
+            } else if ( infoDataTotal === 1) {
+                infoDataSet(tourInfoJson, infoData[0], idx);
             }
         } else {
             if ( infoDataTotal > 1) {
                 infoData?.map(item => {
                     commonInfoDataSet(tourInfoJson, item);
                 });
-            } else {
-                commonInfoDataSet(tourInfoJson, infoData);
+            } else if ( infoDataTotal === 1) {
+                commonInfoDataSet(tourInfoJson, infoData[0]);
             }
         }
 
-        introDataSet(tourintroJson, introData, commonData.homepage)
+        introDataSet(tourintroJson, introData[0], commonData[0].homepage)
 
         
         if ( imageDataTotal > 1) {
             imageData?.map(item => {
                 imageDataSet(item);
             });
-        } else {
-            imageDataSet(imageData);
+        } else if (imageDataTotal === 1){
+            imageDataSet(imageData[0]);
         }
 
         initMap()
@@ -236,11 +242,13 @@
             }
         }
 
-        setup.infoTable.column[field] = {
-            align : "left",
-            label : label
+        if (!isEmpty(label) && !isEmpty(datas)) {
+            setup.infoTable.column[field] = {
+                align : "left",
+                label : label
+            }
+            setup.infoTable.datas[field] = datas;
         }
-        setup.infoTable.datas[field] = datas;
     }
 
     const infoDataSet = (json, obj, idx) => {
@@ -328,7 +336,7 @@
     }
 
     const removeScript = () => {
-        document.querySelector("script[key='kakaomap']").remove()
+        document.querySelector("script[key='kakaomap']")?.remove()
     }
 
     const modalCloseHook = () => {

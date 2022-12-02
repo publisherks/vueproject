@@ -170,7 +170,16 @@
         }
         
         const response = await areaCode(request);
-        const data = response.data.response.body.items.item;
+        
+        if (isEmpty(response)) {
+            return;
+        }
+        
+        const data = response?.data.response.body.items?.item;
+        
+        if (isEmpty(data)) {
+            return;
+        }
 
         setup.areaOption = data.map(({code, name}) => {
             return {
@@ -189,7 +198,16 @@
         }
         
         const response = await areaCode(request);
-        const data = response.data.response.body.items.item;
+        
+        if (isEmpty(response)) {
+            return;
+        }
+        
+        const data = response?.data.response.body.items?.item;
+        
+        if (isEmpty(data)) {
+            return;
+        }
 
         setup.sggOption = data.map(({code, name}) => {
             return {
@@ -218,7 +236,10 @@
     };
 
     const festivalList = async () => {
-        
+        if (isEmpty(setup.festivalDt.startDate)) {
+            return
+        }
+
         let eventEndDate = setup.festivalEndDt.endDate,
             areaCode = setup.areaData.value,
             sggCode  = setup.sggData.value;
@@ -234,8 +255,17 @@
         }
         
         const response = await festival(request);
-        const data = response.data.response.body.items.item;
-        const total = response.data.response.body.totalCount;
+        
+        if (isEmpty(response)) {
+            return;
+        }
+        
+        const data = response?.data.response.body.items?.item;
+        const total = response?.data.response.body.totalCount;
+        
+        if (isEmpty(data)) {
+            return;
+        }
 
         if (total > 1) {
             setup.lists.datas = data?.map((item, index) => ({
@@ -255,17 +285,17 @@
         } else {
             setup.lists.datas = [{
                 Index : 1,
-                contId : data.contentid,
-                contTypeId : data.contenttypeid,
-                image : data.firstimage2,
-                title : data.title,
-                addr1 : data.addr1,
-                addr2 : data.addr2,
-                tel : data.tel?.includes("<a href") ? '' : data.tel,
-                zipcode : data.zipcode,
-                readcount : data.readcount,
-                createdtime : $moment(data.createdtime, "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss"),
-                modifiedtime : $moment(data.modifiedtime, "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss")
+                contId : data[0].contentid,
+                contTypeId : data[0].contenttypeid,
+                image : data[0].firstimage2,
+                title : data[0].title,
+                addr1 : data[0].addr1,
+                addr2 : data[0].addr2,
+                tel : data[0].tel?.includes("<a href") ? '' : data[0].tel,
+                zipcode : data[0].zipcode,
+                readcount : data[0].readcount,
+                createdtime : $moment(data[0].createdtime, "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss"),
+                modifiedtime : $moment(data[0].modifiedtime, "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss")
             }];
         }
     };
@@ -278,7 +308,7 @@
         sggList(val.value)
     })
 
-    watch(() => setup.sggData, (val) => {
+    watch(() => setup.sggData, () => {
         festivalList()
     })
 
