@@ -31,21 +31,21 @@ const petitionApi = axios.create({
 
 // 코로나 정보
 const covidApi = axios.create({
-    baseURL: "https://nkscorsserver.herokuapp.com/http://openapi.data.go.kr/openapi/service/rest/Covid19",
+    baseURL: "http://openapi.data.go.kr/openapi/service/rest/Covid19",
     params: {
         serviceKey: dataKey,
     },
 });
 
 const covidSidoApi = axios.create({
-    baseURL: "https://nkscorsserver.herokuapp.com/http://openapi.data.go.kr/openapi/service/rest/Covid19",
+    baseURL: "http://openapi.data.go.kr/openapi/service/rest/Covid19",
     params: {
         serviceKey: dataKey,
     },
 });
 
 const covidGenAgeCaseApi = axios.create({
-    baseURL: "https://nkscorsserver.herokuapp.com/http://openapi.data.go.kr/openapi/service/rest/Covid19",
+    baseURL: "http://openapi.data.go.kr/openapi/service/rest/Covid19",
     params: {
         serviceKey: dataKey,
     },
@@ -54,7 +54,7 @@ const covidGenAgeCaseApi = axios.create({
 
 // 관광 정보
 const tourApi = axios.create({
-    baseURL: "https://nkscorsserver.herokuapp.com/http://apis.data.go.kr/B551011/KorService",
+    baseURL: "http://apis.data.go.kr/B551011/KorService",
     params: {
         serviceKey: dataKey,
         MobileOS: "ETC",
