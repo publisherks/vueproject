@@ -42,7 +42,7 @@
                             {{ isEmpty(item[key]) ? '-' : item[key] }}
                         </template>
                         <div
-                            v-if="value.option"
+                            v-if="value.option?.ellipsis"
                             :class="value.option?.ellipsis ? 'ell-'+value.option?.ellipsisLine : ''"
                             v-html="isEmpty(item[key]) ? '-' : item[key]"
                         />
