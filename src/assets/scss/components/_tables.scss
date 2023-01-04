@@ -158,9 +158,12 @@ $lineSize : size(1, 10);
                     padding: 8px;
                 }
 
-                a {
+                >a {
                     color: var(--main-color);
-                    text-decoration: underline;
+
+                    &:not(.del) {
+                        text-decoration: underline;
+                    }
                 }
 
                 @include ellipsis(1);
@@ -239,7 +242,10 @@ $lineSize : size(1, 10);
 
                 >a {
                     color: var(--main-color);
-                    text-decoration: underline;
+
+                    &:not(.del) {
+                        text-decoration: underline;
+                    }
                 }
             }
 
