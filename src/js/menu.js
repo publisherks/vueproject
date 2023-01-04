@@ -1,9 +1,9 @@
 const menu = [
-    {
-        path : "/",
-        icon : "fas fa-chart-pie",
-        menuName : "코로나 현황판",
-    },
+    // {
+    //     path : "/",
+    //     icon : "fas fa-chart-pie",
+    //     menuName : "코로나 현황판",
+    // },
     {
         path : "/touristSpot",
         icon : "fas fa-plane-departure",

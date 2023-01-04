@@ -31,14 +31,14 @@
                             상단메뉴로 보기
                         </template>
                     </li>
-                    <li 
+                    <!-- <li 
                         @click="router.push('/dashboardSet')"
                         :class="{
                             on: router.currentRoute.value.path.split('/')[1] === 'dashboardSet'
                         }"
                     >
                             코로나 현황판 설정
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
